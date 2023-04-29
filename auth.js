@@ -7,7 +7,7 @@ const DISCOVERY = ['https://sheets.googleapis.com/$discovery/rest?version=v4',
                    'https://gmail.googleapis.com/$discovery/rest?version=v1', 
                    'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest'
                   ];
-const SS        = 'Gmail Companion'
+const SS        = 'Google Companion'
 
 /**
  * The google libraries are loaded, and ready for action!
