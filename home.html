@@ -1,0 +1,46 @@
+<div id="home">
+
+  <div class="sticky-top border-bottom px-1 pt-2" style="background-color: #FF747B;">
+    <div class="row m-0 px-2 pt-3 pb-5">
+      <div class="col-2">
+      </div>
+      <div class="col">
+        <div class="label  text-center h1 ">Gmail Companion</div>
+      </div>
+      <div class="col-2 px-1"> 
+
+        <div id="hmSelectDropDown" class="dropdown">
+          <button class="btn dropdown-toggle pl-0" type="button" data-bs-toggle="dropdown">
+            <i class="material-icons md-36" style="width:12px">more_vert</i>
+          </button>
+
+          <div class="dropdown-menu more-vert-menu bg-light">
+
+            <div class="row m-0 px-2 pt-2 pb-2">
+              <div class="col px-1 mt-2">
+                <div class="h2 "><img class="img-thumbnail border-0 bg-transparent" width="40" height="40" src=  "images/icons/icons8-gmail-144.png" />
+                Gmail Companion</div>
+                <hr>
+                <div class="h5 mt-2 cursor-pointer hover-shadow " onclick="signoutEvent()">Sign out</div>
+                <div class="h5 mt-2 cursor-pointer hover-shadow " onclick="revokeEvent()">Revoke credentials</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class=clearfix></div>
+
+  <div class="row mt-3 mx-0">
+    <div class="col">
+      
+      <button class="w-100 btn btn-block btn-lg btn-raised pb-1 pt-3 mt-1 border" style="background:#ffffb3"
+        id="btnGmailDelete">
+        <span style="float:left" class="text-success h4">Delete Gmails</span>
+        <span style="float:right" class="text-success"><i class="material-icons">arrow_forward_ios</i></span>
+      </button>
+    </div>
+  </div>
+
+</div>

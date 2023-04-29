@@ -1,0 +1,150 @@
+
+  <div class="overflow-hidden">
+    <div class="sticky-top" style="background-color: #f9f9f9;">
+      <div class="row m-1 py-4">
+        <div class="col-1 px-1 mt-3">
+          <div id="hpGoTo" class="label  text-center h1 cursor-pointer" onclick="gotoTab('Home')"><i
+              class="material-icons">arrow_back_ios</i></div>
+        </div>
+        <div class="col px-1">
+          <div id="hpBanner" class="label text-center h1 divfullscreen">Delete Gmails</div>
+        </div>
+        <div class="col-1 px-1">
+          <div></div>
+        </div>
+      </div>
+  
+      <div class="row m-1 py-4">
+        <nav>
+          <div class="nav nav-tabs" role="tablist">
+            <button class="nav-link active" id="gd-nav-select-tab" data-bs-toggle="tab" data-bs-target="#gds-nav-select" type="button" role="tab" aria-controls="nav-select" aria-selected="true"><h4>Select</h4></button>
+            <button class="nav-link" id="gd-nav-delete-tab" data-bs-toggle="tab" data-bs-target="#gdd-nav-delete" type="button" role="tab" aria-controls="nav-delete" aria-selected="false"><h4>Delete</h4></button>
+          </div>
+        </nav>
+      </div>
+  </div>
+  
+    <div class="tab-content mx-2">
+      <div class="tab-pane fade active" id="gds-nav-select" role="tabpanel" aria-labelledby="gd-nav-select-tab">
+        <div class="row m-1 p-0 pt-3">
+          <div class="col-8 px-1" >
+            <div class="label h5">Select a Category:</div>
+            <select id="gmail-category-select" class="text-success h5 w-100">
+                <option value="">All</option>
+            </select>
+          </div>
+        </div>
+        <div class="row m-1 p-0 pt-3">
+          <div class="col-8 px-1">
+            <div class="label h5">Select a Label:</div>
+            <select id="gmail-label-select" class="text-success h5 w-100">
+                <option value="">none</option>
+                <option value="all">all</option>
+            </select>
+          </div>
+        </div>
+        <div class="row m-1 p-0 pt-3">
+          <div class="col-8 px-1 text-start">
+            <!-- <div class="label text-center">Has attachment:</div> -->
+            <label class="h5" for="gmail-has-attachment-select">Has attachment:</label>
+            <select id="gmail-has-attachment-select" class="text-success h5" style="float:right">
+                <option value=""></option>
+                <option value="all">all attachments</option>
+                <option value="none">no attachments</option>
+                <option value="1MB">>1Mb</option>
+                <option value="2MB">>2Mb</option>
+                <option value="5MB">>5Mb</option>
+                <option value="10MB">>10Mb</option>
+                <option value="25MB">>25Mb</option>
+            </select>
+          </div>
+        </div>
+        <div class="row m-1 p-0 pt-3">
+          <div class="col-8 px-1 text-start">
+            <label for="gmail-date-select"  class="h5">Before Date:</label>
+            <input type="date" id="gmail-date-select"  class="text-center text-success h5" style="float:right"/>  
+          </div>
+        </div>
+
+        <div class="row m-1 p-0 pt-3">
+          <div class="col-8 px-1 text-start">
+            <label for="gmail-keywords-select"  class="h5">Keywords:</label>
+            <input type="text" id="gmail-keywords-select"  class="text-success h5" style="float:right"/>  
+          </div>
+        </div>
+
+        <div class="row m-1 pt-3">
+          <div class="col text-center">
+            <div class="btn-group" role="group">
+                <button id="gds-list-button" type="button" class="btn btn-primary mx-1" >Select</button>
+              </div>
+          </div>
+        </div>
+        
+        <div class=" m-1 pt-3">
+          <div class="row m-0 p-0 border-top border-bottom  bg-white">
+            <div id="gds-status" class="col h5 d-none p-2"></div>
+            <div id="gds-text"   class="col h5 d-none p-2"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="tab-pane fade" id="gdd-nav-delete" role="tabpanel" aria-labelledby="gd-nav-delete-tab">
+
+
+        <div id="gddContainer" class=" mt-0 pt-3 pb-4 px-2" style="background-color:#eeefef">
+          <div class="m-0 p-3 pb-0 mb-3 align-items-center border rounded d-none" style="background:white;">
+      
+              <div class="row">
+                <div class="col px-1">
+                  <div id="gddSheetName" class="text-success label  text-start h3 pb-0 align-middle "></div>
+                </div>
+      
+                <div class="col-1 px-0 align-right">
+                  <div class="align-center cursor-pointer" id="btnGddDelete" data-toggle="tooltip" title="Delete Gmails">
+                      <i class="material-icons" style="color:purple;">delete</i></div>
+                </div>
+      
+                <div class="col-1 mx-0 align-right">
+                    <div class="align-center cursor-pointer" id="btnGddRemoveSheet" data-toggle="tooltip" title="Remove List">
+                      <i class="material-icons" style="color:black;">folder_delete</i></div>        
+                </div>
+      
+                <div class="col-1 me-2">
+                  <button id="btnGddShowGmails" class="border-0 bg-transparent"><i
+                      class="material-icons">arrow_forward_ios</i></button>
+                </div>
+              </div>
+      
+              <div class="row">
+      
+                <div class="col-5 px-1">
+                  <div id="gddNbrGmails" class="text-success h4 pt-1"></div>
+                </div>
+      
+                <div class="col px-1 ">
+                  <div id="gddSheetDate" class="h6 pt-2 me-5 float-end"></div>
+                </div>
+                
+              </div>
+      
+          </div>
+      
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="clearfix"></div>
+  
+<!-- 
+as
+d
+asdf
+
+     -->
+
+  </div>
+

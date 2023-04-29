@@ -1,0 +1,233 @@
+
+.btn-blue {
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-blue:hover {
+  color: #fff;
+  background-color: #0069d9;
+  border-color: #0062cc;
+}
+
+.btn-blue:focus, .btn-primary.focus {
+  box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
+}
+
+.btn-blue.disabled, .btn-blue:disabled {
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-blue:not(:disabled):not(.disabled):active, .btn-blue:not(:disabled):not(.disabled).active,
+.show > .btn-blue.dropdown-toggle {
+  color: #fff;
+  background-color: #0062cc;
+  border-color: #005cbf;
+}
+
+.btn-blue:not(:disabled):not(.disabled):active:focus, .btn-blue:not(:disabled):not(.disabled).active:focus,
+.show > .btn-blue.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
+}
+
+.popover-body {
+  max-height: 550px;
+  overflow-y: auto;
+  white-space:pre-wrap;
+  color: blue;
+
+}    
+    
+.popover {
+  max-width: 350px;
+  width: 300px;
+}
+
+
+/* .modal-open .modal {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+} */
+
+.modal-body { 
+  /* max-width: 90vw; */
+  overflow-y: auto;
+  overflow-x: auto; 
+}
+
+#overlay {
+  position:fixed;
+  left:0;
+  top:0;
+  width:100vw;
+  height:100vh;
+  display:none;
+  background-color:#000;
+  opacity:0.5;
+}
+
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
+.dropdown-toggle:after { display:none }
+
+.more-vert-menu {
+
+  margin-left:-250px;
+  margin-right:-30px;width:250px;
+  background:white;
+  border-radius: 10px;
+
+}
+
+.dropdown-menu.dropdown-menu-left, .dropdown-menu[x-placement=bottom-start] {
+   
+  transform-origin: 100% 0;
+  
+}
+
+
+fade {
+    position: absolute;
+    bottom: 0px;
+
+    display: block;
+  
+    width: 100%;
+    height: 50px;
+  
+    background-image: linear-gradient(to bottom, 
+        rgba(255, 255, 255, 0), 
+        rgba(255, 255, 255, 0.9)
+    100%);
+}
+
+.watermark {
+    position: absolute;
+    opacity: 0.15;
+    font-size: 3em;
+    width: 100%;
+    text-align: right;
+    z-index: 1000;
+}
+
+#main-panel {  
+  background-color: #f9f9f9; 
+  height: 100% !important;
+  margin:0px;
+  padding-top: 0px;
+  padding-left: 0px;  
+  padding-right: 0px;  
+  padding-bottom: 5px;
+
+}
+
+/* .toast {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  
+} */
+
+body {
+    height:100vh;
+    overflow-y: scroll;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+}
+
+body::-webkit-scrollbar { /* WebKit */
+    width: 0px;
+    height: 0px;
+    background: transparent; /* Chrome/Safari/Webkit */
+} 
+
+.disable-scrollbars::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+    background: transparent; /* Chrome/Safari/Webkit */
+    
+}
+
+.disable-scrollbars {
+  height:100vh;
+  overflow-y: scroll;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  
+}
+
+.cursor-pointer {
+  cursor:pointer;
+}
+
+.ele-selected {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+} 
+
+/*
+ @preserve
+ bstreeview.css
+ Version: 1.2.0
+ Authors: Sami CHNITER <sami.chniter@gmail.com>
+ Copyright 2020
+ License: Apache License 2.0
+ Project: https://github.com/chniter/bstreeview
+*/
+.bstreeview {
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0,0,0,.125);
+  border-radius: .25rem;
+
+  padding: 0;
+  overflow: hidden;
+}
+
+.bstreeview .list-group {
+  margin-bottom: 0;
+}
+
+.bstreeview .list-group-item {
+  border-radius: 0;
+  border-width: 1px 0 0 0;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  cursor: pointer;
+}
+
+.bstreeview .list-group-item:hover {
+  background-color:#dee2e6;
+}
+
+.bstreeview > .list-group-item:first-child {
+  border-top-width: 0;
+}
+
+.bstreeview .state-icon {
+  margin-right: 8px;
+  width: 12px;
+  text-align: center;
+}
+.bstreeview .item-icon {
+  margin-right: 5px;
+}
+body
+{
+  overscroll-behavior-y: contain;
+}

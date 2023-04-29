@@ -1,0 +1,150 @@
+<!DOCTYPE html5>
+<html>
+<head>
+  
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="images/icons/icons8-gmail-144.png" type="image/x-icon">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#FF747B">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/6.0.0/bootbox.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+<script src="https://cdn.jsdelivr.net/npm/luxon@3.2.1/build/global/luxon.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<link rel="stylesheet" href="index.css">
+
+</head>
+
+<body>
+
+
+<script>
+
+  $(async function () {
+
+    console.log('start code load')
+
+    var g = await import('../common/gothic.js');
+    Goth = g.default
+
+    // load html files
+    
+    var loadList = $(".load-html")
+
+    for (i = 0; i < loadList.length; i++) {
+      
+      var src = loadList[i].dataset.source + '.html'
+      $(loadList[i]).load(encodeURI(src))
+      console.log(src)
+    
+    }
+
+    // get array of script files to be loaded.  Exclude app.js because it must run after all other scripts are fully loaded
+
+    var loadList = $(".load-script")
+    var script_arr = []
+    for (i = 0; i < loadList.length; i++) {
+
+      var src = loadList[i].dataset.source
+      if (src !== 'app.js') {
+
+        script_arr.push(src)
+        console.log(src)
+      
+      }
+    }
+
+    // define a function to load array of scripts and wait for all to load before continuing
+
+    $.getMultiScripts = function(arr, path) {
+      var _arr = $.map(arr, function(scr) {
+        return $.getScript( (path||"") + scr );
+      });
+        
+      _arr.push($.Deferred(function( deferred ){
+        $( deferred.resolve );
+      }));
+        
+      return $.when.apply($, _arr);
+    }
+
+    await $.getMultiScripts(script_arr).done(function() {
+      console.log('load app.js')
+      $.getScript( 'app.js' )      // load and run app.js last
+      console.log('all scripts loaded')
+    });
+
+  
+  console.log('end code load')
+
+  });
+
+  
+</script> 
+    
+    
+  
+  <div id="main-panel" class="min-vh-100 m-0 p-0 container-fluid">
+  
+    <div class="toast-container position-absolute p-3 bottom-0 end-0" >
+      <div class="toast text-white bg-primary " id="myToast">
+        <div class="toast-body ">
+            <h5 id="toast-content" class="d-flex justify-content-center text-center "></h5>
+        </div>
+      </div>
+    </div>
+
+    <div id="overlay" style="z-index: 9999;" ></div>
+      
+    <div class="tab-content">
+  
+      <div class="m-0 p-0 tab-pane fade show active disable-scrollbars" id="Auth" >
+
+        <div class="load-html" data-source="auth"></div>
+               
+      </div> 
+
+      <div class="m-0 p-0 tab-pane fade disable-scrollbars" id="Home">
+
+        <div class="load-html" data-source="home"></div>
+        <div class="load-script d-none" data-source="home.js"></div>
+               
+      </div> 
+
+      <div class="m-0 p-0 tab-pane fade disable-scrollbars" id="GmailDelete">
+
+        <div class="load-html" data-source="delete"></div>
+        <div class="load-script d-none" data-source="delete.js"></div>
+                        
+      </div>   
+
+      <div class="m-0 p-0 tab-pane fade disable-scrollbars" id="ShowGmails">
+
+        <div class="load-html" data-source="showGmails"></div>
+        <div class="load-script d-none" data-source="showGmails.js"></div>
+                        
+      </div>   
+
+    </div>  
+  </div>
+  
+  <div class="load-script d-none" data-source="../common/table-builder.js"></div>
+  <div class="load-script d-none" data-source="../common/xhr.js"></div>
+  <div class="load-script d-none" data-source="../common/utils.js"></div>
+  <div class="load-script d-none" data-source="../common/gapi.js"></div>
+  <div class="load-script d-none" data-source="auth.js"></div>
+
+  <div class="load-script d-none" data-source="app.js"></div>
+
+</body>
+</html>
+
+
