@@ -347,6 +347,30 @@ var mediaArr = []
 
 }
 
+async function testPatch(ids) {
+
+  
+  var mediaIds = [ids]
+
+  mediaIds.forEach(async id => {
+    var params = {
+      mediaItem:id,
+      updateMask: {
+        "description": "mark" 
+      }
+    }
+  
+    var response = await gapi.client.photoslibrary.mediaItems.patch(params)
+
+    console.log('patch response', response)
+
+  })
+
+
+
+
+}
+
 function postStatus(idPreFix, status, text, textColor = 'text-black') {
 
   if (status) $("#" + idPreFix + "-status").html(status).addClass(textColor).removeClass('d-none')
