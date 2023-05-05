@@ -350,11 +350,11 @@ var mediaArr = []
 async function testPatch(ids) {
 
   
-  var mediaIds = ids.split()
+  // var mediaIds = ids.split()
 
-  mediaIds.forEach(async id => {
+  // mediaIds.forEach(async id => {
     var params = {
-      mediaItemId:id
+      mediaItemId:ids
       // ,
       // updateMask: JSON.stringify({
       //   "description": "mark" 
@@ -367,7 +367,7 @@ console.log('params', params)
 
     console.log('patch response', response)
 
-  })
+  // })
 
 
 
