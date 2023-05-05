@@ -2,7 +2,10 @@
 function btnPhotosHtml() {
 
     gotoTab('Photos')
-    gotoPhotoManageTab('phm-nav-manage')
+    // gotoPhotoManageTab('phm-nav-manage')
+    gotoPhotoManageTab('phs-nav-select')
+
+    
 
 }
 
