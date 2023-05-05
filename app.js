@@ -102,7 +102,7 @@ jQuery(function ($) {
          
             // Home tab
 
-            $('#btnGmailDelete')        .button().click(btnGmailDeleteHtml);
+            $('#btnGmail')        .button().click(btnGmailHtml);
             ;
             // Gmail Delete tab
 
@@ -111,6 +111,12 @@ jQuery(function ($) {
 
             // $('#gd-nav-delete-tab').on('shown.bs.tab', loadSheetsToDelete);
             $('#gds-list-button').click(onListClick);
+
+
+            // Photos
+
+            $('#btnPhotos')        .button().click(btnGmailHtml);
+            $('#phs-list-button').click(onPhotosListClick);
 
 
             // all

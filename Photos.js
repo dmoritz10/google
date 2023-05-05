@@ -1,23 +1,21 @@
 
-function btnGmailHtml() {
+function btnPhotoHtml() {
 
-    loadDropDowns()
-
-    gotoTab('GmailDelete')
-    gotoGmailDeleteTab('gds-nav-select')
+    gotoTab('Photos')
+    gotoPhotoManageTab('phm-nav-manage')
 
 }
 
-function gotoGmailDeleteTab(tab) {
+function gotoPhotoManageTab(tab) {
 
-  gotoTab('GmailDelete')
+  gotoTab('Photos')
   $('#' + tab).addClass("active show");
   
 }
 
-async function loadSheetsToDelete() {
+async function loadSheetsToManage() {
 
-  clearStatus("gds")
+  clearStatus("phs")
 
   var shts = await getSheets()
 
@@ -88,20 +86,6 @@ async function loadSheetsToDelete() {
 
 }
 
-async function loadDropDowns() {
-
-    var l = await listGmailLabels()
-    var labels = l.result.labels
-
-    for (var i=0;i<labels.length;i++) {
-        let l = labels[i].name.replace('CATEGORY_', '').replace('DRAFT', 'DRAFTS').toLowerCase()
-        let lbl = l.charAt(0).toUpperCase() + l.slice(1)
-        if (labels[i].type == 'user')   $('#gmail-label-select').append('<option>'+lbl+'</option>')
-        if (labels[i].type == 'system') $('#gmail-category-select').append('<option>'+lbl+'</option>')
-
-      }
-
-}
 
 async function onDeleteClick() {
 
@@ -195,7 +179,7 @@ async function deleteGmails(shtTitle) {
   var shtId = await getSheetId(shtTitle)
   var response = await deleteSheet(shtId)
 
-  loadSheetsToDelete()
+  loadSheetsToManage()
 
 
   postStatus("gds", "Complete<br>", delCntr + " emails deleted.")
@@ -213,59 +197,29 @@ async function removeSheet(shtTitle) {
   var shtId = await getSheetId(shtTitle)
   var response = await deleteSheet(shtId)
 
-  loadSheetsToDelete()
+  loadSheetsToManage()
 
 }
 
 
-async function onListClick() {
+async function onPhotosListClick() {
 
     clearStatus("gds")
 
-    var category_selected = $('#gmail-category-select').val();
-    var label_selected = $('#gmail-label-select').val();
-    var date_selected = $('#gmail-date-select').val();
-    var attachments_selected = $('#gmail-has-attachment-select').val()
-    var keywords_selected = $('#gmail-keywords-select').val()
+    var mediaType_selected = $('#photos-mediaTypeFilter-select').val();
+    var startDate_selected = $('#photos-start-date-select').val();
+    var endDate_selected = $('#photos-end-date-select').val();
+    var keywords_selected = $('#photos-keywords-select').val()
     
     
-    var listSpec = {category:category_selected, label:label_selected, date:date_selected, attachment:attachments_selected, keywords:keywords_selected}
+    var srchSpec = {mediaType:mediaType_selected, startDate:startDate_selected, endDate:endDate_selected, keywords:keywords_selected}
 
-    if (listSpec.date == '') {
-        var age = new Date()  
-        age.setDate(age.getDate() + 1);    
-      } else {
-        var age = new Date(listSpec.date.replace('-','/','g'));
-      }
-      
-      var beforeDate  = age.getFullYear() + '-' + (age.getMonth()*1+1)+'' + '-' + age.getDate()+'';
+    var dateFilter = makeDateFilterObj(srchSpec.startDate, srchSpec.endDate)
 
-      if (listSpec.category == "") {
-        var cat = ""
-      }
-      else if (listSpec.category == "Sent" || listSpec.category == "Inbox" || listSpec.category == "Trash" || listSpec.category == "Spam") {
-        var cat = "in:" + listSpec.category
-      } else {
-        var cat = "category:" + listSpec.category
-      }
-      
-      switch (listSpec.attachment) {
-        case "":
-          var attachment = ''
-          break;
-        case "all":
-          var attachment = " has:attachment"
-          break;
-        case "none":
-          var attachment = " -has:attachment"
-          break;
-        default:
-          var attachment = " size:" + listSpec.attachment
-          break;
-      }
-        
-      var search = (cat + " label:" + listSpec.label + " before:" + beforeDate 
-          + (listSpec.attachment = '' ? '' : attachment + ' '+ listSpec.keywords)).trimStart();
+    var search =    "start date: " + srchSpec.startDate +  
+                    " end date: " + srchSpec.endDate +  
+                    " media type: " + srchSpec.mediaType +
+                    " keywords: '" + srchSpec.keywords + "'"
 
     let testShtId = await getSheetId(search)
     if (testShtId) await deleteSheet(testShtId)
@@ -278,7 +232,7 @@ async function onListClick() {
     var clearRsp =  await deleteSheetRow(1, shtTitle, 5000)
    
     var listThreads = []
-    listThreads.push(['Subject', 'Last Message Date', 'Message Count', 'Labels', 'Status', 'Message Ids'])
+    listThreads.push(["Id","Description","ProductUrl","BaseUrl","MimeType","Filename","CreationTime","Width","Height","Size"])
                     
     var maxResults = 500
     var npt
@@ -286,6 +240,62 @@ async function onListClick() {
     var msgCntr = 0
 
     modal(true)
+
+    var params = {
+        "pageSize": 50,
+        "pageToken": null,
+        
+        "filters": {
+            "mediaTypeFilter": {
+                "mediaTypes": [
+                  'ALL_MEDIA'
+                ]
+            },
+            "dateFilter": {
+                "ranges": [
+                    {
+                    "startDate": {
+                        "year": strDt[2],
+                        "month": strDt[0],
+                        "day": strDt[1]
+                        },
+                    "endDate": {
+                        "year": endDt[2],
+                        "month": endDt[0],
+                        "day": endDt[1]
+                        }
+                    }
+                ]
+            }
+        }
+    }
+
+    params.filters.mediaTypeFilter.mediaTypes = srchSpec.keywords
+    params.filters.dateFilter.ranges[0].dateFilter = dateFilter
+
+
+var mediaArr = []
+
+
+do {
+
+    let response = await searchPhotos(params)
+    params.pageToken = response.result.nextPageToken
+    console.log('response', response)
+    let mediaItems = response.result.mediaItems
+    mediaArr = mediaArr.concat(mediaItems)
+    console.log('pageToken', params.pageToken , response.result.pageToken)
+
+} while (params.pageToken)
+
+if (!mediaArr[0] || mediaArr.length == 0) {
+    toast('There are no photos for this Trip', 5000)
+    return }
+
+    console.log('mediaArr', mediaArr)
+
+    return
+
 
     do {
         var responseList = await listGmailThreads({
@@ -382,3 +392,56 @@ function clearStatus(idPreFix) {
   $("#" + idPreFix + "-text").html('').addClass('d-none')
   
 }
+
+function makeDateFilterObj(strDt, endDt) {
+
+    var dateFilter = 
+
+        {
+            "ranges": [
+                {
+                "startDate": {
+                    "year": '',
+                    "month": '',
+                    "day": ''
+                    },
+                "endDate": {
+                    "year": '',
+                    "month": '',
+                    "day": ''
+                    }
+                }
+            ]
+        }
+
+    var dateRng = dateFilter.ranges[0].startDate
+
+    if (strDt == '') {
+        daterng.year = 1900
+        daterng.month=1
+        daterng.day = 1
+      } else {
+        var dt = new Date(strDt.replace('-','/','g'));
+        daterng.year = dt.getFullYear()
+        daterng.month=dt.age.getMonth()*1+1
+        daterng.day = dt.getDate()
+      }
+     
+    var dateRng = dateFilter.ranges[0].endDate
+
+    if (endDt == '') {
+        var dt = new Date();
+        daterng.year = dt.getFullYear()
+        daterng.month=dt.age.getMonth()*1+1
+        daterng.day = dt.getDate()*1+1
+    } else {
+        var dt = new Date(endDt.replace('-','/','g'));
+        daterng.year = dt.getFullYear()
+        daterng.month=dt.age.getMonth()*1+1
+        daterng.day = dt.getDate()
+    }
+
+    return dateFilter
+
+}
+

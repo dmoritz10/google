@@ -1,0 +1,137 @@
+
+<div class="overflow-hidden">
+    <div class="sticky-top" style="background-color: #f9f9f9;">
+      <div class="row m-1 py-4">
+        <div class="col-1 px-1 mt-3">
+          <div id="hpGoTo" class="label  text-center h1 cursor-pointer" onclick="gotoTab('Home')"><i
+              class="material-icons">arrow_back_ios</i></div>
+        </div>
+        <div class="col px-1">
+          <div id="hpBanner" class="label text-center h1 divfullscreen">Photos</div>
+        </div>
+        <div class="col-1 px-1">
+          <div></div>
+        </div>
+      </div>
+  
+      <div class="row m-1 py-4">
+        <nav>
+          <div class="nav nav-tabs" role="tablist">
+            <button class="nav-link active" id="ph-nav-select-tab" data-bs-toggle="tab" data-bs-target="#phs-nav-select" type="button" role="tab" aria-controls="nav-select" aria-selected="true"><h4>Select</h4></button>
+            <button class="nav-link" id="ph-nav-manage-tab" data-bs-toggle="tab" data-bs-target="#Phm-nav-manage" type="button" role="tab" aria-controls="nav-manage" aria-selected="false"><h4>Manage</h4></button>
+          </div>
+        </nav>
+      </div>
+  </div>
+  
+    <div class="tab-content mx-2">
+      <div class="tab-pane fade active" id="phs-nav-select" role="tabpanel" aria-labelledby="ph-nav-select-tab">
+    
+        <div class="row m-1 p-0 pt-3">
+          <div class="col-8 px-1 text-start">
+            <label class="h5" for="photos-mediaTypeFilter-select">Media type:</label>
+            <select id="photos-mediaTypeFilter-select" class="text-success h5" style="float:right">
+                <option value="ALL_MEDIA">All media Types</option>
+                <option value="VIDEO">Videos only</option>
+                <option value="PHOTO">Photos only</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row m-1 p-0 pt-3">
+          <div class="col-8 px-1 text-start">
+            <label for="photos-start-date-select"  class="h5">Before Date:</label>
+            <input type="date" id="photos-start-date-select"  class="text-center text-success h5" style="float:right"/>  
+          </div>
+        </div>
+
+        <div class="row m-1 p-0 pt-3">
+            <div class="col-8 px-1 text-start">
+              <label for="photos-end-date-select"  class="h5">Before Date:</label>
+              <input type="date" id="photos-end-date-select"  class="text-center text-success h5" style="float:right"/>  
+            </div>
+          </div>
+  
+        <div class="row m-1 p-0 pt-3">
+          <div class="col-8 px-1 text-start">
+            <label for="photos-keywords-select"  class="h5">Keywords:</label>
+            <input type="text" id="photos-keywords-select"  class="text-success h5" style="float:right"/>  
+          </div>
+        </div>
+
+        <div class="row m-1 pt-3">
+          <div class="col text-center">
+            <div class="btn-group" role="group">
+                <button id="phs-list-button" type="button" class="btn btn-primary mx-1" >Select</button>
+              </div>
+          </div>
+        </div>
+        
+        <div class=" m-1 pt-3">
+          <div class="row m-0 p-0 border-top border-bottom  bg-white">
+            <div id="phs-status" class="col h5 d-none p-2"></div>
+            <div id="phs-text"   class="col h5 d-none p-2"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="tab-pane fade" id="phm-nav-manage" role="tabpanel" aria-labelledby="ph-nav-manage-tab">
+
+
+        <div id="phmContainer" class=" mt-0 pt-3 pb-4 px-2" style="background-color:#eeefef">
+          <div class="m-0 p-3 pb-0 mb-3 align-items-center border rounded d-none" style="background:white;">
+      
+              <div class="row">
+                <div class="col px-1">
+                  <div id="phmSheetName" class="text-success label  text-start h3 pb-0 align-middle "></div>
+                </div>
+      
+                <div class="col-1 px-0 align-right">
+                  <div class="align-center cursor-pointer" id="btnPhmmanage" data-toggle="tooltip" title="manage Gmails">
+                      <i class="material-icons" style="color:purple;">delete</i></div>
+                </div>
+      
+                <div class="col-1 mx-0 align-right">
+                    <div class="align-center cursor-pointer" id="btnPhmRemoveSheet" data-toggle="tooltip" title="Remove List">
+                      <i class="material-icons" style="color:black;">folder_delete</i></div>        
+                </div>
+      
+                <div class="col-1 me-2">
+                  <button id="btnPhmShowGmails" class="border-0 bg-transparent"><i
+                      class="material-icons">arrow_forward_ios</i></button>
+                </div>
+              </div>
+      
+              <div class="row">
+      
+                <div class="col-5 px-1">
+                  <div id="phmNbrGmails" class="text-success h4 pt-1"></div>
+                </div>
+      
+                <div class="col px-1 ">
+                  <div id="phmSheetDate" class="h6 pt-2 me-5 float-end"></div>
+                </div>
+                
+              </div>
+      
+          </div>
+      
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="clearfix"></div>
+  
+<!-- 
+as
+d
+asdf
+
+     -->
+
+  </div>
+
+ 
