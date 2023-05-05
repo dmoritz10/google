@@ -435,7 +435,7 @@ function makeDateFilterObj(strDt, endDt) {
     if (endDt == '') {
         var dt = new Date();
         dateRng.year = dt.getFullYear()
-        dateRng.month=dt.age.getMonth()*1+1
+        dateRng.month=dt.getMonth()*1+1
         dateRng.day = dt.getDate()*1+1
     } else {
         var dt = new Date(endDt.replace('-','/','g'));
