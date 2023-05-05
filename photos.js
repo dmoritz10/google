@@ -420,28 +420,28 @@ function makeDateFilterObj(strDt, endDt) {
     var dateRng = dateFilter.ranges[0].startDate
 
     if (strDt == '') {
-        daterng.year = 1900
-        daterng.month=1
-        daterng.day = 1
+        dateRng.year = 1900
+        dateRng.month=1
+        dateRng.day = 1
       } else {
         var dt = new Date(strDt.replace('-','/','g'));
-        daterng.year = dt.getFullYear()
-        daterng.month=dt.age.getMonth()*1+1
-        daterng.day = dt.getDate()
+        dateRng.year = dt.getFullYear()
+        dateRng.month=dt.age.getMonth()*1+1
+        dateRng.day = dt.getDate()
       }
      
     var dateRng = dateFilter.ranges[0].endDate
 
     if (endDt == '') {
         var dt = new Date();
-        daterng.year = dt.getFullYear()
-        daterng.month=dt.age.getMonth()*1+1
-        daterng.day = dt.getDate()*1+1
+        dateRng.year = dt.getFullYear()
+        dateRng.month=dt.age.getMonth()*1+1
+        dateRng.day = dt.getDate()*1+1
     } else {
         var dt = new Date(endDt.replace('-','/','g'));
-        daterng.year = dt.getFullYear()
-        daterng.month=dt.age.getMonth()*1+1
-        daterng.day = dt.getDate()
+        dateRng.year = dt.getFullYear()
+        dateRng.month=dt.age.getMonth()*1+1
+        dateRng.day = dt.getDate()
     }
 
     return dateFilter
