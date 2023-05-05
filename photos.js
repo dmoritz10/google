@@ -320,7 +320,7 @@ var mediaArr = []
 
             ])
 
-            console.log('progress', i, msgIds.length, msgCntr,  parseInt(msgCntr * 1000*60 / (new Date() - startTime)))
+            console.log('progress', i, msgCntr,  parseInt(msgCntr * 1000*60 / (new Date() - startTime)))
             
             msgCntr ++
             postStatus("phs", null, msgCntr)
