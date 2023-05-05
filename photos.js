@@ -360,8 +360,9 @@ async function testPatch(ids) {
       }
     }
   
-    var response = await gapi.client.photoslibrary.mediaItem(params)
+console.log('gapi', gapi.client.photoslibrary)
 
+    var response = await gapi.client.photoslibrary.mediaItems.patch(params)
 
     console.log('patch response', response)
 
