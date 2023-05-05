@@ -261,7 +261,7 @@ async function onPhotosListClick() {
     }
 
     params.filters.mediaTypeFilter.mediaTypes = srchSpec.keywords
-    params.filters.dateFilter.ranges[0].dateFilter = dateFilter
+    params.filters.dateFilter = dateFilter
 
 
 var mediaArr = []
