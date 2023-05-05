@@ -234,8 +234,8 @@ async function onPhotosListClick() {
 
     var clearRsp =  await deleteSheetRow(1, shtTitle, 5000)
    
-    var listThreads = []
-    listThreads.push(["Id","Description","ProductUrl","BaseUrl","MimeType","Filename","CreationTime","Width","Height","Size"])
+    var listMedia = []
+    listMedia.push(["Id","Description","ProductUrl","BaseUrl","MimeType","Filename","CreationTime","Width","Height","Size"])
                     
     var maxResults = 500
     var npt
@@ -245,7 +245,7 @@ async function onPhotosListClick() {
     // modal(true)
 
     var params = {
-        "pageSize": 50,
+        "pageSize": 100,
         "pageToken": null,
         
         "filters": {
@@ -267,93 +267,71 @@ console.log('params', params, srchSpec)
 
 var mediaArr = []
 
-do {
+// do {
 
-    let response = await searchPhotos(params)
-    params.pageToken = response.result.nextPageToken
-    console.log('response', response)
-    let mediaItems = response.result.mediaItems
-    mediaArr = mediaArr.concat(mediaItems)
-    console.log('pageToken', params.pageToken , response.result.pageToken)
+//     let response = await searchPhotos(params)
+//     params.pageToken = response.result.nextPageToken
+//     console.log('response', response)
+//     let mediaItems = response.result.mediaItems
+//     mediaArr = mediaArr.concat(mediaItems)
+//     console.log('pageToken', params.pageToken , response.result.pageToken)
 
-} while (params.pageToken)
+// } while (params.pageToken)
 
-if (!mediaArr[0] || mediaArr.length == 0) {
-    toast('There are no photos for this Trip', 5000)
-    return }
+// if (!mediaArr[0] || mediaArr.length == 0) {
+//     toast('There are no photos for this Trip', 5000)
+//     return }
 
-    console.log('mediaArr', mediaArr)
+//     console.log('mediaArr', mediaArr)
 
-    return
+    
 
 
     do {
-        var responseList = await listGmailThreads({
-            userId: 'me',
-            pageToken: npt,
-            maxResults: maxResults,
-            q: search
-            
-        });
 
-        npt = responseList.result.nextPageToken
+      let response = await searchPhotos(params)
+      params.pageToken = response.result.nextPageToken
+      console.log('response', response)
+      let mediaItems = response.result.mediaItems
 
-        var threads = responseList.result.threads
-
-        if (!threads || threads.length == 0) {
-          postStatus("gds", "Error", 'No Gmails match the criteria given: <br><br>' + search, 'text-danger')
+        if (!mediaItems || mediaItems.length == 0) {
+          postStatus("gds", "Error", 'No photos match the criteria given: <br><br>' + search, 'text-danger')
           modal(false)
           return
         }
                
-        postStatus("gds", "Selecting Gmails<br>" + search)
+        postStatus("phs", "Selecting Gmails<br>" + search)
         
         for (var i=0; i<threads.length; i++)    {
 
-            let thread = threads[i]
+            let mediaItem = mediaItems[i]
 
-            let responseGet = await getGmailMessages({
-                userId: 'me',
-                id: thread.id,
-                format: 'full'
-            });
+            listMedia.push([
+              mediaItem.id,
+              mediaItem.description,
+              mediaItem.productUrl,
+              mediaItem.baseUrl,
+              mediaItem.mimeType,
+              mediaItem.filename,
+              mediaItem.mediaMetadata.creationTime,
+              mediaItem.mediaMetadata.width,
+              mediaItem.mediaMetadata.height,
+              Math.round(width * height / 2**20)
 
-
-            let msgs = responseGet.result.messages
-
-            console.log('responseGet', responseGet)
-
-            let mostRecentMsg = new Date(msgs[msgs.length-1].internalDate*1)
-
-            if (mostRecentMsg > age) continue
-
-            let hdrs = msgs[0].payload.headers
-
-            let findSubject = hdrs.find(x => x.name.toLowerCase() === "subject")
-            let subject = findSubject ? findSubject.value : ''
-            let msgIds = msgs.map(a => a.id);
-
-            listThreads.push([
-                subject,
-                mostRecentMsg.getFullYear() + '-' + (mostRecentMsg.getMonth()*1+1)+'' + '-' + mostRecentMsg.getDate()+'',
-                msgIds.length,
-                JSON.stringify(msgs[0].labelIds),
-                'Listed',
-                JSON.stringify(msgIds)
             ])
 
             console.log('progress', i, msgIds.length, msgCntr,  parseInt(msgCntr * 1000*60 / (new Date() - startTime)))
             
             msgCntr ++
-            postStatus("gds", null, msgCntr)
+            postStatus("phs", null, msgCntr)
 
         }
 
-        var response = await appendSheetRow(listThreads, shtTitle)
+        var response = await appendSheetRow(listMedia, shtTitle)
 
-        listThreads = []
+        listMedia = []
 
-    } while (npt)
+    } while (params.pageToken)
 
     console.log('run time', i, msgCntr,  parseInt((new Date() - startTime) / (1000*60)), parseInt((msgCntr * 1000*60) / (new Date() - startTime)))
 
@@ -361,7 +339,7 @@ if (!mediaArr[0] || mediaArr.length == 0) {
               Math.round((new Date() - startTime) / (1000*60)) + ' minutes<br>' + 
               Math.round((msgCntr * 1000*60) / (new Date() - startTime)) + ' emails per minute'
 
-    postStatus("gds", "Complete<br>" + search, msg)
+    postStatus("phs", "Complete<br>" + search, msg)
 
     var response = renameSheet(shtId, search)
 
