@@ -354,13 +354,13 @@ async function testPatch(ids) {
 
   mediaIds.forEach(async id => {
     var params = {
-      mediaItem:id,
+      mediaItemId:id,
       updateMask: JSON.stringify({
         "description": "mark" 
       })
     }
   
-console.log('gapi', gapi.client.photoslibrary)
+console.log('params', params)
 
     var response = await gapi.client.photoslibrary.mediaItems.patch(params)
 
