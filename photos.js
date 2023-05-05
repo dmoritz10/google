@@ -354,7 +354,7 @@ async function testPatch(ids) {
 
   // mediaIds.forEach(async id => {
     var params = {
-      mediaItemId:ids
+      mediaItem:{id:ids}
       ,
       updateMask: JSON.stringify({
         "description": "mark" 
