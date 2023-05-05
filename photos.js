@@ -426,7 +426,7 @@ function makeDateFilterObj(strDt, endDt) {
       } else {
         var dt = new Date(strDt.replace('-','/','g'));
         dateRng.year = dt.getFullYear()
-        dateRng.month=dt.age.getMonth()*1+1
+        dateRng.month=dt.getMonth()*1+1
         dateRng.day = dt.getDate()
       }
      
@@ -440,7 +440,7 @@ function makeDateFilterObj(strDt, endDt) {
     } else {
         var dt = new Date(endDt.replace('-','/','g'));
         dateRng.year = dt.getFullYear()
-        dateRng.month=dt.age.getMonth()*1+1
+        dateRng.month=dt.getMonth()*1+1
         dateRng.day = dt.getDate()
     }
 
