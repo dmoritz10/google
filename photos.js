@@ -350,7 +350,7 @@ var mediaArr = []
 async function testPatch(ids) {
 
   
-  var mediaIds = [JSON.parse(ids)]
+  var mediaIds = ids.split()
 
   mediaIds.forEach(async id => {
     var params = {
