@@ -260,7 +260,7 @@ async function onPhotosListClick() {
         }
     }
 
-    params.filters.mediaTypeFilter.mediaTypes = srchSpec.keywords
+    // params.filters.mediaTypeFilter.mediaTypes = srchSpec.keywords
     params.filters.dateFilter = dateFilter
 
 
