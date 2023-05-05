@@ -242,7 +242,7 @@ async function onPhotosListClick() {
     var startTime = new Date()
     var msgCntr = 0
 
-    modal(true)
+    // modal(true)
 
     var params = {
         "pageSize": 50,
@@ -266,7 +266,6 @@ params.filters.dateFilter = dateFilter
 console.log('params', params, srchSpec)
 
 var mediaArr = []
-
 
 do {
 
