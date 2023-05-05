@@ -255,20 +255,7 @@ async function onPhotosListClick() {
                 ]
             },
             "dateFilter": {
-                "ranges": [
-                    {
-                    "startDate": {
-                        "year": strDt[2],
-                        "month": strDt[0],
-                        "day": strDt[1]
-                        },
-                    "endDate": {
-                        "year": endDt[2],
-                        "month": endDt[0],
-                        "day": endDt[1]
-                        }
-                    }
-                ]
+   
             }
         }
     }
