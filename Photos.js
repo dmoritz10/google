@@ -1,5 +1,5 @@
 
-function btnPhotoHtml() {
+function btnPhotosHtml() {
 
     gotoTab('Photos')
     gotoPhotoManageTab('phm-nav-manage')

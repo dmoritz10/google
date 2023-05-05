@@ -115,7 +115,7 @@ jQuery(function ($) {
 
             // Photos
 
-            $('#btnPhotos')        .button().click(btnGmailHtml);
+            $('#btnPhotos')        .button().click(btnPhotosHtml);
             $('#phs-list-button').click(onPhotosListClick);
 
 
