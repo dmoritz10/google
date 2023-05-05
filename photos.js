@@ -316,7 +316,7 @@ var mediaArr = []
               mediaItem.mediaMetadata.creationTime,
               mediaItem.mediaMetadata.width,
               mediaItem.mediaMetadata.height,
-              Math.round(width * height / 2**20)
+              Math.round(mediaItem.mediaMetadata.width * mediaItem.mediaMetadata.height / 2**20)
 
             ])
 
