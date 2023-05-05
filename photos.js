@@ -355,10 +355,11 @@ async function testPatch(ids) {
   // mediaIds.forEach(async id => {
     var params = {
       mediaItem:{
-        id:ids,
-        updateMask: {
-          "description": "mark" 
-        }
+        id:ids
+        // ,
+        // updateMask: {
+        //   "description": "mark" 
+        // }
       }
       // ,
       // updateMask: JSON.stringify({
