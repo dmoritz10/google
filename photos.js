@@ -302,7 +302,7 @@ var mediaArr = []
                
         postStatus("phs", "Selecting Gmails<br>" + search)
         
-        for (var i=0; i<threads.length; i++)    {
+        for (var i=0; i<mediaItems.length; i++)    {
 
             let mediaItem = mediaItems[i]
 
