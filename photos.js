@@ -347,9 +347,9 @@ var mediaArr = []
 
 }
 
-async function testPatch(ids) {
+async function testPatch() {
 
-  
+  var ids = "APKTQTbd-VEq33TA7mUkuFi3oMd5vIF8OAjXjO7W2uvcKUOSnoxhzfW0SPVGgk_boTslcV4dqqL8OBdSeSgzKwBX9oZiO6HaGA"
   // var mediaIds = ids.split()
 
   // mediaIds.forEach(async id => {
