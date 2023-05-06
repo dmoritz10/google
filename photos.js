@@ -370,7 +370,16 @@ async function testPatch() {
   
 console.log('params', params)
 
-    var response = await gapi.client.photoslibrary.mediaItems.patch(params)
+    // var response = await gapi.client.photoslibrary.mediaItems.patch(params)
+
+    var requestBody = {
+      "description": "This is a new description"
+    };
+
+    var response = await gapi.client.photoslibrary.mediaItems.patch({
+      "mediaItemId": ids,
+      "resource": requestBody
+    })
 
     console.log('patch response', response)
 
