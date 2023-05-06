@@ -356,15 +356,15 @@ async function testPatch() {
     var params = {
       mediaItem:{
         id:ids
-        // ,
-        // updateMask: {
-        //   "description": "mark" 
-        // }
+        ,
+        updateMask: {
+          "description": "mark" 
+        }
       
-      ,
-      updateMask: JSON.stringify({
-        "description": "mark" 
-      })
+      // ,
+      // updateMask: JSON.stringify({
+      //   "description": "mark" 
+      // })
     }
     }
   
