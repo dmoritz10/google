@@ -388,8 +388,7 @@ async function testPatch() {
 
     var photoId = ids;
     var requestBody = {
-      "description": "This is a new description",
-      "title": "New title"
+      "description": "This is a new description"
     };
     patchPhoto(photoId, requestBody);
 
@@ -409,8 +408,7 @@ function patchPhoto(photoId, requestBody) {
       "mediaItem": {
         "id": photoId
       },
-      "updateMask": Object.keys(requestBody).join(),
-      "body": requestBody
+      requestBody
     }
   }).then(function(response) {
     console.log(response);
