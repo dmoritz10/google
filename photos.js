@@ -352,34 +352,46 @@ async function testPatch() {
   var ids = "APKTQTbd-VEq33TA7mUkuFi3oMd5vIF8OAjXjO7W2uvcKUOSnoxhzfW0SPVGgk_boTslcV4dqqL8OBdSeSgzKwBX9oZiO6HaGA"
   // var mediaIds = ids.split()
 
-  // mediaIds.forEach(async id => {
-    var params = {
-      mediaItem:{
-        id:ids
-        // ,
-        // updateMask: {
-        //   "description": "mark" 
-        // }
+//   // mediaIds.forEach(async id => {
+//     var params = {
+//       mediaItem:{
+//         id:ids
+//         // ,
+//         // updateMask: {
+//         //   "description": "mark" 
+//         // }
       
-      // ,
-      // updateMask: JSON.stringify({
-      //   "description": "mark" 
-      // })
-    }
-    }
+//       // ,
+//       // updateMask: JSON.stringify({
+//       //   "description": "mark" 
+//       // })
+//     }
+//     }
   
-console.log('params', params)
+// console.log('params', params)
 
-    // var response = await gapi.client.photoslibrary.mediaItems.patch(params)
+//     // var response = await gapi.client.photoslibrary.mediaItems.patch(params)
 
+//     var requestBody = {
+//       "description": "This is a new description"
+//     };
+
+//     var response = await gapi.client.photoslibrary.mediaItems.patch({
+//       "resource": {
+//         "mediaItem": {
+//           "id": ids
+//         },
+//         "updateMask": Object.keys(requestBody).join(),
+//         "body": requestBody
+//       }
+//     })
+
+    var photoId = ids;
     var requestBody = {
-      "description": "This is a new description"
+      "description": "This is a new description",
+      "title": "New title"
     };
-
-    var response = await gapi.client.photoslibrary.mediaItems.patch({
-      "mediaItem":{"id":ids},
-      "resource": requestBody
-    })
+    patchPhoto(photoId, requestBody);
 
     console.log('patch response', response)
 
@@ -388,6 +400,23 @@ console.log('params', params)
 
 
 
+}
+
+function patchPhoto(photoId, requestBody) {
+  // Use the Google Photos API client library to make the request
+  gapi.client.photoslibrary.mediaItems.patch({
+    "resource": {
+      "mediaItem": {
+        "id": photoId
+      },
+      "updateMask": Object.keys(requestBody).join(),
+      "body": requestBody
+    }
+  }).then(function(response) {
+    console.log(response);
+  }, function(reason) {
+    console.error('error: ' + reason.result.error.message);
+  });
 }
 
 function postStatus(idPreFix, status, text, textColor = 'text-black') {
