@@ -6,7 +6,8 @@ const SCOPES    = 'https://www.googleapis.com/auth/spreadsheets https://mail.goo
 const DISCOVERY = ['https://sheets.googleapis.com/$discovery/rest?version=v4',
                    'https://gmail.googleapis.com/$discovery/rest?version=v1', 
                    'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest',
-                   'https://www.googleapis.com/discovery/v1/apis/photoslibrary/v1/rest'
+                  //  'https://www.googleapis.com/discovery/v1/apis/photoslibrary/v1/rest',
+                   'https://www.googleapis.com/auth/photoslibrary.edit.appcreateddata'
                   ];
 const SS        = 'Google Companion'
 
