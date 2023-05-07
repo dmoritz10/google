@@ -222,7 +222,7 @@ async function onPhotosListClick() {
   var search =    ("start date: " + srchSpec.startDate +  
                   " end date: " + srchSpec.endDate +  
                   " media type: " + srchSpec.mediaType +
-                  " keywords: '" + srchSpec.keywords + "'").replace(/'/g,"")
+                  srchSpec.keywords ? (" keywords: '" + srchSpec.keywords + "'").replace(/'/g,"") : ''
 
   let testShtId = await getSheetId(search)
   if (testShtId) await deleteSheet(testShtId)
