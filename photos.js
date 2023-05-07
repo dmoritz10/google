@@ -272,42 +272,42 @@ async function onPhotosListClick() {
     console.log('response', response)
     let mediaItems = response.result.mediaItems
 
-      if (!mediaItems || mediaItems.length == 0) {
-        postStatus("gds", "Error", 'No photos match the criteria given: <br><br>' + search, 'text-danger')
-        modal(false)
-        return
-      }
-              
-      postStatus("phs", "Selecting Gmails<br>" + search)
+    if (!mediaItems || mediaItems.length == 0) {
+      postStatus("gds", "Error", 'No photos match the criteria given: <br><br>' + search, 'text-danger')
+      modal(false)
+      return
+    }
+            
+    postStatus("phs", "Selecting Gmails<br>" + search)
+    
+    for (var i=0; i<mediaItems.length; i++)    {
+
+      let mediaItem = mediaItems[i]
+
+      listMedia.push([
+        mediaItem.id,
+        mediaItem.description,
+        mediaItem.productUrl,
+        mediaItem.baseUrl,
+        mediaItem.mimeType,
+        mediaItem.filename,
+        mediaItem.mediaMetadata.creationTime,
+        mediaItem.mediaMetadata.width,
+        mediaItem.mediaMetadata.height,
+        Math.round(mediaItem.mediaMetadata.width * mediaItem.mediaMetadata.height / 2**20)
+
+      ])
+
+      console.log('progress', i, msgCntr,  parseInt(msgCntr * 1000*60 / (new Date() - startTime)))
       
-      for (var i=0; i<mediaItems.length; i++)    {
+      msgCntr ++
+      postStatus("phs", null, msgCntr)
 
-          let mediaItem = mediaItems[i]
+    }
 
-          listMedia.push([
-            mediaItem.id,
-            mediaItem.description,
-            mediaItem.productUrl,
-            mediaItem.baseUrl,
-            mediaItem.mimeType,
-            mediaItem.filename,
-            mediaItem.mediaMetadata.creationTime,
-            mediaItem.mediaMetadata.width,
-            mediaItem.mediaMetadata.height,
-            Math.round(mediaItem.mediaMetadata.width * mediaItem.mediaMetadata.height / 2**20)
+    var responseAppend = await appendSheetRow(listMedia, shtTitle)
 
-          ])
-
-          console.log('progress', i, msgCntr,  parseInt(msgCntr * 1000*60 / (new Date() - startTime)))
-          
-          msgCntr ++
-          postStatus("phs", null, msgCntr)
-
-      }
-
-      var responseAppend = await appendSheetRow(listMedia, shtTitle)
-
-      listMedia = []
+    listMedia = []
 
   } while (params.pageToken)
 
