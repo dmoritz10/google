@@ -219,7 +219,7 @@ async function onPhotosListClick() {
 
   var dateFilter = makeDateFilterObj(srchSpec.startDate, srchSpec.endDate)
 
-  var search =    ("start date: " + srchSpec.startDate +  
+  var search =    "start date: " + srchSpec.startDate +  
                   " end date: " + srchSpec.endDate +  
                   " media type: " + srchSpec.mediaType +
                   (srchSpec.keywords ? (" keywords: '" + srchSpec.keywords + "'").replace(/'/g,"") : '')
@@ -284,6 +284,11 @@ async function onPhotosListClick() {
 
       let mediaItem = mediaItems[i]
 
+      if (keywords_selected)  var select = applyFilter(mediaItem.description, keywords_selected)
+      else                    var select = true
+
+      if (!select) continue
+
       listMedia.push([
         mediaItem.id,
         mediaItem.description,
@@ -322,6 +327,28 @@ async function onPhotosListClick() {
   var response = renameSheet(shtId, search)
 
   modal(false)
+
+}
+
+function applyFilter(description, keywords) {
+
+  var kwArr = keywords.toLowerCase().split(' ')
+
+  descr = description.toLowerCase()
+
+  var select = false
+
+  for (i=0;i<kwArr.length;i++) {
+
+    if (mbr.indexOf(' ' + kwArr[i] + (isNaN(kwArr[i][0]) ? ' ' : '')) > -1) {
+
+      select = true
+      break
+
+    } 
+  } 
+
+  return select
 
 }
 
@@ -393,20 +420,6 @@ function patchPhoto(photoId, requestBody) {
   }, function(reason) {
     console.error('error: ' + reason.result.error.message);
   });
-}
-
-function postStatus(idPreFix, status, text, textColor = 'text-black') {
-
-  if (status) $("#" + idPreFix + "-status").html(status).addClass(textColor).removeClass('d-none')
-  if (text)   $("#" + idPreFix + "-text").html(text).removeClass('d-none')
-
-}
-
-function clearStatus(idPreFix) {
-  
-  $("#" + idPreFix + "-status").html('').addClass('d-none')
-  $("#" + idPreFix + "-text").html('').addClass('d-none')
-  
 }
 
 function makeDateFilterObj(strDt, endDt) {
