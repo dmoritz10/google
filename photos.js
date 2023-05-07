@@ -334,13 +334,14 @@ function applyFilter(description, keywords) {
 
   var kwArr = keywords.toLowerCase().split(' ')
 
-  descr = description.toLowerCase()
+  if (!description) return false
 
+  var descr = description.toLowerCase()
   var select = false
 
   for (i=0;i<kwArr.length;i++) {
 
-    if (mbr.indexOf(' ' + kwArr[i] + (isNaN(kwArr[i][0]) ? ' ' : '')) > -1) {
+    if (descr.indexOf(' ' + kwArr[i] + (isNaN(kwArr[i][0]) ? ' ' : '')) > -1) {
 
       select = true
       break
