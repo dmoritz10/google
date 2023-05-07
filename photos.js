@@ -207,143 +207,121 @@ async function removeSheet(shtTitle) {
 
 async function onPhotosListClick() {
 
-    clearStatus("gds")
+  clearStatus("gds")
 
-    var mediaType_selected = $('#photos-mediaTypeFilter-select').val();
-    var startDate_selected = $('#photos-start-date-select').val();
-    var endDate_selected = $('#photos-end-date-select').val();
-    var keywords_selected = $('#photos-keywords-select').val()
-    
-    
-    var srchSpec = {mediaType:mediaType_selected, startDate:startDate_selected, endDate:endDate_selected, keywords:keywords_selected}
+  var mediaType_selected = $('#photos-mediaTypeFilter-select').val();
+  var startDate_selected = $('#photos-start-date-select').val();
+  var endDate_selected = $('#photos-end-date-select').val();
+  var keywords_selected = $('#photos-keywords-select').val()
+  
+  
+  var srchSpec = {mediaType:mediaType_selected, startDate:startDate_selected, endDate:endDate_selected, keywords:keywords_selected}
 
-    var dateFilter = makeDateFilterObj(srchSpec.startDate, srchSpec.endDate)
+  var dateFilter = makeDateFilterObj(srchSpec.startDate, srchSpec.endDate)
 
-    var search =    "start date: " + srchSpec.startDate +  
-                    " end date: " + srchSpec.endDate +  
-                    " media type: " + srchSpec.mediaType +
-                    " keywords: '" + srchSpec.keywords + "'"
+  var search =    ("start date: " + srchSpec.startDate +  
+                  " end date: " + srchSpec.endDate +  
+                  " media type: " + srchSpec.mediaType +
+                  " keywords: '" + srchSpec.keywords + "'").replace(/'/g,"")
 
-    let testShtId = await getSheetId(search)
-    if (testShtId) await deleteSheet(testShtId)
+  let testShtId = await getSheetId(search)
+  if (testShtId) await deleteSheet(testShtId)
 
-    var createRsp = await createSheet()
+  var createRsp = await createSheet()
 
-    var shtId = createRsp.result.replies[0].addSheet.properties.sheetId
-    var shtTitle = createRsp.result.replies[0].addSheet.properties.title
+  var shtId = createRsp.result.replies[0].addSheet.properties.sheetId
+  var shtTitle = createRsp.result.replies[0].addSheet.properties.title
 
-    var clearRsp =  await deleteSheetRow(1, shtTitle, 5000)
-   
-    var listMedia = []
-    listMedia.push(["Id","Description","ProductUrl","BaseUrl","MimeType","Filename","CreationTime","Width","Height","Size"])
-                    
-    var maxResults = 500
-    var npt
-    var startTime = new Date()
-    var msgCntr = 0
+  await deleteSheetRow(1, shtTitle, 5000)
 
-    // modal(true)
+  var listMedia = []
+  listMedia.push(["Id","Description","ProductUrl","BaseUrl","MimeType","Filename","CreationTime","Width","Height","Size"])
+                  
+  var startTime = new Date()
+  var msgCntr = 0
 
-    var params = {
-        "pageSize": 100,
-        "pageToken": null,
-        
-        "filters": {
-            "mediaTypeFilter": {
-                "mediaTypes": [
-                  'ALL_MEDIA'
-                ]
-            },
-            "dateFilter": {
-   
-            }
-        }
-    }
+  modal(true)
+
+  var params = {
+      "pageSize": 100,
+      "pageToken": null,
+      
+      "filters": {
+          "mediaTypeFilter": {
+              "mediaTypes": [
+                'ALL_MEDIA'
+              ]
+          },
+          "dateFilter": {
+
+          }
+      }
+  }
 
 
-// params.filters.mediaTypeFilter.mediaTypes = srchSpec.keywords
-params.filters.dateFilter = dateFilter
-console.log('params', params, srchSpec)
+  // params.filters.mediaTypeFilter.mediaTypes = srchSpec.keywords
+  params.filters.dateFilter = dateFilter
+  console.log('params', params, srchSpec)
 
-var mediaArr = []
+  var mediaArr = []
 
-// do {
+  do {
 
-//     let response = await searchPhotos(params)
-//     params.pageToken = response.result.nextPageToken
-//     console.log('response', response)
-//     let mediaItems = response.result.mediaItems
-//     mediaArr = mediaArr.concat(mediaItems)
-//     console.log('pageToken', params.pageToken , response.result.pageToken)
+    let response = await searchPhotos(params)
+    params.pageToken = response.result.nextPageToken
+    console.log('response', response)
+    let mediaItems = response.result.mediaItems
 
-// } while (params.pageToken)
+      if (!mediaItems || mediaItems.length == 0) {
+        postStatus("gds", "Error", 'No photos match the criteria given: <br><br>' + search, 'text-danger')
+        modal(false)
+        return
+      }
+              
+      postStatus("phs", "Selecting Gmails<br>" + search)
+      
+      for (var i=0; i<mediaItems.length; i++)    {
 
-// if (!mediaArr[0] || mediaArr.length == 0) {
-//     toast('There are no photos for this Trip', 5000)
-//     return }
+          let mediaItem = mediaItems[i]
 
-//     console.log('mediaArr', mediaArr)
+          listMedia.push([
+            mediaItem.id,
+            mediaItem.description,
+            mediaItem.productUrl,
+            mediaItem.baseUrl,
+            mediaItem.mimeType,
+            mediaItem.filename,
+            mediaItem.mediaMetadata.creationTime,
+            mediaItem.mediaMetadata.width,
+            mediaItem.mediaMetadata.height,
+            Math.round(mediaItem.mediaMetadata.width * mediaItem.mediaMetadata.height / 2**20)
 
-    
+          ])
 
+          console.log('progress', i, msgCntr,  parseInt(msgCntr * 1000*60 / (new Date() - startTime)))
+          
+          msgCntr ++
+          postStatus("phs", null, msgCntr)
 
-    do {
+      }
 
-      let response = await searchPhotos(params)
-      params.pageToken = response.result.nextPageToken
-      console.log('response', response)
-      let mediaItems = response.result.mediaItems
+      var responseAppend = await appendSheetRow(listMedia, shtTitle)
 
-        if (!mediaItems || mediaItems.length == 0) {
-          postStatus("gds", "Error", 'No photos match the criteria given: <br><br>' + search, 'text-danger')
-          modal(false)
-          return
-        }
-               
-        postStatus("phs", "Selecting Gmails<br>" + search)
-        
-        for (var i=0; i<mediaItems.length; i++)    {
+      listMedia = []
 
-            let mediaItem = mediaItems[i]
+  } while (params.pageToken)
 
-            listMedia.push([
-              mediaItem.id,
-              mediaItem.description,
-              mediaItem.productUrl,
-              mediaItem.baseUrl,
-              mediaItem.mimeType,
-              mediaItem.filename,
-              mediaItem.mediaMetadata.creationTime,
-              mediaItem.mediaMetadata.width,
-              mediaItem.mediaMetadata.height,
-              Math.round(mediaItem.mediaMetadata.width * mediaItem.mediaMetadata.height / 2**20)
+  console.log('run time', i, msgCntr,  parseInt((new Date() - startTime) / (1000*60)), parseInt((msgCntr * 1000*60) / (new Date() - startTime)))
 
-            ])
+  var msg = msgCntr + ' email threads selected<br>' + 
+            Math.round((new Date() - startTime) / (1000*60)) + ' minutes<br>' + 
+            Math.round((msgCntr * 1000*60) / (new Date() - startTime)) + ' emails per minute'
 
-            console.log('progress', i, msgCntr,  parseInt(msgCntr * 1000*60 / (new Date() - startTime)))
-            
-            msgCntr ++
-            postStatus("phs", null, msgCntr)
+  postStatus("phs", "Complete<br>" + search, msg)
 
-        }
+  var response = renameSheet(shtId, search)
 
-        var responseAppend = await appendSheetRow(listMedia, shtTitle)
-
-        listMedia = []
-
-    } while (params.pageToken)
-
-    console.log('run time', i, msgCntr,  parseInt((new Date() - startTime) / (1000*60)), parseInt((msgCntr * 1000*60) / (new Date() - startTime)))
-
-    var msg = msgCntr + ' email threads selected<br>' + 
-              Math.round((new Date() - startTime) / (1000*60)) + ' minutes<br>' + 
-              Math.round((msgCntr * 1000*60) / (new Date() - startTime)) + ' emails per minute'
-
-    postStatus("phs", "Complete<br>" + search, msg)
-
-    var response = renameSheet(shtId, search)
-
-    modal(false)
+  modal(false)
 
 }
 
