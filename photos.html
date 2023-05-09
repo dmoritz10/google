@@ -22,7 +22,7 @@
           </div>
         </nav>
       </div>
-  </div>
+    </div>
   
     <div class="tab-content mx-2">
       <div class="tab-pane fade active" id="phs-nav-select" role="tabpanel" aria-labelledby="ph-nav-select-tab">
@@ -79,47 +79,42 @@
       </div>
 
       <div class="tab-pane fade" id="phm-nav-manage" role="tabpanel" aria-labelledby="ph-nav-manage-tab">
-
-
-        <div id="phmContainer" class=" mt-0 pt-3 pb-4 px-2" style="background-color:#eeefef">
-          <div class="m-0 p-3 pb-0 mb-3 align-items-center border rounded d-none" style="background:white;">
-      
-              <div class="row">
-                <div class="col px-1">
-                  <div id="phmSheetName" class="text-success label  text-start h3 pb-0 align-middle "></div>
-                </div>
-      
-                <div class="col-1 px-0 align-right">
-                  <div class="align-center cursor-pointer" id="btnPhmmanage" data-toggle="tooltip" title="manage Gmails">
-                      <i class="material-icons" style="color:purple;">delete</i></div>
-                </div>
-      
-                <div class="col-1 mx-0 align-right">
-                    <div class="align-center cursor-pointer" id="btnPhmRemoveSheet" data-toggle="tooltip" title="Remove List">
-                      <i class="material-icons" style="color:black;">folder_delete</i></div>        
-                </div>
-      
-                <div class="col-1 me-2">
-                  <button id="btnPhmShowGmails" class="border-0 bg-transparent"><i
-                      class="material-icons">arrow_forward_ios</i></button>
-                </div>
-              </div>
-      
-              <div class="row">
-      
-                <div class="col-5 px-1">
-                  <div id="phmNbrGmails" class="text-success h4 pt-1"></div>
-                </div>
-      
-                <div class="col px-1 ">
-                  <div id="phmSheetDate" class="h6 pt-2 me-5 float-end"></div>
-                </div>
-                
-              </div>
-      
+        <div class="row m-1 p-0 pt-3">
+          <div class="col-8 px-1 text-start">
+            <label class="h5" for="photos-mediaTypeFilter-select">Media type:</label>
+            <select id="photos-mediaTypeFilter-select" class="text-success h5" style="float:right">
+                <option value="ALL_MEDIA">All media Types</option>
+                <option value="VIDEO">Videos only</option>
+                <option value="PHOTO">Photos only</option>
+            </select>
           </div>
-      
         </div>
+
+        <div class="row m-1 p-0 pt-3">
+          <div class="col-8 px-1 text-start">
+            <video  usemap="#workmap" src="https://lh3.googleusercontent.com/lr/AHRh2pajp5Gv9OVes_uXuboijruvLE6MjmvEqgCKTkBa6a1qLGCWu4RcMbXuaaRnd6c2kYDJUHtTjxbuU-T8TesCKEqGo_TYjW0cQmlYTgh0jyKIAMqTzpzIrFPwG_ki-KUDHPdfkYpktYTKc8Za83bjjDvGkauaXWX5GHXDHzvRy2a_NAUrwXsUd10PM-CTHMTK85-LABmzblmSfy2qjGTuLrAmVdYGPcKPyG6mJsgnHqaUWcxDrNFS3JbZjyGTYjvioua7G72I6M7E1msefnSjdfCIlXrkXbejT1iDz6rO2Ox6NChdc6oa809cNXqpgi5UG_AGdfEXjSZjxH5VJLHyxe8VVeNPSdZMAdusd0vaTHpuNlUebzQdOpLIec6sxCYG_SM_aPxahLHvdlpfYoj1_HJvA2UGOhbnmxgDBW0WMtCKWa5DZpgBVh-qOVRRWVEbB-Ozr16ubXPn6ODRB4W03EDZRPQklo6IjdJ7-65eCIc40uLXDNZ1ey9ifjo-yD-qsdDTp6dowGUG_K2Bxp1Fx3yfDtuG5m9lvfHsxlPWVSjCx53nVuDytLKeAfRXp1dUMB1HV46qT4du95DvZi9Yk3wsruXhlHBHVOcuzpMXmP9Vd4KQ5bHaDA9-bConkTzUpp_4FrQZgReBO4vQAqUAz60W-oX0uozYy3h0Tp5N_QJh1avvIishu3BIZ0P1_OsBiZO1oLpZYq7dYu8FORBOaGSZcPOLKgDFsT6yJUieNLs1cJQq0JRVPK9iFxWSphe_Ae6ItVfAd6Zq6t7_twZ4OhQjIvnmlP03AuCkjWL8y7ux_YcgIryVTIPCUrOHiUVanlODkFA0T680JNr-ZUiZK2MSxdzPjBU-EWGqLm6B8VikoodgEwhcSQ_KTUazVuxsznKpUAO_SozN4WivbbwRWfOCBS2Z_lk4iJ8O7FSAkxb3hkGGvhQEA8scpQiq9vfYaTZZaipkn778OFVIy_NNLpCzkmBk6xrBYg48_FZJZvuVM8zYQGnwd0NZ8e5z-UkTwD5LG8c1YRnV1NE=dv" autoplay="" loop="" poster="https://lh3.googleusercontent.com/lr/AHRh2pajp5Gv9OVes_uXuboijruvLE6MjmvEqgCKTkBa6a1qLGCWu4RcMbXuaaRnd6c2kYDJUHtTjxbuU-T8TesCKEqGo_TYjW0cQmlYTgh0jyKIAMqTzpzIrFPwG_ki-KUDHPdfkYpktYTKc8Za83bjjDvGkauaXWX5GHXDHzvRy2a_NAUrwXsUd10PM-CTHMTK85-LABmzblmSfy2qjGTuLrAmVdYGPcKPyG6mJsgnHqaUWcxDrNFS3JbZjyGTYjvioua7G72I6M7E1msefnSjdfCIlXrkXbejT1iDz6rO2Ox6NChdc6oa809cNXqpgi5UG_AGdfEXjSZjxH5VJLHyxe8VVeNPSdZMAdusd0vaTHpuNlUebzQdOpLIec6sxCYG_SM_aPxahLHvdlpfYoj1_HJvA2UGOhbnmxgDBW0WMtCKWa5DZpgBVh-qOVRRWVEbB-Ozr16ubXPn6ODRB4W03EDZRPQklo6IjdJ7-65eCIc40uLXDNZ1ey9ifjo-yD-qsdDTp6dowGUG_K2Bxp1Fx3yfDtuG5m9lvfHsxlPWVSjCx53nVuDytLKeAfRXp1dUMB1HV46qT4du95DvZi9Yk3wsruXhlHBHVOcuzpMXmP9Vd4KQ5bHaDA9-bConkTzUpp_4FrQZgReBO4vQAqUAz60W-oX0uozYy3h0Tp5N_QJh1avvIishu3BIZ0P1_OsBiZO1oLpZYq7dYu8FORBOaGSZcPOLKgDFsT6yJUieNLs1cJQq0JRVPK9iFxWSphe_Ae6ItVfAd6Zq6t7_twZ4OhQjIvnmlP03AuCkjWL8y7ux_YcgIryVTIPCUrOHiUVanlODkFA0T680JNr-ZUiZK2MSxdzPjBU-EWGqLm6B8VikoodgEwhcSQ_KTUazVuxsznKpUAO_SozN4WivbbwRWfOCBS2Z_lk4iJ8O7FSAkxb3hkGGvhQEA8scpQiq9vfYaTZZaipkn778OFVIy_NNLpCzkmBk6xrBYg48_FZJZvuVM8zYQGnwd0NZ8e5z-UkTwD5LG8c1YRnV1NE=d-no" class=""></video>
+            <map name="workmap">
+              <area shape="rect" coords="34,44,270,350" alt="Computer" href="https://photos.google.com/lr/photo/APKTQTY_oSV4c66MadLKy0FILr14ZiGW0EfS8kt2A1xuDWErZEjqI7jH5lcy1V4TRzEh-37EvF0Q83lt9TIWC7osSEFBXxBUkA">
+            </map>
+          
+          </div>
+        </div>
+        <div class=" m-1 pt-3">
+          <div class="row m-0 p-0 border-top border-bottom  bg-white">
+            <div id="phm-status" class="col h5 d-none p-2"></div>
+            <div id="phm-text"   class="col h5 d-none p-2"></div>
+          </div>
+        </div>
+
+        <div class="row m-1 pt-3">
+          <div class="col text-center">
+            <div class="btn-group" role="group">
+                <button id="phm-delete-list" type="button" class="btn btn-primary mx-1" >Delete List</button>
+              </div>
+          </div>
+        </div>
+
+
 
       </div>
 
