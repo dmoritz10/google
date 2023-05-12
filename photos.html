@@ -102,7 +102,14 @@
           </div>
         </div>
 
-       
+        
+        <div class="row m-1 p-0 pt-3">
+          <div class="col-8 px-1 text-start">
+            <button type="button" class="btn btn-primary" onclick="document.getElementById('phuChooseFile').click()">Select Photos</button>
+            <input multiple id="phuChooseFile" class="form-control d-none" onchange="uploadPhotos(this)" type="file"  name="phuChooseFile">
+          </div>
+        </div>
+        
         <div class=" m-1 pt-3">
           <div class="row m-0 p-0 border-top border-bottom  bg-white">
             <div id="phm-status" class="col h5 d-none p-2"></div>
@@ -114,6 +121,7 @@
           <div class="col text-center">
             <div class="btn-group" role="group">
                 <button id="phm-delete-list" type="button" class="btn btn-primary mx-1" >Delete List</button>
+                <button id="phu-upload-files" onclick="uploadPhotos" type="button" class="btn btn-primary mx-1" >Upload Files</button>
               </div>
           </div>
         </div>

@@ -475,3 +475,58 @@ function makeDateFilterObj(strDt, endDt) {
 
 }
 
+async function uploadPhotos(photoFiles) {
+
+  let accessToken = await Goth.token()
+
+  const obj = {
+    files: photoFiles.files,
+    albumId: "AF1QipMNdgx8nBZvMbeKw3KAWAqk_ncilmFxyTsHKQE_v1IvHeMl_AqB02Blk2Jhwa0LHg", // Please set the album ID.
+    accessToken: accessToken, // Please set your access token.
+  };
+  upload(obj)
+    .then((e) => console.log(e))
+    .catch((err) => console.log(err));
+
+}
+
+function upload({ files, albumId, accessToken }) {
+  const description = new Date().toISOString();
+  const promises = Array.from(files).map((file) => {
+    return new Promise((r) => {
+      axios
+        .post("https://photoslibrary.googleapis.com/v1/uploads", file, {
+          headers: {
+            "Content-Type": "application/octet-stream",
+            "X-Goog-Upload-File-Name": file.name,
+            "X-Goog-Upload-Protocol": "raw",
+            Authorization: `Bearer ${accessToken}`,
+          },
+        })
+        .then(({ data }) => {
+          r({
+            description: description,
+            simpleMediaItem: { fileName: file.name, uploadToken: data },
+          });
+        });
+    });
+  });
+  return Promise.all(promises).then((e) => {
+    return new Promise((resolve, reject) => {
+      console.log(e);
+      axios
+        .post(
+          "https://photoslibrary.googleapis.com/v1/mediaItems:batchCreate",
+          JSON.stringify({ albumId: albumId, newMediaItems: e }),
+          {
+            headers: {
+              "Content-type": "application/json",
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        )
+        .then(resolve)
+        .catch(reject);
+    });
+  });
+}
