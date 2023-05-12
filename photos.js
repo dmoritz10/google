@@ -501,6 +501,7 @@ function upload({ files, albumId, accessToken }) {
             "X-Goog-Upload-File-Name": file.name,
             "X-Goog-Upload-Protocol": "raw",
             Authorization: `Bearer ${accessToken}`,
+            "Access-Control-Allow-Origin": "*"
           },
         })
         .then(({ data }) => {
@@ -522,6 +523,7 @@ function upload({ files, albumId, accessToken }) {
             headers: {
               "Content-type": "application/json",
               Authorization: `Bearer ${accessToken}`,
+              "Access-Control-Allow-Origin": "*"
             },
           }
         )
