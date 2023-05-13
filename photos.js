@@ -504,7 +504,8 @@ function upload({ files, albumId, accessToken }) {
           "X-Goog-Upload-Protocol": "raw",
           Authorization: `Bearer ${accessToken}`,
           "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Headers": "Content-Type"
+          "Access-Control-Allow-Headers": "Content-Type",
+          "mode": "no-cors"
 
         },
         body: file, // string, FormData, Blob, BufferSource, or URLSearchParams
