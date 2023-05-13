@@ -492,7 +492,7 @@ async function uploadPhotos(photoFiles) {
 
 }
 
-function upload({ files, albumId, accessToken }) {
+function uploadxxxx({ files, albumId, accessToken }) {
   const description = 'test upload';
   const promises = Array.from(files).map((file) => {
     return new Promise((r) => {
