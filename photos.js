@@ -500,10 +500,29 @@ async function uploadPhotos(photoFiles) {
 async function postData(obj) {
   // Default options are marked with *
 
+  const file = obj.files[0];
+const reader = new FileReader();
+reader.onloadend = function() {
+  const base64Data = reader.result.split(',')[1]; // Extract the base64-encoded file data
+
+  const requestBody = {
+    newMediaItems: [
+      {
+        description: 'Sample description',
+        simpleMediaItem: {
+          uploadToken: base64Data
+        }
+      }
+    ]
+  };
+
   gapi.client.request({
-    path: 'https://photoslibrary.googleapis.com/v1/uploads',
+    path: 'https://photoslibrary.googleapis.com/v1/mediaItems:batchCreate',
     method: 'POST',
-    body: obj.files[0],
+    body: JSON.stringify(requestBody),
+    headers: {
+      'Content-Type': 'application/json'
+    },
   }).then(function(response) {
     // Handle the response
     console.log(response);
@@ -511,7 +530,9 @@ async function postData(obj) {
     // Handle error
     console.error(error);
   });
-  
+};
+
+reader.readAsDataURL(file);
   
   
 
