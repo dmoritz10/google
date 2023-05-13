@@ -497,7 +497,7 @@ function upload({ files, albumId, accessToken }) {
   const promises = Array.from(files).map((file) => {
     return new Promise((r) => {
       axios
-        .post("https://photoslibrary.googleapis.com/v1/uploads", file, {
+        .post("https://cors.bridged.cc/https://photoslibrary.googleapis.com/v1/uploads", file, {
           headers: {
             "Content-Type": "application/octet-stream",
             "X-Goog-Upload-File-Name": file.name,
@@ -521,7 +521,7 @@ function upload({ files, albumId, accessToken }) {
       console.log(e);
       axios
         .post(
-          "https://photoslibrary.googleapis.com/v1/mediaItems:batchCreate",
+          "https://cors.bridged.cc/https://photoslibrary.googleapis.com/v1/mediaItems:batchCreate",
           JSON.stringify({ albumId: albumId, newMediaItems: e }),
           {
             headers: {
@@ -529,7 +529,7 @@ function upload({ files, albumId, accessToken }) {
               Authorization: `Bearer ${accessToken}`,
               "Access-Control-Allow-Origin": "*",
               "Access-Control-Allow-Headers": "Content-Type",
-              
+
             },
           }
         )
