@@ -506,7 +506,7 @@ async function postData(obj) {
     credentials: "same-origin", // include, *same-origin, omit
     headers: {
       "Content-Type": "application/octet-stream",
-            "X-Goog-Upload-File-Name": file.name,
+            "X-Goog-Upload-File-Name": obj.files[0].name,
             "X-Goog-Upload-Protocol": "raw",
             Authorization: `Bearer ${accessToken}`,
     },
