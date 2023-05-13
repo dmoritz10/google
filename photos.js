@@ -508,7 +508,7 @@ async function postData(obj) {
             "Content-Type": "application/octet-stream",
             "X-Goog-Upload-File-Name": obj.files[0].name,
             "X-Goog-Upload-Protocol": "raw",
-            Authorization: `Bearer ${obj.accessToken}`,
+            "Authorization": `Bearer ${obj.accessToken}`,
     },
     body: obj.files[0], // body data type must match "Content-Type" header
   })
