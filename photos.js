@@ -500,24 +500,37 @@ async function uploadPhotos(photoFiles) {
 async function postData(obj) {
   // Default options are marked with *
 
+  gapi.client.request({
+    path: 'https://photoslibrary.googleapis.com/v1/albums',
+    method: 'GET',
+  }).then(function(response) {
+    // Handle the response
+    console.log(response);
+  }).catch(function(error) {
+    // Handle error
+    console.error(error);
+  });
   
-  const response = await fetch("https://photoslibrary.googleapis.com/v1/albums", {
-    method: "GET", // *GET, POST, PUT, DELETE, etc.
-    mode: "no-cors", // no-cors, *cors, same-origin
-    cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-    credentials: "same-origin", // include, *same-origin, omit
-    headers: {
-            "Access-Control-Allow-Headers": "Content-Type,X-Goog-Upload-File-Name,X-Goog-Upload-Protocol,Authorization",
-            "Content-Type": "application/octet-stream",
-            "X-Goog-Upload-File-Name": obj.files[0].name,
-            "X-Goog-Upload-Protocol": "raw",
-            "Authorization": `Bearer ${obj.accessToken}`,
-    },
-    // body: obj.files[0], // body data type must match "Content-Type" header
-  })
-  console.log('response', response)
+  
+  
 
-  return response.json(); // parses JSON response into native JavaScript objects
+  // const response = await fetch("https://photoslibrary.googleapis.com/v1/albums", {
+  //   method: "GET", // *GET, POST, PUT, DELETE, etc.
+  //   mode: "no-cors", // no-cors, *cors, same-origin
+  //   cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+  //   credentials: "same-origin", // include, *same-origin, omit
+  //   headers: {
+  //           "Access-Control-Allow-Headers": "Content-Type,X-Goog-Upload-File-Name,X-Goog-Upload-Protocol,Authorization",
+  //           "Content-Type": "application/octet-stream",
+  //           "X-Goog-Upload-File-Name": obj.files[0].name,
+  //           "X-Goog-Upload-Protocol": "raw",
+  //           "Authorization": `Bearer ${obj.accessToken}`,
+  //   },
+  //   // body: obj.files[0], // body data type must match "Content-Type" header
+  // })
+  // console.log('response', response)
+
+  // return response.json(); // parses JSON response into native JavaScript objects
 }
 
 
