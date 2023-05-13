@@ -501,41 +501,52 @@ async function postData(obj) {
   // Default options are marked with *
 
   const file = obj.files[0];
-const reader = new FileReader();
-reader.onloadend = function() {
-  const base64Data = reader.result.split(',')[1]; // Extract the base64-encoded file data
-
-  const requestBody = {
-    newMediaItems: [
-      {
-        description: 'Sample description',
-        simpleMediaItem: {
-          uploadToken: base64Data
-        }
-      }
-    ]
+  const reader = new FileReader();
+  reader.onloadend = function() {
+    const base64Data = reader.result.split(',')[1]; // Extract the base64-encoded file data
+  
+    gapi.client.request({
+      path: 'https://photoslibrary.googleapis.com/v1/uploads',
+      method: 'POST',
+      body: base64Data,
+      headers: {
+        'Content-Type': 'application/octet-stream',
+      },
+    }).then(function(response) {
+      const uploadToken = response.result; // Obtain the upload token from the response
+  
+      const requestBody = {
+        newMediaItems: [
+          {
+            description: 'Sample description',
+            simpleMediaItem: {
+              uploadToken: uploadToken,
+            },
+          },
+        ],
+      };
+  
+      gapi.client.request({
+        path: 'https://photoslibrary.googleapis.com/v1/mediaItems:batchCreate',
+        method: 'POST',
+        body: JSON.stringify(requestBody),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }).then(function(response) {
+        // Handle the response
+        console.log(response);
+      }).catch(function(error) {
+        // Handle error
+        console.error(error);
+      });
+    }).catch(function(error) {
+      // Handle error
+      console.error(error);
+    });
   };
-
-  gapi.client.request({
-    path: 'https://photoslibrary.googleapis.com/v1/mediaItems:batchCreate',
-    method: 'POST',
-    body: JSON.stringify(requestBody),
-    headers: {
-      'Content-Type': 'application/json'
-    },
-  }).then(function(response) {
-    // Handle the response
-    console.log(response);
-  }).catch(function(error) {
-    // Handle error
-    console.error(error);
-  });
-};
-
-reader.readAsDataURL(file);
   
-  
-
+  reader.readAsDataURL(file);
   // const response = await fetch("https://photoslibrary.googleapis.com/v1/albums", {
   //   method: "GET", // *GET, POST, PUT, DELETE, etc.
   //   mode: "no-cors", // no-cors, *cors, same-origin
