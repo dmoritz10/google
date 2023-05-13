@@ -477,7 +477,7 @@ function makeDateFilterObj(strDt, endDt) {
 
 async function uploadPhotos(photoFiles) {
 
-  let accessToken = await Goth.accessToken()
+  let accessToken = Goth.accessToken()
 
   console.log('accessToken', accessToken)
 
