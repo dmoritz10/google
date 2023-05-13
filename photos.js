@@ -501,7 +501,7 @@ async function postData(obj) {
   // Default options are marked with *
 
   gapi.client.request({
-    path: 'https://photoslibrary.googleapis.com/v1/upload',
+    path: 'https://photoslibrary.googleapis.com/v1/uploads',
     method: 'POST',
     body: obj.files[0],
   }).then(function(response) {
