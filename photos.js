@@ -525,7 +525,7 @@ function upload({ files, albumId, accessToken }) {
   });
 }
 
-function uploadAxios({ files, albumId, accessToken }) {
+function upload({ files, albumId, accessToken }) {
   const description = 'test upload';
   const promises = Array.from(files).map((file) => {
     return new Promise((r) => {
@@ -540,6 +540,7 @@ function uploadAxios({ files, albumId, accessToken }) {
             "Access-Control-Allow-Headers": "Content-Type"
 
           },
+          mode: "no-cors"
         })
         .then(({ data }) => {
           console.log('r', r)
@@ -565,6 +566,7 @@ function uploadAxios({ files, albumId, accessToken }) {
               "Access-Control-Allow-Headers": "Content-Type",
               
             },
+            mode: "no-cors"
           }
         )
         .then(resolve)
