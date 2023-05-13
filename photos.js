@@ -479,6 +479,8 @@ async function uploadPhotos(photoFiles) {
 
   let accessToken = await Goth.token()
 
+  console.log('accessToken', accessToken)
+
   const obj = {
     files: photoFiles.files,
     albumId: "AF1QipMNdgx8nBZvMbeKw3KAWAqk_ncilmFxyTsHKQE_v1IvHeMl_AqB02Blk2Jhwa0LHg", // Please set the album ID.
