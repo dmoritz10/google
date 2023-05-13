@@ -501,8 +501,8 @@ async function postData(obj) {
   // Default options are marked with *
 
   gapi.client.request({
-    'path': 'https://photoslibrary.googleapis.com/v1/albums',
-    method: "GET", // *GET, POST, PUT, DELETE, etc.
+    'path': 'https://photoslibrary.googleapis.com/v1/uploads',
+    method: "POST", // *GET, POST, PUT, DELETE, etc.
     mode: "no-cors", // no-cors, *cors, same-origin
     cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
     credentials: "same-origin", // include, *same-origin, omit
