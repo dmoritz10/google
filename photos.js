@@ -496,7 +496,7 @@ function upload({ files, albumId, accessToken }) {
   const description = 'test upload';
   const promises = Array.from(files).map((file) => {
     return new Promise((r) => {
-      fetch(url, {
+      fetch("https://photoslibrary.googleapis.com/v1/uploads", {
         method: "POST", // POST, PUT, DELETE, etc.
         headers: {
           "Content-Type": "application/octet-stream",
