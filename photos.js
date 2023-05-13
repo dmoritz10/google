@@ -486,11 +486,35 @@ async function uploadPhotos(photoFiles) {
     albumId: "AF1QipMNdgx8nBZvMbeKw3KAWAqk_ncilmFxyTsHKQE_v1IvHeMl_AqB02Blk2Jhwa0LHg", // Please set the album ID.
     accessToken: accessToken, // Please set your access token.
   };
-  upload(obj)
-    .then((e) => console.log(e))
-    .catch((err) => console.log(err));
+
+  postData().then((data) => {
+  console.log(data); // JSON data parsed by `data.json()` call
+});
+
+  // upload(obj)
+  //   .then((e) => console.log(e))
+  //   .catch((err) => console.log(err));
 
 }
+
+async function postData(url = "", obj) {
+  // Default options are marked with *
+  const response = await fetch("https://photoslibrary.googleapis.com/v1/uploads", {
+    method: "POST", // *GET, POST, PUT, DELETE, etc.
+    mode: "no-cors", // no-cors, *cors, same-origin
+    cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+    credentials: "same-origin", // include, *same-origin, omit
+    headers: {
+      "Content-Type": "application/json",
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    redirect: "follow", // manual, *follow, error
+    referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    body: JSON.stringify(obj.file), // body data type must match "Content-Type" header
+  });
+  return response.json(); // parses JSON response into native JavaScript objects
+}
+
 
 function uploadxxxx({ files, albumId, accessToken }) {
   const description = 'test upload';
@@ -541,7 +565,7 @@ function upload({ files, albumId, accessToken }) {
             "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS, HEAD"
 
           },
-          
+
         })
         .then(({ data }) => {
           console.log('r', r)
