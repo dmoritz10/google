@@ -487,7 +487,7 @@ async function uploadPhotos(photoFiles) {
     accessToken: accessToken, // Please set your access token.
   };
 
-  postData().then((data) => {
+  postData(obj).then((data) => {
   console.log(data); // JSON data parsed by `data.json()` call
 });
 
@@ -497,7 +497,7 @@ async function uploadPhotos(photoFiles) {
 
 }
 
-async function postData(url = "", obj) {
+async function postData(obj) {
   // Default options are marked with *
   const response = await fetch("https://photoslibrary.googleapis.com/v1/uploads", {
     method: "POST", // *GET, POST, PUT, DELETE, etc.
