@@ -493,7 +493,39 @@ async function uploadPhotos(photoFiles) {
 }
 
 function upload({ files, albumId, accessToken }) {
-  const description = new Date().toISOString();
+  const description = 'test upload';
+  const promises = Array.from(files).map((file) => {
+    return new Promise((r) => {
+      fetch(url, {
+        method: "POST", // POST, PUT, DELETE, etc.
+        headers: {
+          "Content-Type": "application/octet-stream",
+          "X-Goog-Upload-File-Name": file.name,
+          "X-Goog-Upload-Protocol": "raw",
+          Authorization: `Bearer ${accessToken}`,
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Headers": "Content-Type"
+
+        },
+        body: file, // string, FormData, Blob, BufferSource, or URLSearchParams
+        referrer: "", // or "" to send no Referer header,
+        // or an url from the current origin
+        referrerPolicy: "no-referrer", // no-referrer-when-downgrade, no-referrer, origin, same-origin...
+        
+      })
+        .then(({ data }) => {
+          console.log('r', r)
+          r({
+            description: description,
+            simpleMediaItem: { fileName: file.name, uploadToken: data },
+          });
+        });
+    });
+  });
+}
+
+function uploadAxios({ files, albumId, accessToken }) {
+  const description = 'test upload';
   const promises = Array.from(files).map((file) => {
     return new Promise((r) => {
       axios
