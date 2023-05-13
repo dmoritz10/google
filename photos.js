@@ -531,7 +531,7 @@ async function postData(obj) {
         method: 'POST',
         body: obj.files[0],
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/octet-stream',
         },
       }).then(function(response) {
         // Handle the response
