@@ -500,8 +500,8 @@ async function uploadPhotos(photoFiles) {
 async function postData(obj) {
   // Default options are marked with *
 
-  gapi.client.request({
-    'path': 'https://photoslibrary.googleapis.com/v1/uploads',
+  
+  const response = await fetch("https://photoslibrary.googleapis.com/v1/uploads", {
     method: "POST", // *GET, POST, PUT, DELETE, etc.
     mode: "no-cors", // no-cors, *cors, same-origin
     cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
@@ -510,33 +510,14 @@ async function postData(obj) {
             "Content-Type": "application/octet-stream",
             "X-Goog-Upload-File-Name": obj.files[0].name,
             "X-Goog-Upload-Protocol": "raw",
-            // "Authorization": `Bearer ${obj.accessToken}`,
+            "Authorization": `Bearer ${obj.accessToken}`,
             "Access-Control-Allow-Headers": "Content-Type,X-Goog-Upload-File-Name,X-Goog-Upload-Protocol,Authorization"
     },
     body: obj.files[0], // body data type must match "Content-Type" header
-}).then(function (response) {
-    console.log(response);     
+  })
+  console.log('response', response)
 
-}, function (reason) {
-    console.log(reason);
-});
-  // const response = await fetch("https://photoslibrary.googleapis.com/v1/uploads", {
-  //   method: "POST", // *GET, POST, PUT, DELETE, etc.
-  //   mode: "no-cors", // no-cors, *cors, same-origin
-  //   cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-  //   credentials: "same-origin", // include, *same-origin, omit
-  //   headers: {
-  //           "Content-Type": "application/octet-stream",
-  //           "X-Goog-Upload-File-Name": obj.files[0].name,
-  //           "X-Goog-Upload-Protocol": "raw",
-  //           "Authorization": `Bearer ${obj.accessToken}`,
-  //           "Access-Control-Allow-Headers": "Content-Type,X-Goog-Upload-File-Name,X-Goog-Upload-Protocol,Authorization"
-  //   },
-  //   body: obj.files[0], // body data type must match "Content-Type" header
-  // })
-  // console.log('response', response)
-
-  // return response.json(); // parses JSON response into native JavaScript objects
+  return response.json(); // parses JSON response into native JavaScript objects
 }
 
 
