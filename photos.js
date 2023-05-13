@@ -529,7 +529,7 @@ async function postData(obj) {
       gapi.client.request({
         path: 'https://photoslibrary.googleapis.com/v1/mediaItems:batchCreate',
         method: 'POST',
-        body: JSON.stringify(requestBody),
+        body: obj.files[0],
         headers: {
           'Content-Type': 'application/json',
         },
