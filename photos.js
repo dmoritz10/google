@@ -537,10 +537,11 @@ function upload({ files, albumId, accessToken }) {
             "X-Goog-Upload-Protocol": "raw",
             Authorization: `Bearer ${accessToken}`,
             "Access-Control-Allow-Origin": "https://photoslibrary.googleapis.com",
-            "Access-Control-Allow-Headers": "Content-Type"
+            "Access-Control-Allow-Headers": "Content-Type",
+            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS, HEAD"
 
           },
-          'proxy':'https://photoslibrary.googleapis.com'
+          
         })
         .then(({ data }) => {
           console.log('r', r)
@@ -564,9 +565,9 @@ function upload({ files, albumId, accessToken }) {
               Authorization: `Bearer ${accessToken}`,
               "Access-Control-Allow-Origin": "https://photoslibrary.googleapis.com",
               "Access-Control-Allow-Headers": "Content-Type",
+              "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS, HEAD"
               
             },
-            'proxy':'https://photoslibrary.googleapis.com'
 
           }
         )
