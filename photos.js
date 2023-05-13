@@ -508,7 +508,7 @@ reader.onloadend = function() {
   gapi.client.request({
     path: 'https://photoslibrary.googleapis.com/v1/uploads',
     method: 'POST',
-    body: obj.files[0],
+    body: base64Data,
     headers: {
       'Content-Type': 'application/octet-stream',
     },
@@ -529,7 +529,7 @@ reader.onloadend = function() {
     gapi.client.request({
       path: 'https://photoslibrary.googleapis.com/v1/mediaItems:batchCreate',
       method: 'POST',
-      body: obj.files[0],
+      body: JSON.stringify(requestBody),
       headers: {
         'Content-Type': 'application/octet-stream',
       },
