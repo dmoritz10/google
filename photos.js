@@ -525,7 +525,7 @@ function upload({ files, albumId, accessToken }) {
           JSON.stringify({ albumId: albumId, newMediaItems: e }),
           {
             headers: {
-              "Content-type": "application/json",
+              "Content-type": "text/plain",
               Authorization: `Bearer ${accessToken}`,
               "Access-Control-Allow-Origin": "*",
 
