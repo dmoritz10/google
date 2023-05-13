@@ -528,9 +528,6 @@ function upload({ files, albumId, accessToken }) {
               "Content-type": "application/json",
               Authorization: `Bearer ${accessToken}`,
               "Access-Control-Allow-Origin": "*",
-              "Referrer-Policy": "no-referrer",
-              "Access-Control-Allow-Origin": "*",
-              "Access-Control-Allow-Headers": "Content-Type"
 
             },
           }
