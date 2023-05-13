@@ -502,7 +502,7 @@ function upload({ files, albumId, accessToken }) {
           "Content-Type": "application/octet-stream",
           "X-Goog-Upload-File-Name": file.name,
           "X-Goog-Upload-Protocol": "raw",
-          Authorization: `Bearer ${accessToken}`,
+          "Authorization": `Bearer ${accessToken}`,
           // "Access-Control-Allow-Origin": "*",
           // "Access-Control-Allow-Headers": "Content-Type",
           
