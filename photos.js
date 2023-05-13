@@ -533,6 +533,7 @@ reader.onloadend = function() {
       headers: {
         'Content-Type': 'application/octet-stream',
       },
+      
     }).then(function(response) {
       // Handle the response
       console.log(response);
