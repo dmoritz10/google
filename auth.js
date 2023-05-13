@@ -84,6 +84,8 @@ async function runApp() {
 
   user = Goth.user()
 
+  console.log('user', user)
+
   var rtn = await getSSId(SS);
 
   if (rtn.fileId) {spreadsheetId = rtn.fileId}
