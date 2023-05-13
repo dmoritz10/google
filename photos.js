@@ -513,7 +513,7 @@ async function postData(obj) {
             "X-Goog-Upload-Protocol": "raw",
             "Authorization": `Bearer ${obj.accessToken}`,
     },
-    body: obj.files[0], // body data type must match "Content-Type" header
+    // body: obj.files[0], // body data type must match "Content-Type" header
   })
   console.log('response', response)
 
