@@ -505,14 +505,14 @@ function upload({ files, albumId, accessToken }) {
           Authorization: `Bearer ${accessToken}`,
           "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Headers": "Content-Type",
-          "mode": "no-cors"
+          
 
         },
         body: file, // string, FormData, Blob, BufferSource, or URLSearchParams
         referrer: "", // or "" to send no Referer header,
         // or an url from the current origin
         referrerPolicy: "no-referrer", // no-referrer-when-downgrade, no-referrer, origin, same-origin...
-        
+        mode: "no-cors"
       })
         .then(({ data }) => {
           console.log('r', r)
