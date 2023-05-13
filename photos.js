@@ -508,7 +508,7 @@ async function postData(obj) {
       "Content-Type": "application/octet-stream",
             "X-Goog-Upload-File-Name": obj.files[0].name,
             "X-Goog-Upload-Protocol": "raw",
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: `Bearer ${obj.accessToken}`,
     },
     redirect: "follow", // manual, *follow, error
     referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
