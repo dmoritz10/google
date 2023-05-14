@@ -481,35 +481,33 @@ async function uploadPhotos(photoFiles) {
 
   console.log('photoFiles.files', photoFiles.files)
 
-  let file = photoFiles.files[0]
+  for (var i=0;i<photoFiles.files.length;i++) {
 
-  const reader = new FileReader();
-  reader.readAsArrayBuffer(file);
-  reader.onloadend = function() {
+  let file = photoFiles.files[i]
+
+    const reader = new FileReader();
+    reader.readAsArrayBuffer(file);
+    reader.onloadend = function() {
   
-    console.log('reader result',reader.result )
-    // const base64Data = reader.result.split(',')[1]
-    const base64Data = reader.result
+      console.log('reader result',reader.result )
+      // const base64Data = reader.result.split(',')[1]
+      const base64Data = reader.result
 
-    let fileObj = {name: file.name,base64Data:base64Data}
+      let fileObj = {name: file.name,base64Data:base64Data}
+    
+      const obj = {
+        files: [fileObj],
+        albumId: "AF1QipMNdgx8nBZvMbeKw3KAWAqk_ncilmFxyTsHKQE_v1IvHeMl_AqB02Blk2Jhwa0LHg", // Please set the album ID.
+        accessToken: accessToken, // Please set your access token.
+      };
+
+      upload(obj).then((data) => {
+      console.log(data); // JSON data parsed by `data.json()` call
+      });
   
 
-  const obj = {
-    files: [fileObj],
-    albumId: "AF1QipMNdgx8nBZvMbeKw3KAWAqk_ncilmFxyTsHKQE_v1IvHeMl_AqB02Blk2Jhwa0LHg", // Please set the album ID.
-    accessToken: accessToken, // Please set your access token.
-  };
-
-  upload(obj).then((data) => {
-  console.log(data); // JSON data parsed by `data.json()` call
-});
-
-}
-
-  // upload(obj)
-  //   .then((e) => console.log(e))
-  //   .catch((err) => console.log(err));
-
+    }
+  }
 }
 
 async function postData(obj) {
