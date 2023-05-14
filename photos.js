@@ -664,9 +664,9 @@ function upload({ files, albumId, accessToken }) {
             headers: {
               "Content-type": "application/json",
               Authorization: `Bearer ${accessToken}`,
-              "Access-Control-Allow-Origin": "https://photoslibrary.googleapis.com",
-              "Access-Control-Allow-Headers": "Content-Type",
-              "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS, HEAD"
+              // "Access-Control-Allow-Origin": "https://photoslibrary.googleapis.com",
+              // "Access-Control-Allow-Headers": "Content-Type",
+              // "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS, HEAD"
               
             },
 
