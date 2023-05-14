@@ -654,26 +654,12 @@ function upload({ files, albumId, accessToken }) {
     });
   });
   return Promise.all(promises).then((e) => {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
       console.log(e);
-      axios
-        .post(
-          "https://photoslibrary.googleapis.com/v1/mediaItems:batchCreate",
-          JSON.stringify({ newMediaItems: e }),
-          {
-            headers: {
-              "Content-type": "application/json",
-              Authorization: `Bearer ${accessToken}`,
-              // "Access-Control-Allow-Origin": "https://photoslibrary.googleapis.com",
-              // "Access-Control-Allow-Headers": "Content-Type",
-              // "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS, HEAD"
-              
-            },
 
-          }
-        )
-        .then(resolve)
-        .catch(reject);
+      let params = JSON.stringify({ newMediaItems: e })
+      var x = await createPhotos(params)
+        console.log('x', x)
     });
   });
 }
