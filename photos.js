@@ -521,7 +521,9 @@ reader.onloadend = function() {
           },
 
         }).then(function(response) {
-    const uploadToken = response.result; // Obtain the upload token from the response
+
+          console.log('axios', response)
+    const uploadToken = response.data; // Obtain the upload token from the response
 
     const requestBody = {
       newMediaItems: [
