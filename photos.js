@@ -479,7 +479,8 @@ async function uploadPhotos(photoFiles) {
 
   let accessToken = Goth.accessToken()
 
-  console.log('accessToken', accessToken)
+  console.log('photoFiles', photoFiles)
+  
 
   let file = photoFiles[0]
 
@@ -626,6 +627,8 @@ function uploadxxxx({ files, albumId, accessToken }) {
 }
 
 function upload({ files, albumId, accessToken }) {
+
+  console.log('upload files', files)
   const description = 'test upload';
   const promises = Array.from(files).map((file) => {
     return new Promise((r) => {
