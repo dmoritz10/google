@@ -479,10 +479,9 @@ async function uploadPhotos(photoFiles) {
 
   let accessToken = Goth.accessToken()
 
-  console.log('photoFiles', photoFiles)
-  
+  console.log('photoFiles.files', photoFiles.files)
 
-  let file = photoFiles[0]
+  let file = photoFiles.files[0]
 
   const reader = new FileReader();
   reader.readAsDataURL(file);
@@ -495,7 +494,7 @@ async function uploadPhotos(photoFiles) {
   
 
   const obj = {
-    files: fileObj,
+    files: photoFiles.files,
     albumId: "AF1QipMNdgx8nBZvMbeKw3KAWAqk_ncilmFxyTsHKQE_v1IvHeMl_AqB02Blk2Jhwa0LHg", // Please set the album ID.
     accessToken: accessToken, // Please set your access token.
   };
@@ -627,8 +626,7 @@ function uploadxxxx({ files, albumId, accessToken }) {
 }
 
 function upload({ files, albumId, accessToken }) {
-
-  console.log('upload files', files)
+  console.log('files', files)
   const description = 'test upload';
   const promises = Array.from(files).map((file) => {
     return new Promise((r) => {
