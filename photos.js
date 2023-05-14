@@ -513,7 +513,7 @@ reader.onloadend = function() {
             "Content-Type": "application/octet-stream",
             "X-Goog-Upload-File-Name": file.name,
             "X-Goog-Upload-Protocol": "raw",
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: `Bearer ${obj.accessToken}`,
             "Access-Control-Allow-Origin": "https://photoslibrary.googleapis.com",
             "Access-Control-Allow-Headers": "Content-Type",
             "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS, HEAD"
