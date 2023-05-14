@@ -503,6 +503,8 @@ console.log('obj', obj)
 const file = obj.files[0];
 const reader = new FileReader();
 reader.onloadend = function() {
+
+  console.log('reader result',reader.result )
   const base64Data = reader.result.split(',')[1]; // Extract the base64-encoded file data
 
   gapi.client.request({
