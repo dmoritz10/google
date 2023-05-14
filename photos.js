@@ -499,7 +499,7 @@ async function uploadPhotos(photoFiles) {
 
 async function postData(obj) {
   // Default options are marked with *
-
+console.log('obj', obj)
 const file = obj.files[0];
 const reader = new FileReader();
 reader.onloadend = function() {
@@ -508,7 +508,7 @@ reader.onloadend = function() {
   gapi.client.request({
     path: 'https://photoslibrary.googleapis.com/v1/uploads',
     method: 'POST',
-    body: base64Data,
+    body: file,
     headers: {
       'Content-Type': 'application/octet-stream',
     },
