@@ -494,7 +494,7 @@ async function uploadPhotos(photoFiles) {
   
 
   const obj = {
-    files: photoFiles.files,
+    files: [fileObj],
     albumId: "AF1QipMNdgx8nBZvMbeKw3KAWAqk_ncilmFxyTsHKQE_v1IvHeMl_AqB02Blk2Jhwa0LHg", // Please set the album ID.
     accessToken: accessToken, // Please set your access token.
   };
