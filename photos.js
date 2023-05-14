@@ -488,7 +488,8 @@ async function uploadPhotos(photoFiles) {
   reader.onloadend = function() {
   
     console.log('reader result',reader.result )
-    const base64Data = reader.result.split(',')[1]
+    // const base64Data = reader.result.split(',')[1]
+    const base64Data = reader.result
 
     let fileObj = {name: file.name,base64Data:base64Data}
   
