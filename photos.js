@@ -657,7 +657,7 @@ function upload({ files, albumId, accessToken }) {
     return new Promise(async (resolve, reject) => {
       console.log(e);
 
-      let params = { newMediaItems: e }
+      let params = JSON.stringify({ newMediaItems: e })
       var x = await createPhotos(params)
         console.log('x', x)
     });
