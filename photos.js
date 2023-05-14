@@ -481,15 +481,29 @@ async function uploadPhotos(photoFiles) {
 
   console.log('accessToken', accessToken)
 
+  let file = photoFiles[0]
+
+  const reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onloadend = function() {
+  
+    console.log('reader result',reader.result )
+    const base64Data = reader.result.split(',')[1]
+
+    let fileObj = {name: file.name,base64Data:base64Data}
+  
+
   const obj = {
-    files: photoFiles.files,
+    files: fileObj,
     albumId: "AF1QipMNdgx8nBZvMbeKw3KAWAqk_ncilmFxyTsHKQE_v1IvHeMl_AqB02Blk2Jhwa0LHg", // Please set the album ID.
     accessToken: accessToken, // Please set your access token.
   };
 
-  postData(obj).then((data) => {
+  upload(obj).then((data) => {
   console.log(data); // JSON data parsed by `data.json()` call
 });
+
+}
 
   // upload(obj)
   //   .then((e) => console.log(e))
@@ -616,7 +630,7 @@ function upload({ files, albumId, accessToken }) {
   const promises = Array.from(files).map((file) => {
     return new Promise((r) => {
       axios
-        .post("https://photoslibrary.googleapis.com/v1/uploads", file, {
+        .post("https://photoslibrary.googleapis.com/v1/uploads", file.base64Data, {
           headers: {
             "Content-Type": "application/octet-stream",
             "X-Goog-Upload-File-Name": file.name,
