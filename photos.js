@@ -659,7 +659,7 @@ function upload({ files, albumId, accessToken }) {
       axios
         .post(
           "https://photoslibrary.googleapis.com/v1/mediaItems:batchCreate",
-          JSON.stringify({ albumId: albumId, newMediaItems: e }),
+          JSON.stringify({  newMediaItems: e }),
           {
             headers: {
               "Content-type": "application/json",
