@@ -484,7 +484,7 @@ async function uploadPhotos(photoFiles) {
   let file = photoFiles.files[0]
 
   const reader = new FileReader();
-  reader.readAsDataURL(file);
+  reader.readAsArrayBuffer(file);
   reader.onloadend = function() {
   
     console.log('reader result',reader.result )
