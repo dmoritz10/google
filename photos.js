@@ -483,7 +483,7 @@ async function uploadPhotos(photoFiles) {
 
   for (var i=0;i<photoFiles.files.length;i++) {
 
-  let file = photoFiles.files[i]
+    let file = photoFiles.files[i]
 
     const reader = new FileReader();
     reader.readAsArrayBuffer(file);
@@ -504,7 +504,6 @@ async function uploadPhotos(photoFiles) {
       upload(obj).then((data) => {
       console.log(data); // JSON data parsed by `data.json()` call
       });
-  
 
     }
   }
@@ -654,7 +653,7 @@ function upload({ files, albumId, accessToken }) {
   });
   return Promise.all(promises).then((e) => {
     return new Promise(async (resolve, reject) => {
-      console.log(e);
+      console.log('e', e);
 
       let params = { newMediaItems: e }
       var x = await createPhotos(params)
