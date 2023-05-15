@@ -487,23 +487,30 @@ async function uploadPhotos(photoFiles) {
 
     const reader = new FileReader();
     reader.readAsArrayBuffer(file);
-    reader.onloadend = function() {
-  
-      console.log('reader result',reader.result )
-      // const base64Data = reader.result.split(',')[1]
-      const base64Data = reader.result
+    reader.onloadend = async () => {
 
-      let fileObj = {name: file.name,base64Data:base64Data}
-    
-      const obj = {
-        files: [fileObj],
-        albumId: "AF1QipMNdgx8nBZvMbeKw3KAWAqk_ncilmFxyTsHKQE_v1IvHeMl_AqB02Blk2Jhwa0LHg", // Please set the album ID.
-        accessToken: accessToken, // Please set your access token.
+      const data = reader.result
+
+      const uParams = {
+        file: {name: file.name, data:data},
+        accessToken: accessToken 
       };
 
-      upload(obj).then((data) => {
-      console.log(data); // JSON data parsed by `data.json()` call
-      });
+      var uploadToken = await uploadPhoto(uParams)
+
+      console.log('uploadToken', uploadToken)
+
+      // let descr = buildDescr(file, data)
+
+      let descr = 'test upload'
+
+      let params = { newMediaItems: 
+          {
+            description: descr,
+            simpleMediaItem: { fileName: file.name, uploadToken: dauploadTokenta } 
+          }
+      }
+      var response = await createPhotos(params)
 
     }
   }
