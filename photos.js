@@ -504,7 +504,7 @@ async function uploadPhotos(photoFiles) {
 
       let exif = buildDescr(file, data)
 
-      console.log('exif', exir)
+      console.log('exif', exif)
 
       let descr = 'test upload'
       console.log('descr', descr)
