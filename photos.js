@@ -507,7 +507,7 @@ async function uploadPhotos(photoFiles) {
       let params = { newMediaItems: 
           {
             description: descr,
-            simpleMediaItem: { fileName: file.name, uploadToken: dauploadTokenta } 
+            simpleMediaItem: { fileName: file.name, uploadToken: uploadToken } 
           }
       }
       var response = await createPhotos(params)
