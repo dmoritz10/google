@@ -496,7 +496,7 @@ async function uploadPhotos(photoFiles) {
         accessToken: accessToken 
       };
 
-      var uploadToken = await uploadPhoto(uParams)
+      var uploadResponse = await uploadPhoto(uParams)
 
       console.log('uploadToken', uploadToken)
 
@@ -507,10 +507,10 @@ async function uploadPhotos(photoFiles) {
       let params = { newMediaItems: 
           {
             description: descr,
-            simpleMediaItem: { fileName: file.name, uploadToken: uploadToken } 
+            simpleMediaItem: { fileName: file.name, uploadToken: uploadResponse.loadSheetsToManage } 
           }
       }
-      var response = await createPhotos(params)
+      var createResponse = await createPhotos(params)
 
     }
   }
