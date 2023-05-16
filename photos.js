@@ -500,7 +500,11 @@ async function uploadPhotos(photoFiles) {
 
       console.log('uploadResponse', uploadResponse)
 
-      // let descr = buildDescr(file, data)
+      if (uploadResponse.status != 200) return
+
+      let exif = buildDescr(file, data)
+
+      console.log('exif', exir)
 
       let descr = 'test upload'
       console.log('descr', descr)
@@ -515,6 +519,25 @@ async function uploadPhotos(photoFiles) {
 
     }
   }
+}
+
+async function buildDescr(file, data) {
+
+/*
+  Travel Companion / Trips
+
+  Trip + ' ' + Month | 
+  'Destination Detail find by Date, name | city | state |
+  gps object
+
+
+*/
+
+
+let allMetaData = EXIF.getAllTags(data);
+
+console.log('allMetaData', allMetaData)
+
 }
 
 async function postData(obj) {
