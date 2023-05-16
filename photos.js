@@ -498,16 +498,17 @@ async function uploadPhotos(photoFiles) {
 
       var uploadResponse = await uploadPhoto(uParams)
 
-      console.log('uploadToken', uploadToken)
+      console.log('uploadResponse', uploadResponse)
 
       // let descr = buildDescr(file, data)
 
       let descr = 'test upload'
+      console.log('descr', descr)
 
       let params = { newMediaItems: 
           {
             description: descr,
-            simpleMediaItem: { fileName: file.name, uploadToken: uploadResponse.loadSheetsToManage } 
+            simpleMediaItem: { fileName: file.name, uploadToken: uploadResponse.data } 
           }
       }
       var createResponse = await createPhotos(params)
