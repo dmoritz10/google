@@ -537,9 +537,9 @@ async function buildDescr(file, data) {
 */
 
 
-let allMetaData = await EXIF.getAllTags(data);
+let allMetaData = await EXIF.readFromBinaryFile(data);
 
-console.log('allMetaData', allMetaData)
+console.log('allMetaDataxx', allMetaData)
 
 }
 
