@@ -489,6 +489,10 @@ async function uploadPhotos(photoFiles) {
     reader.readAsArrayBuffer(file);
     reader.onloadend = async () => {
 
+      let exif = buildDescr(file, data)
+
+      console.log('exif', exif)
+
       const data = reader.result
 
       const uParams = {
@@ -502,9 +506,7 @@ async function uploadPhotos(photoFiles) {
 
       if (uploadResponse.status != 200) return
 
-      let exif = buildDescr(file, data)
-
-      console.log('exif', exif)
+      
 
       let descr = 'test upload'
       console.log('descr', descr)
