@@ -491,7 +491,7 @@ async function uploadPhotos(photoFiles) {
 
       const data = reader.result
       
-      let exif = buildDescr(file, data)
+      let exif = await buildDescr(file, data)
 
       console.log('exif', exif)
 
