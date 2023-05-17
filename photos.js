@@ -489,11 +489,12 @@ async function uploadPhotos(photoFiles) {
     reader.readAsArrayBuffer(file);
     reader.onloadend = async () => {
 
+      const data = reader.result
+      
       let exif = buildDescr(file, data)
 
       console.log('exif', exif)
 
-      const data = reader.result
 
       const uParams = {
         file: {name: file.name, data:data},
