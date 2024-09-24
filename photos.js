@@ -505,7 +505,7 @@ async function uploadPhotos(photoFiles) {
 
       console.log('uploadResponse', uploadResponse)
 
-      if (uploadResponse.status != 200) return
+      if (uploadResponse.status != 200) console.log("uploadPhotos failed", uploadResponse);return
 
       
 
