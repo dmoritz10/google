@@ -509,7 +509,7 @@ async function uploadPhotos(photoFiles) {
 
       
 
-      let descr = 'test upload'
+      let descr = 'test upload dan'
       console.log('descr', descr)
 
       let params = { newMediaItems: 
