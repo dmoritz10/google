@@ -505,11 +505,13 @@ async function uploadPhotos(photoFiles) {
 
       console.log('uploadResponse', uploadResponse)
 
-      if (uploadResponse.status != 200) console.log("uploadPhotos failed", uploadResponse);return
-
+      if (uploadResponse.status != 200) {
+        console.log("uploadPhotos failed", uploadResponse);
+        return
+      }
       
 
-      let descr = 'test upload dan this and that and the other'
+      let descr = 'test upload danm'
       console.log('descr', descr)
 
       let params = { newMediaItems: 
@@ -519,6 +521,8 @@ async function uploadPhotos(photoFiles) {
           }
       }
       var createResponse = await createPhotos(params)
+
+      console.log('createPhotos', createResponse)
 
     }
   }
