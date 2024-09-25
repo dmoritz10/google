@@ -483,9 +483,9 @@ async function uploadPhotos(photoFiles) {
 
   for (var i=0;i<photoFiles.files.length;i++) {
 
-    let cntr = 0
-    let totNbr = 0
-    let newMediaItems = []
+    var cntr = 0
+    var totNbr = 0
+    var newMediaItems = []
 
     let file = photoFiles.files[i]
 
