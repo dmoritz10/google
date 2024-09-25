@@ -483,6 +483,10 @@ async function uploadPhotos(photoFiles) {
 
   for (var i=0;i<photoFiles.files.length;i++) {
 
+    let cntr = 0
+    let totNbr = 0
+    let newMediaItems = []
+
     let file = photoFiles.files[i]
 
     const reader = new FileReader();
@@ -495,7 +499,6 @@ async function uploadPhotos(photoFiles) {
 
       console.log('imageDescr', imageDescr)
 
-
       const uParams = {
         file: {name: file.name, data:data},
         accessToken: accessToken 
@@ -507,18 +510,31 @@ async function uploadPhotos(photoFiles) {
         console.log("uploadPhotos failed", uploadResponse);
         return
       }
-      
 
-      let params = { newMediaItems: 
+      if (cntr > 50) {
+
+        var createResponse = await createPhotos(newMediaItems)
+
+        let cntr = 0
+        let newMediaItems = []
+
+      }
+
+      cntr++
+      totNbr++
+      newMediaItems.push(
           {
             description: imageDescr,
             simpleMediaItem: { fileName: file.name, uploadToken: uploadResponse.data } 
-          }
-      }
-      var createResponse = await createPhotos(params)
-
+          })
     }
   }
+      
+  if (cntr > 0) var createResponse = await createPhotos(newMediaItems)
+
+      totNbr++
+      console.log('uploadPhotos complete: ',  )
+
 }
 
 async function buildDescr(file, data) {
