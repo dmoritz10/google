@@ -491,9 +491,9 @@ async function uploadPhotos(photoFiles) {
 
       const data = reader.result
       
-      let exif = await buildDescr(file, data)
+      let imageDescr = await buildDescr(file, data)
 
-      console.log('exif', exif)
+      console.log('imageDescr', imageDescr)
 
 
       const uParams = {
@@ -503,26 +503,19 @@ async function uploadPhotos(photoFiles) {
 
       var uploadResponse = await uploadPhoto(uParams)
 
-      console.log('uploadResponse', uploadResponse)
-
       if (uploadResponse.status != 200) {
         console.log("uploadPhotos failed", uploadResponse);
         return
       }
       
 
-      let descr = 'test upload danm'
-      console.log('descr', descr)
-
       let params = { newMediaItems: 
           {
-            description: descr,
+            description: imageDescr,
             simpleMediaItem: { fileName: file.name, uploadToken: uploadResponse.data } 
           }
       }
       var createResponse = await createPhotos(params)
-
-      console.log('createPhotos', createResponse)
 
     }
   }
@@ -544,6 +537,8 @@ async function buildDescr(file, data) {
 let allMetaData = await EXIF.readFromBinaryFile(data);
 
 console.log('allMetaDataxx', allMetaData)
+
+return allMetaData.ImageDescription
 
 }
 
