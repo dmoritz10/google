@@ -529,6 +529,8 @@ async function uploadPhotos(photoFiles) {
           })
     }
   }
+
+  console.log('post for loop', cntr, totNbr)
       
   if (cntr > 0) var createResponse = await createPhotos(newMediaItems)
 
