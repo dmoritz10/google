@@ -477,8 +477,6 @@ function makeDateFilterObj(strDt, endDt) {
 
 async function uploadPhotos(photoFiles) {
 
-  let accessToken = Goth.accessToken()
-
   const readFile = (file) => new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onload  = (event) => resolve(event.target.result);
@@ -486,6 +484,7 @@ async function uploadPhotos(photoFiles) {
     reader.readAsArrayBuffer(file);
   });
   
+  let accessToken = Goth.accessToken()
 
   console.log('photoFiles.files', photoFiles.files)
 
@@ -497,54 +496,40 @@ async function uploadPhotos(photoFiles) {
 
     let file = photoFiles.files[i]
 
-    const fr = await readFile(file);
+    const data = await readFile(file);
 
-    console.log('fr', fr)
+    let imageDescr = await buildDescr(file, data)
 
-      const data = fr
-      
-      let imageDescr = await buildDescr(file, data)
+    const uParams = {
+      file: {name: file.name, data:data},
+      accessToken: accessToken 
+    };
 
-      console.log('imageDescr', imageDescr)
+    var uploadResponse = await uploadPhoto(uParams)
 
-      const uParams = {
-        file: {name: file.name, data:data},
-        accessToken: accessToken 
-      };
+    if (uploadResponse.status != 200) {
+      console.log("uploadPhotos failed", uploadResponse);
+      return
+    }
 
-      var uploadResponse = await uploadPhoto(uParams)
+    if (cntr > 49) {
 
-      if (uploadResponse.status != 200) {
-        console.log("uploadPhotos failed", uploadResponse);
-        return
-      }
+      var createResponse = await createPhotos({'newMediaItems': mediaItems})
+      cntr = 0
+      mediaItems = []
 
-      cntr += 0
-      console.log('cntr', i, cntr, mediaItems)
+    }
 
-      if (cntr > 49) {
-
-        console.log('>5 mediaItems', mediaItems)
-
-        var createResponse = await createPhotos({'newMediaItems': mediaItems})
-
-        cntr = 0
-        mediaItems = []
-
-      }
-
-      cntr++
-      totNbr++
-      mediaItems.push(
-          {
-            description: imageDescr,
-            simpleMediaItem: { fileName: file.name, uploadToken: uploadResponse.data } 
-          })
+    cntr++
+    totNbr++
+    mediaItems.push(
+        {
+          description: imageDescr,
+          simpleMediaItem: { fileName: file.name, uploadToken: uploadResponse.data } 
+        })
     
   }
 
-  console.log('post for loop', cntr, totNbr)
-      
   if (cntr > 0) var createResponse = await createPhotos({'newMediaItems': mediaItems})
 
   console.log('uploadPhotos complete: ', totNbr )
