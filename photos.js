@@ -447,4 +447,14 @@ async function addMediaAlbumsToAlbums () {
 
   console.log('createAlbums', response)
 
+
+  
+
+}
+
+async function createAlbums() {
+
+console.log('createAlbums')
+
+
 }
