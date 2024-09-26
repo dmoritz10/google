@@ -519,6 +519,7 @@ async function uploadPhotos(photoFiles) {
         return
       }
 
+      cntr += 0
       console.log('cntr', i, cntr, mediaItems)
 
       // if (cntr > 5) {
