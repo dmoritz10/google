@@ -5,8 +5,6 @@ function btnPhotosHtml() {
     // gotoPhotoManageTab('phm-nav-manage')
     gotoPhotoManageTab('phs-nav-select')
 
-    
-
 }
 
 function gotoPhotoManageTab(tab) {
@@ -41,7 +39,6 @@ async function loadSheetsToManage() {
   var x = $tblSheets.clone();
   $("#gddContainer").empty();
   x.appendTo("#gddContainer");
-
   
   var shts = await openShts(openshtArr)
 
@@ -50,7 +47,6 @@ async function loadSheetsToManage() {
     var sht = shts[s]
 
     let shtTitle = s
-
    
     if (sht.rowCount == 0) continue
 
@@ -88,122 +84,6 @@ async function loadSheetsToManage() {
   }
 
 }
-
-
-async function onDeleteClick() {
-
-}
-
-async function deleteGmails(shtTitle) {
-
-  if (!shtTitle) return
-
-  var objSht = await openShts(
-    [
-      { title: shtTitle, type: "all" }
-    ])
-
-
-  var shtHdrs = objSht[shtTitle].colHdrs
-  var shtArr = objSht[shtTitle].vals
-  var statCol = shtHdrs.indexOf('Status')
-  var msgIdsCol = shtHdrs.indexOf('Message Ids')
-  
-  var msgIdsArr = shtArr.map(x => x[msgIdsCol]);
-  var statArr = shtArr.map(x => x[statCol]);
-
-  var nbrDeletes = statArr.filter(x => x !== "Deleted").length;
-
-  var msg = "Ok to delete " + nbrDeletes + " email threads from your Gmail account ?"
-  var response = await confirm(msg);
-  if (!response) return
-
-  postStatus("gds", "Deleting Gmail threads "+ nbrDeletes + " from " + shtTitle)
-
-  modal(true)
-
-
-  var batchSize = 50
-  var pntr = msgIdsArr.length
-  var delCntr = 0
-
-  while (true) {
-
-    var msgArr = []
-    var cntr = 0
-
-    for (let i = 0; i<batchSize;i++) {
-
-      cntr++
-      pntr--
-
-      if (pntr < 0) {
-        pntr = 0
-        break;
-      }
-
-      if (msgIdsArr[pntr] && statArr[pntr] != 'Deleted') msgArr = msgArr.concat(JSON.parse(msgIdsArr[pntr]))
-
-    }
-
-    if (pntr == 0 && msgArr.length == 0) break;
-
-    if (msgArr.length == 0) continue
-
-    var response = await batchDeleteGmail({
-      userId: 'me',
-      resource: {
-        "ids": msgArr
-      }
-    });
-
-    if (response.status !=204 ) return
-
-    delCntr += msgArr.length
-
-    postStatus("gds", null, delCntr + " emails deleted.")
-
-    var data =     [
-      {
-        range: "'" + shtTitle + "'!" + calcRngA1(pntr + 2, statCol + 1, cntr, 1),   
-        values: new Array(cntr).fill(['Deleted'])
-      }
-    ]
-  
-    var resource = {
-      valueInputOption: 'USER_ENTERED',
-      data: data
-    }
-  
-    var response = await batchUpdateSheet(resource)
-
-  }
-
-  var shtId = await getSheetId(shtTitle)
-  var response = await deleteSheet(shtId)
-
-  loadSheetsToManage()
-
-
-  postStatus("gds", "Complete<br>", delCntr + " emails deleted.")
-  
-  modal(false)
-
-}
-
-async function removeSheet(shtTitle) {
-
-  var msg = "Ok to remove permanently remove the '" + shtTitle + "' list ?"
-  var response = await confirm(msg);
-  if (!response) return
-
-  var shtId = await getSheetId(shtTitle)
-  var response = await deleteSheet(shtId)
-
-  loadSheetsToManage()
-
-}
-
 
 async function onPhotosListClick() {
 
@@ -403,9 +283,6 @@ async function testPatch() {
 
   // })
 
-
-
-
 }
 
 function patchPhoto(photoId, requestBody) {
@@ -550,7 +427,6 @@ async function buildDescr(file, data) {
 
 */
 
-
 let allMetaData = await EXIF.readFromBinaryFile(data);
 
 console.log('allMetaDataxx', allMetaData)
@@ -559,155 +435,4 @@ return allMetaData.ImageDescription
 
 }
 
-async function postData(obj) {
-  // Default options are marked with *
-console.log('obj', obj)
-const file = obj.files[0];
-const reader = new FileReader();
-reader.onloadend = function() {
 
-  console.log('reader result',reader.result )
-  const base64Data = reader.result.split(',')[1]; // Extract the base64-encoded file data
-
-  axios
-        .post("https://photoslibrary.googleapis.com/v1/uploads", base64Data, {
-          headers: {
-            "Content-Type": "application/octet-stream",
-            "X-Goog-Upload-File-Name": file.name,
-            "X-Goog-Upload-Protocol": "raw",
-            Authorization: `Bearer ${obj.accessToken}`,
-            "Access-Control-Allow-Origin": "https://photoslibrary.googleapis.com",
-            "Access-Control-Allow-Headers": "Content-Type",
-            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS, HEAD"
-
-          },
-
-        }).then(function(response) {
-
-          console.log('axios', response)
-    const uploadToken = response.data; // Obtain the upload token from the response
-
-    const requestBody = {
-      newMediaItems: [
-        {
-          description: 'Sample description',
-          simpleMediaItem: {
-            uploadToken: uploadToken,
-          },
-        },
-      ],
-    };
-
-    gapi.client.request({
-      path: 'https://photoslibrary.googleapis.com/v1/mediaItems:batchCreate',
-      method: 'POST',
-      body: JSON.stringify(requestBody),
-      headers: {
-        'Content-Type': 'application/octet-stream',
-      },
-      
-    }).then(function(response) {
-      // Handle the response
-      console.log(response);
-    }).catch(function(error) {
-      // Handle error
-      console.error(error);
-    });
-  }).catch(function(error) {
-    // Handle error
-    console.error(error);
-  });
-};
-
-reader.readAsDataURL(file);
-  // const response = await fetch("https://photoslibrary.googleapis.com/v1/albums", {
-  //   method: "GET", // *GET, POST, PUT, DELETE, etc.
-  //   mode: "no-cors", // no-cors, *cors, same-origin
-  //   cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-  //   credentials: "same-origin", // include, *same-origin, omit
-  //   headers: {
-  //           "Access-Control-Allow-Headers": "Content-Type,X-Goog-Upload-File-Name,X-Goog-Upload-Protocol,Authorization",
-  //           "Content-Type": "application/octet-stream",
-  //           "X-Goog-Upload-File-Name": obj.files[0].name,
-  //           "X-Goog-Upload-Protocol": "raw",
-  //           "Authorization": `Bearer ${obj.accessToken}`,
-  //   },
-  //   // body: obj.files[0], // body data type must match "Content-Type" header
-  // })
-  // console.log('response', response)
-
-  // return response.json(); // parses JSON response into native JavaScript objects
-}
-
-
-function uploadxxxx({ files, albumId, accessToken }) {
-  const description = 'test upload';
-  const promises = Array.from(files).map((file) => {
-    return new Promise((r) => {
-      fetch("https://photoslibrary.googleapis.com/v1/uploads", {
-        method: "POST", // POST, PUT, DELETE, etc.
-        headers: {
-          "Content-Type": "application/octet-stream",
-          "X-Goog-Upload-File-Name": file.name,
-          "X-Goog-Upload-Protocol": "raw",
-          "Authorization": `Bearer ${accessToken}`,
-          // "Access-Control-Allow-Origin": "*",
-          // "Access-Control-Allow-Headers": "Content-Type",
-          
-
-        },
-        body: file, // string, FormData, Blob, BufferSource, or URLSearchParams
-        // referrer: "", // or "" to send no Referer header,
-        // or an url from the current origin
-        // referrerPolicy: "no-referrer", // no-referrer-when-downgrade, no-referrer, origin, same-origin...
-        mode: "no-cors"
-      })
-        .then(({ data }) => {
-          console.log('r', r)
-          r({
-            description: description,
-            simpleMediaItem: { fileName: file.name, uploadToken: data },
-          });
-        });
-    });
-  });
-}
-
-function upload({ files, albumId, accessToken }) {
-  console.log('files', files)
-  const description = 'test upload';
-  const promises = Array.from(files).map((file) => {
-    return new Promise((r) => {
-      axios
-        .post("https://photoslibrary.googleapis.com/v1/uploads", file.base64Data, {
-          headers: {
-            "Content-Type": "application/octet-stream",
-            "X-Goog-Upload-File-Name": file.name,
-            "X-Goog-Upload-Protocol": "raw",
-            Authorization: `Bearer ${accessToken}`,
-            "Access-Control-Allow-Origin": "https://photoslibrary.googleapis.com",
-            "Access-Control-Allow-Headers": "Content-Type",
-            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS, HEAD"
-
-          },
-
-        })
-        .then(({ data }) => {
-          console.log('r', r)
-          r({
-            description: description,
-            simpleMediaItem: { fileName: file.name, uploadToken: data },
-          });
-        });
-    });
-  });
-  return Promise.all(promises).then((e) => {
-    return new Promise(async (resolve, reject) => {
-      console.log('e', e);
-
-      let params = { newMediaItems: e }
-      var x = await createPhotos(params)
-        console.log('x', x)
-    });
-  });
-}

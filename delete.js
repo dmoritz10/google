@@ -103,9 +103,6 @@ async function loadDropDowns() {
 
 }
 
-async function onDeleteClick() {
-
-}
 
 async function deleteGmails(shtTitle) {
 
