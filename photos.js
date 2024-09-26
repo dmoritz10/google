@@ -522,16 +522,16 @@ async function uploadPhotos(photoFiles) {
       cntr += 0
       console.log('cntr', i, cntr, mediaItems)
 
-      // if (cntr > 5) {
+      if (cntr > 5) {
 
         console.log('>5 mediaItems', mediaItems)
 
         var createResponse = await createPhotos({'newMediaItems': mediaItems})
 
-        let cntr = 0
-        let mediaItems = []
+        cntr = 0
+        mediaItems = []
 
-      // }
+      }
 
       cntr++
       totNbr++
