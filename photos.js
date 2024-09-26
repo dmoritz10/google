@@ -489,11 +489,11 @@ async function uploadPhotos(photoFiles) {
 
   console.log('photoFiles.files', photoFiles.files)
 
-  for (var i=0;i<photoFiles.files.length;i++) {
+  var cntr = 0
+  var totNbr = 0
+  var newMediaItems = []
 
-    var cntr = 0
-    var totNbr = 0
-    var newMediaItems = []
+  for (var i=0;i<photoFiles.files.length;i++) {
 
     let file = photoFiles.files[i]
 
@@ -504,7 +504,7 @@ async function uploadPhotos(photoFiles) {
       const data = fr
       
       // let imageDescr = await buildDescr(file, data)
-      let imageDescr = 'dan'
+      var imageDescr = 'dan'
 
       console.log('imageDescr', imageDescr)
 
@@ -520,7 +520,7 @@ async function uploadPhotos(photoFiles) {
         return
       }
 
-      if (cntr > 50) {
+      if (cntr > 49) {
 
         var createResponse = await createPhotos(newMediaItems)
 
