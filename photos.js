@@ -481,9 +481,9 @@ async function uploadPhotos(photoFiles) {
 
   const readFile = (file) => new Promise((resolve, reject) => {
     const reader = new FileReader();
-    reader.onloadend = (event) => resolve(event.target.result);
+    reader.onload  = (event) => resolve(event.target.result);
     reader.onerror = reject;
-    reader.readAsDataURL(file);
+    reader.readAsArrayBuffer(file);
   });
   
 
