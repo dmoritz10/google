@@ -523,7 +523,7 @@ async function uploadPhotos(photoFiles) {
 
       if (cntr > 5) {
 
-        console.log('>5 mediaItems', mediaItems)
+        console.log('>5 mediaItems', xdf)
 
         var createResponse = await createPhotos({'newMediaItems': mediaItems})
 
