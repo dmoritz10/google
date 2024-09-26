@@ -437,6 +437,10 @@ return allMetaData.ImageDescription
 
 async function createAlbums() {
 
+  console.log('createAlbums')
+
   const response = await photos.albums.create('Your Album Title');
+
+  console.log('createAlbums', response)
 
 }
