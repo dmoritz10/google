@@ -483,7 +483,7 @@ async function uploadPhotos(photoFiles) {
     const reader = new FileReader();
     reader.onloadend = (event) => resolve(event.target.result);
     reader.onerror = reject;
-    reader.readAsArrayBuffer(file);
+    reader.readAsDataURL(file);
   });
   
 
