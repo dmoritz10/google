@@ -503,8 +503,7 @@ async function uploadPhotos(photoFiles) {
 
       const data = fr
       
-      // let imageDescr = await buildDescr(file, data)
-      var imageDescr = 'dan'
+      let imageDescr = await buildDescr(file, data)
 
       console.log('imageDescr', imageDescr)
 
