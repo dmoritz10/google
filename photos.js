@@ -435,7 +435,7 @@ return allMetaData.ImageDescription
 
 }
 
-async function createAlbums() {
+async function addMediaAlbumsToAlbums () {
 
   console.log('createAlbums')
 
