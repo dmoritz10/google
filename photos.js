@@ -491,7 +491,7 @@ async function uploadPhotos(photoFiles) {
 
   var cntr = 0
   var totNbr = 0
-  var newMediaItems = []
+  var mediaItems = []
 
   for (var i=0;i<photoFiles.files.length;i++) {
 
@@ -519,22 +519,22 @@ async function uploadPhotos(photoFiles) {
         return
       }
 
-      console.log('cntr', i, cntr, newMediaItems)
+      console.log('cntr', i, cntr, mediaItems)
 
       if (cntr > 5) {
 
-        console.log('>5 newMediaItems', newMediaItems)
+        console.log('>5 mediaItems', mediaItems)
 
-        var createResponse = await createPhotos({'newMediaItems': newMediaItems})
+        var createResponse = await createPhotos({'newMediaItems': mediaItems})
 
         let cntr = 0
-        let newMediaItems = []
+        let mediaItems = []
 
       }
 
       cntr++
       totNbr++
-      newMediaItems.push(
+      mediaItems.push(
           {
             description: imageDescr,
             simpleMediaItem: { fileName: file.name, uploadToken: uploadResponse.data } 
@@ -544,7 +544,7 @@ async function uploadPhotos(photoFiles) {
 
   console.log('post for loop', cntr, totNbr)
       
-  if (cntr > 0) var createResponse = await createPhotos({'newMediaItems': newMediaItems})
+  if (cntr > 0) var createResponse = await createPhotos({'newMediaItems': mediaItems})
 
   console.log('uploadPhotos complete: ', totNbr )
 
