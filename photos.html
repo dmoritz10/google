@@ -105,7 +105,7 @@
         
         <div class="row m-1 p-0 pt-3">
           <div class="col-8 px-1 text-start">
-            <button type="button" class="btn btn-primary" onclick="document.getElementById('phuChooseFile').click()">Select Photos</button>
+            <button type="button" class="btn btn-primary" onclick="document.getElementById('phuChooseFile').click()">Select Upload Local Photos to Google Photos</button>
             <input multiple id="phuChooseFile" class="form-control d-none" onchange="uploadPhotos(this)" type="file"  name="phuChooseFile">
           </div>
         </div>
@@ -120,8 +120,8 @@
         <div class="row m-1 pt-3">
           <div class="col text-center">
             <div class="btn-group" role="group">
-                <button id="phm-delete-list" type="button" class="btn btn-primary mx-1" >Delete List</button>
-                <button id="phu-upload-files" onclick="uploadPhotos" type="button" class="btn btn-primary mx-1" >Upload Files</button>
+                <button id="phm-delete-list" onclick="createAlbums" type="button" class="btn btn-primary mx-1" >Create Albums</button>
+                <button id="phu-upload-files" onclick="addMediaAlbumsToAlbums" type="button" class="btn btn-primary mx-1" >Add Media to Albums</button>
               </div>
           </div>
         </div>
