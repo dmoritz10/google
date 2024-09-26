@@ -355,7 +355,7 @@ function applyFilter(description, keywords) {
 
 async function testPatch() {
 
-  var ids = "APKTQTalkhqY61syEFoj2kUlzyjLYcQw1Gkj68k6usH_A_xvunzV_GyAx2rL-ZPqENztiIcm4gjOzBhk-UAaQorCF5bFEp02mQ"
+  var ids = ["APKTQTalkhqY61syEFoj2kUlzyjLYcQw1Gkj68k6usH_A_xvunzV_GyAx2rL-ZPqENztiIcm4gjOzBhk-UAaQorCF5bFEp02mQ"]
   // var mediaIds = ids.split()
 
 //   // mediaIds.forEach(async id => {
