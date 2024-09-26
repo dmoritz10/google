@@ -522,7 +522,7 @@ async function uploadPhotos(photoFiles) {
 
       if (cntr > 49) {
 
-        var createResponse = await createPhotos(newMediaItems)
+        var createResponse = await createPhotos({'newMediaItems': newMediaItems})
 
         let cntr = 0
         let newMediaItems = []
@@ -541,7 +541,7 @@ async function uploadPhotos(photoFiles) {
 
   console.log('post for loop', cntr, totNbr)
       
-  if (cntr > 0) var createResponse = await createPhotos(newMediaItems)
+  if (cntr > 0) var createResponse = await createPhotos({'newMediaItems': newMediaItems})
 
   console.log('uploadPhotos complete: ', totNbr )
 
