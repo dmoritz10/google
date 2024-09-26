@@ -248,10 +248,10 @@ async function onPhotosListClick() {
       
       "filters": {
         'excludeNonAppCreatedData': false,
-          "mediaTypeFilter": {
-              "mediaTypes": [
-                'ALL_MEDIA'
-              ]
+          // "mediaTypeFilter": {
+          //     "mediaTypes": [
+          //       'ALL_MEDIA'
+              // ]
           },
           "dateFilter": {
 
