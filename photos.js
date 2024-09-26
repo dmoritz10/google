@@ -439,7 +439,7 @@ async function addMediaAlbumsToAlbums () {
 
   console.log('createAlbums')
 
-  const response = await photos.albums.create('Your Album Title');
+  const response = await gapi.client.photoslibrary.albums.create('Your Album Title');
 
   console.log('createAlbums', response)
 
