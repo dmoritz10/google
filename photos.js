@@ -479,6 +479,14 @@ async function uploadPhotos(photoFiles) {
 
   let accessToken = Goth.accessToken()
 
+  const readFile = (file) => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (event) => resolve(event.target.result);
+    reader.onerror = reject;
+    reader.readAsArrayBuffer(file);
+  });
+  
+
   console.log('photoFiles.files', photoFiles.files)
 
   for (var i=0;i<photoFiles.files.length;i++) {
@@ -489,11 +497,9 @@ async function uploadPhotos(photoFiles) {
 
     let file = photoFiles.files[i]
 
-    const reader = new FileReader();
-    reader.readAsArrayBuffer(file);
-    reader.onloadend = async () => {
+    const fr = await readFile(file);
 
-      const data = reader.result
+      const data = fr.result
       
       let imageDescr = await buildDescr(file, data)
 
@@ -527,17 +533,17 @@ async function uploadPhotos(photoFiles) {
             description: imageDescr,
             simpleMediaItem: { fileName: file.name, uploadToken: uploadResponse.data } 
           })
-    }
+    
   }
 
   console.log('post for loop', cntr, totNbr)
       
   if (cntr > 0) var createResponse = await createPhotos(newMediaItems)
 
-      totNbr++
-      console.log('uploadPhotos complete: ',  )
+  console.log('uploadPhotos complete: ', totNbr )
 
 }
+
 
 async function buildDescr(file, data) {
 
