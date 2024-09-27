@@ -467,15 +467,10 @@ async function addMediaItemsToAlbumsFromSheet () {
       
       const response = await createAlbum(mItemsAlbumName)
       var aId = response.result.id
-      console.log('response', response)
-      console.log('response', response.result)
-      console.log('response', response.result.id)
       albumIds.push(aId)
       albumNames.push(mItemsAlbumName)
     
     } 
-
-    alert(i)
 
   }
     
@@ -506,13 +501,13 @@ async function addMediaItemsToAlbumsFromSheet () {
     }
 
     if (brkaName == mItemsAlbumName) {
-      console.log('no break', i, brkaName, mItemsAlbumName)
+      console.log('no break', i, brkaName, mItemsAlbumName, mediaItemIds)
       mediaItemIds.push(mItemsId)
     } else {
-      console.log('break', i, brkaName, mItemsAlbumName)
+      console.log('break', i, brkaName, mItemsAlbumName, mediaItemIds)
 
       // if (mediaItemIds.length > 0) var response = addMediaItemsToAlbums(albumId, mediaItemIds)
-      var response = addMediaItemsToAlbums(albumId, mediaItemIds)
+      var response = await addMediaItemsToAlbums(albumId, mediaItemIds)
       brkaName = albumName
       brkaId = albumId
       mediaItemIds = []
@@ -521,7 +516,8 @@ async function addMediaItemsToAlbumsFromSheet () {
   }
  
   if (mediaItemIds.length > 0) {
-    var response = addMediaItemsToAlbums(albumId, mediaItemIds)
+    console.log('cleanup', i, brkaName, mItemsAlbumName, mediaItemIds)
+    var response = await addMediaItemsToAlbums(albumId, mediaItemIds)
   }
 
   console.log('addMediaItemsToAlbums complete')
