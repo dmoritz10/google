@@ -559,8 +559,8 @@ async function getAllAlbums() {
   const titles = response.result.albums.map(album => album.title); 
 
   return {
-    'ids': ids,
-    'albumNames': titles
+    'ids': ids.split(','),
+    'albumNames': titles.split(',')
   }
 
 }
