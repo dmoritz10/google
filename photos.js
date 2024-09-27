@@ -473,7 +473,7 @@ async function addMediaItemsToAlbums () {
     
   // All media items to Albums
 
-  var brkaName
+  var brkaName = 'init'
   var brkaId
   var mediaItemIds = []
 
@@ -490,7 +490,7 @@ async function addMediaItemsToAlbums () {
     var albumName = albumNames[albumIdx]
     var albumId = albumIds[albumIdx]
 
-    if (!brkaName) {
+    if (brkaName == 'init') {
       brkaName = albumName
       brkaId = albumId
     }
@@ -498,7 +498,7 @@ async function addMediaItemsToAlbums () {
     if (brkaName == mItemsAlbumName) {
       mediaItemIds.push(mItemsId)
     } else {
-      var response = addMediaItemsToAlbums(albumId, mediaItemIds)
+      if (mediaItemIds.length > 0) var response = addMediaItemsToAlbums(albumId, mediaItemIds)
       brkaName = albumName
       brkaId = albumId
       mediaItemIds = []
