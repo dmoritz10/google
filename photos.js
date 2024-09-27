@@ -435,15 +435,71 @@ return allMetaData.ImageDescription
 
 }
 
-async function addMediaAlbumsToAlbums () {
+async function addMediaItemsToAlbums () {
 
-  console.log('createAlbums')
+  console.log('addMediaItemsToAlbums')
 
-  const response = await createAlbum(title)
+  var mItemsArr = await getMediaItemsSheet("Move Media Items to Folder")
+  var mItemsIds = mItemsArr.ids
+  var mItemsAlbumNames = mItemsArr.albums
 
-  console.log('createAlbums', response)
+  var albumsArr = await getAllAlbums()
+  var albumNames = albumsArr.albumNames
+  var albumIds = albumsArr.ids
+
+  var brkaId
+  var mIdArr = []
+
+  for (var i=0;i<mItemsIds.length;i++) {
+
+    var mItemsAlbumName = mItemsAlbumNames[i]
+
+    if (!mItemsAlbumName) continue
+
+    var albumIdx = albumNames.indexOf(mItemsAlbumName)
+    if (albumIdx == -1) {
+      
+      const response = await createAlbum(mItemsAlbumName)
+      var aId = response.id
+      albumIds.push(aId)
+      albumNames.push(mItemsAlbumName)
+    
+    } 
+
+  }
+    
+  //   else {
+
+  //     var aId = albumIdx
+
+  //   }
+
+  //   var mId = mItemsIds[i]
+
+  //   if (brkaId == aId) {
+
+  //     mIdArr.push(mId)
+  //     continue
+
+  //   } else {
+
+  //     var response = await addMediaItems (aId, mIdArr)
+
+  //     brkaId = null
+  //     mIdArr = []
+
+  //   }
+
+  // }
+
+  // if (mIdArr.length > 0) {
+  //   var response = await addMediaItems (aId, mIdArr)
+  // }
 
 
+  // const response = await createAlbum(title)
+
+  console.log('addMediaItemsToAlbums')
 
 
 }
@@ -451,6 +507,42 @@ async function addMediaAlbumsToAlbums () {
 async function createAlbums() {
 
 console.log('createAlbums')
+
+
+}
+
+async function getMediaItemsSheet(shtName) {
+
+  var objSht = await openShts(
+    [
+      { title: shtName, type: "all" }
+    ])
+
+if (objSht[shtTitle].rowCount == 0) return {'status': 'No data found on "Move to Album" sheet'}
+
+var shtHdrs = objSht[shtTitle].colHdrs
+var shtArr = objSht[shtTitle].vals
+var idCol = shtHdrs.indexOf('Id')
+var albumCol = shtHdrs.indexOf('Move to Album')
+
+if (idCol<0 || albumCol<0 ) return {'status': 'Either "Id" or "Move to Album" column missing'}
+
+var ids = shtArr.map(x => x[idCol]);
+var albums = shtArr.map(x => x[albumCol]);
+
+  return {
+    'ids': ids,
+    'albums': albums,
+    'status': 'ok'
+  }
+
+}
+
+async function getAllAlbums() {
+
+  var albums = await listAlbums()
+
+  console.log('albums', albums)
 
 
 }
