@@ -447,6 +447,9 @@ async function addMediaItemsToAlbums () {
   var albumNames = albumsArr.albumNames
   var albumIds = albumsArr.ids
 
+  console.log('mItemsArr', mItemsArr)
+  console.log('albumsArr', albumsArr)
+
   var brkaId
   var mIdArr = []
 
@@ -544,5 +547,11 @@ async function getAllAlbums() {
 
   console.log('albums', albums)
 
+  const ids = albums.map(album => album.id); 
+  const titles = albums.map(album => album.title); 
 
+  return {
+    'ids': ids,
+    'albumNames': titles
+  }
 }
