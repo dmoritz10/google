@@ -490,14 +490,19 @@ async function addMediaItemsToAlbums () {
     var albumName = albumNames[albumIdx]
     var albumId = albumIds[albumIdx]
 
+    console.log('album found ', albumIdx, albumName, albumId)
+
     if (brkaName == 'init') {
       brkaName = albumName
       brkaId = albumId
     }
 
     if (brkaName == mItemsAlbumName) {
+      console.log('no break', brkaName, mItemsAlbumName)
       mediaItemIds.push(mItemsId)
     } else {
+      console.log('break', brkaName, mItemsAlbumName)
+
       if (mediaItemIds.length > 0) var response = addMediaItemsToAlbums(albumId, mediaItemIds)
       brkaName = albumName
       brkaId = albumId
