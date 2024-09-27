@@ -498,12 +498,13 @@ async function addMediaItemsToAlbums () {
     }
 
     if (brkaName == mItemsAlbumName) {
-      console.log('no break', brkaName, mItemsAlbumName)
+      console.log('no break', i, brkaName, mItemsAlbumName)
       mediaItemIds.push(mItemsId)
     } else {
-      console.log('break', brkaName, mItemsAlbumName)
+      console.log('break', i, brkaName, mItemsAlbumName)
 
-      if (mediaItemIds.length > 0) var response = addMediaItemsToAlbums(albumId, mediaItemIds)
+      // if (mediaItemIds.length > 0) var response = addMediaItemsToAlbums(albumId, mediaItemIds)
+      var response = addMediaItemsToAlbums(albumId, mediaItemIds)
       brkaName = albumName
       brkaId = albumId
       mediaItemIds = []
