@@ -468,12 +468,14 @@ async function addMediaItemsToAlbumsFromSheet () {
       const response = await createAlbum(mItemsAlbumName)
       var aId = response.result.id
       console.log('response', response)
+      console.log('response', response.result)
+      console.log('response', response.result.id)
       albumIds.push(aId)
       albumNames.push(mItemsAlbumName)
     
     } 
 
-    // alert(i)
+    alert(i)
 
   }
     
