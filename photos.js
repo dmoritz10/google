@@ -450,8 +450,8 @@ async function addMediaItemsToAlbums () {
   console.log('mItemsArr', mItemsArr)
   console.log('albumsArr', albumsArr)
 
-  var brkaId
-  var mIdArr = []
+
+  // Create new Albums if necessary
 
   for (var i=0;i<mItemsIds.length;i++) {
 
@@ -471,46 +471,46 @@ async function addMediaItemsToAlbums () {
 
   }
     
-  //   else {
+  // All media items to Albums
 
-  //     var aId = albumIdx
+  var brkaName
+  var brkaId
+  var mediaItemIds = []
 
-  //   }
+  for (var i=0;i<mItemsIds.length;i++) {
 
-  //   var mId = mItemsIds[i]
+    var mItemsAlbumName = mItemsAlbumNames[i]
+    var mItemsId = mItemsIds[i]
 
-  //   if (brkaId == aId) {
+    if (!mItemsAlbumName) continue
 
-  //     mIdArr.push(mId)
-  //     continue
+    var albumIdx = albumNames.indexOf(mItemsAlbumName)
+    if (albumIdx == -1) continue
 
-  //   } else {
+    var albumName = albumNames[albumIdx]
+    var albumId = albumIds[albumIdx]
 
-  //     var response = await addMediaItems (aId, mIdArr)
+    if (!brkaName) {
+      brkaName = albumName
+      brkaId = albumId
+    }
 
-  //     brkaId = null
-  //     mIdArr = []
+    if (brkaName == mItemsAlbumName) {
+      mediaItemIds.push(mItemsId)
+    } else {
+      var response = addMediaItemsToAlbums(albumId, mediaItemIds)
+      brkaName = albumName
+      brkaId = albumId
+      mediaItemIds = []
+    }
+      
+  }
+ 
+  if (mediaItemIds.length > 0) {
+    var response = addMediaItemsToAlbums(albumId, mediaItemIds)
+  }
 
-  //   }
-
-  // }
-
-  // if (mIdArr.length > 0) {
-  //   var response = await addMediaItems (aId, mIdArr)
-  // }
-
-
-  // const response = await createAlbum(title)
-
-  console.log('addMediaItemsToAlbums')
-
-
-}
-
-async function createAlbums() {
-
-console.log('createAlbums')
-
+  console.log('addMediaItemsToAlbums complete')
 
 }
 
@@ -545,8 +545,6 @@ async function getAllAlbums() {
 
   var response = await listAlbums()
 
-  console.log('albums', response.result.albums)
-
   const ids = response.result.albums.map(album => album.id); 
   const titles = response.result.albums.map(album => album.title); 
 
@@ -554,4 +552,5 @@ async function getAllAlbums() {
     'ids': ids,
     'albumNames': titles
   }
+
 }
