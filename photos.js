@@ -555,11 +555,12 @@ async function getAllAlbums() {
 
   var response = await listAlbums()
 
-  const ids = response.result.albums.map(album => album.id).split(','); 
-  const titles = response.result.albums.map(album => album.title).split(','); 
+  const ids = response.result.albums.map(album => album.id); 
+  const titles = response.result.albums.map(album => album.title); 
 
   return {
-    'ids': albumIds,
+    'ids': ids,
     'albumNames': titles
+  }
 
 }
