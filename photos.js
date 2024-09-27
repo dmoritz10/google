@@ -545,7 +545,7 @@ async function getAllAlbums() {
 
   var response = await listAlbums()
 
-  console.log('albums', albums)
+  console.log('albums', response.result.albums)
 
   const ids = response.result.albums.map(album => album.id); 
   const titles = response.result.albums.map(album => album.title); 
