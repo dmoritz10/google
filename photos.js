@@ -543,12 +543,12 @@ var albums = shtArr.map(x => x[albumCol]);
 
 async function getAllAlbums() {
 
-  var albums = await listAlbums()
+  var response = await listAlbums()
 
   console.log('albums', albums)
 
-  const ids = albums.map(album => album.id); 
-  const titles = albums.map(album => album.title); 
+  const ids = response.result.albums.map(album => album.id); 
+  const titles = response.result.albums.map(album => album.title); 
 
   return {
     'ids': ids,
