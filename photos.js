@@ -435,7 +435,7 @@ return allMetaData.ImageDescription
 
 }
 
-async function addMediaItemsToAlbums () {
+async function addMediaItemsToAlbumsFromSheet () {
 
   console.log('addMediaItemsToAlbums')
 
