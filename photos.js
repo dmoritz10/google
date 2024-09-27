@@ -518,10 +518,10 @@ async function getMediaItemsSheet(shtName) {
       { title: shtName, type: "all" }
     ])
 
-if (objSht[shtTitle].rowCount == 0) return {'status': 'No data found on "Move to Album" sheet'}
+if (objSht[shtName].rowCount == 0) return {'status': 'No data found on "Move to Album" sheet'}
 
-var shtHdrs = objSht[shtTitle].colHdrs
-var shtArr = objSht[shtTitle].vals
+var shtHdrs = objSht[shtName].colHdrs
+var shtArr = objSht[shtName].vals
 var idCol = shtHdrs.indexOf('Id')
 var albumCol = shtHdrs.indexOf('Move to Album')
 
