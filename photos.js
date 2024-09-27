@@ -460,9 +460,10 @@ async function addMediaItemsToAlbumsFromSheet () {
     if (!mItemsAlbumName) continue
 
     var albumIdx = albumNames.indexOf(mItemsAlbumName)
-    if (albumIdx == -1) {
 
-      console.log('albumIdx', i,albumIdx, mItemsAlbumName, albumIds, albumNames )
+    console.log('albumIdx', i,albumIdx, mItemsAlbumName, albumIds, albumNames )
+
+    if (albumIdx == -1) {
       
       // const response = await createAlbum(mItemsAlbumName)
       var aId = response.id
@@ -470,6 +471,8 @@ async function addMediaItemsToAlbumsFromSheet () {
       albumNames.push(mItemsAlbumName)
     
     } 
+
+    alert(i)
 
   }
     
