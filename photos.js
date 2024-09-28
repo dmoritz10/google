@@ -502,7 +502,7 @@ async function addMediaItemsToAlbumsFromSheet () {
       brkaId = albumId
     }
 
-    if (brkaName == mItemsAlbumName && mItemsAlbumName.length < 51) {
+    if (brkaName == mItemsAlbumName && mediaItemIds.length < 51) {
       console.log('no break', i, brkaName, mItemsAlbumName, mediaItemIds)
       mediaItemIds.push(mItemsId)
     } else {
