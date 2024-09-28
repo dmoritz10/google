@@ -587,8 +587,6 @@ async function getAllAlbums() {
     'albumNames': []
   }
 
-  console.log('response', response)
-
   const ids = response.result.albums.map(album => album.id); 
   const titles = response.result.albums.map(album => album.title); 
 
@@ -605,10 +603,7 @@ async function getAlbumId(albumEntered) {
 
   console.log('albums', albums)
 
-  const ids = albums.map(album => album.id); 
-  const titles = albums.map(album => album.albumNames); 
-
-  var albumIdx = titles.indexOf(albumEntered)
+  var albumIdx = albums.albumNames.indexOf(albumEntered)
 
   if (albumIdx == -1) {
     
@@ -617,7 +612,7 @@ async function getAlbumId(albumEntered) {
   
   } else {
 
-    var rtn = ids[albumIdx]
+    var rtn = albums.ids[albumIdx]
   }
 
   return rtn
