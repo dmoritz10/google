@@ -206,7 +206,7 @@ do {
 
     mediaArr.push([mediaItem.id])
 
-    console.log('progress', i, msgCntr,  parseInt(msgCntr * 1000*60 / (new Date() - startTime)))
+    console.log('progress', i)
     
   }
 
@@ -616,5 +616,5 @@ async function getAlbumId(albumEntered) {
   }
 
   return rtn
-  
+
 }
