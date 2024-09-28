@@ -68,6 +68,26 @@
               </div>
           </div>
         </div>
+
+        <hr>
+
+        
+        <div class="row m-1 p-0 pt-3">
+          <div class="col-8 px-1 text-start">
+            <label for="photos-album-Name"  class="h5">Album Name:</label>
+            <input type="text" id="photos-album-Name"  class="text-success h5" style="float:right"/>  
+          </div>
+        </div>
+        <div class="row m-1 pt-3">
+          <div class="col text-center">
+            <div class="btn-group" role="group">
+                <button id="phu-add-media-items-to-albums" onclick="selectMediaItemsAndAddToAlbum()" type="button" class="btn btn-primary mx-1" >Select Media and add to Album</button>
+              </div>
+          </div>
+        </div>
+
+        <hr>
+
         
         <div class=" m-1 pt-3">
           <div class="row m-0 p-0 border-top border-bottom  bg-white">
@@ -120,13 +140,10 @@
         <div class="row m-1 pt-3">
           <div class="col text-center">
             <div class="btn-group" role="group">
-                <button id="phm-create-albums" onclick="createAlbums()" type="button" class="btn btn-primary mx-1" >Create Albums</button>
-                <button id="phu-add-media-items-to-albums" onclick="addMediaItemsToAlbumsFromSheet()" type="button" class="btn btn-primary mx-1" >Add Media to Albums</button>
+                <button id="phu-add-media-items-to-albums-from-sheet" onclick="addMediaItemsToAlbumsFromSheet()" type="button" class="btn btn-primary mx-1" >Add Media to Albums</button>
               </div>
           </div>
         </div>
-
-
 
       </div>
 

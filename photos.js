@@ -14,77 +14,6 @@ function gotoPhotoManageTab(tab) {
   
 }
 
-async function loadSheetsToManage() {
-
-  clearStatus("phs")
-
-  var shts = await getSheets()
-
-  console.log('shts', shts)
-
-  var sheets = shts.result.sheets
-
-  if (!sheets) return
-
-  var openshtArr = []
-  for (var j = 0; j < sheets.length; j++) {
-
-    let shtTitle = sheets[j].properties.title
-    openshtArr.push({ title: shtTitle, type: "all" })
-
-  }
-
-  var $tblSheets = $("#gddContainer > .d-none").eq(0)  // the 1st one is a template which is always d-none
-
-  var x = $tblSheets.clone();
-  $("#gddContainer").empty();
-  x.appendTo("#gddContainer");
-  
-  var shts = await openShts(openshtArr)
-
-  for (let s in shts) {
-
-    var sht = shts[s]
-
-    let shtTitle = s
-   
-    if (sht.rowCount == 0) continue
-
-    var shtHdrs = sht.colHdrs
-    var shtArr = sht.vals
-    var statCol = shtHdrs.indexOf('Status')
-    var msgIdsCol = shtHdrs.indexOf('Message Ids')
-
-    if (statCol<0 || msgIdsCol<0) continue
-
-    
-    var msgIdsArr = shtArr.map(x => x[msgIdsCol]);
-    var statArr = shtArr.map(x => x[statCol]);
-  
-    var nbrDeletes = statArr.filter(x => x !== "Deleted").length;
-
-    if (nbrDeletes == 0) continue
-
-    var ele = $tblSheets.clone();
-
-    ele.find('#gddSheetName')[0].innerHTML = shtTitle
-    ele.find('#gddNbrGmails')[0].innerHTML = nbrDeletes
-    ele.find('#gddSheetDate')[0].innerHTML = ''
-    
-    ele.find('#btnGddDelete')[0].setAttribute("onclick", "deleteGmails('" + shtTitle + "')");
-
-    ele.find('#btnGddRemoveSheet')[0].setAttribute("onclick", "removeSheet('" + shtTitle + "')");
-
-    ele.find('#btnGddShowGmails')[0].setAttribute("onclick", "showGmails('" + shtTitle  + "')");
-
-    ele.removeClass('d-none');
-
-    ele.appendTo("#gddContainer");
-      
-  }
-
-}
-
 async function onPhotosListClick() {
 
   clearStatus("gds")
@@ -208,6 +137,106 @@ async function onPhotosListClick() {
   modal(false)
 
 }
+
+async function selectMediaItemsAndAddToAlbum() {
+
+  var albumEntered = $('#photos-album-Name').val()
+
+  var mediaType_selected = $('#photos-mediaTypeFilter-select').val();
+  var startDate_selected = $('#photos-start-date-select').val();
+  var endDate_selected = $('#photos-end-date-select').val();
+  var keywords_selected = $('#photos-keywords-select').val()
+  
+  
+  var srchSpec = {mediaType:mediaType_selected, startDate:startDate_selected, endDate:endDate_selected, keywords:keywords_selected}
+
+  var dateFilter = makeDateFilterObj(srchSpec.startDate, srchSpec.endDate)
+
+  var search =    "start date: " + srchSpec.startDate +  
+                  " end date: " + srchSpec.endDate +  
+                  " media type: " + srchSpec.mediaType +
+                  (srchSpec.keywords ? (" keywords: '" + srchSpec.keywords + "'").replace(/'/g,"") : '')
+
+  var params = {
+    "pageSize": 100,
+    "pageToken": null,
+    
+    "filters": {
+      'excludeNonAppCreatedData': true,
+        "mediaTypeFilter": {
+            "mediaTypes": [
+              'ALL_MEDIA'
+            ]
+        },
+        "dateFilter": {
+
+        }
+    }
+}
+
+
+// params.filters.mediaTypeFilter.mediaTypes = srchSpec.keywords
+params.filters.dateFilter = dateFilter
+console.log('params', params, srchSpec)
+
+var mediaArr = []
+
+do {
+
+  let response = await searchPhotos(params)
+  params.pageToken = response.result.nextPageToken
+  let mediaItems = response.result.mediaItems
+
+  if (!mediaItems || mediaItems.length == 0) {
+    console.log("gds", "Error", 'No photos match the criteria given: <br><br>' + search, 'text-danger')
+    modal(false)
+    break;
+  }
+          
+  console.log("phs", "Selecting Photos " + keywords_selected)
+  
+  for (var i=0; i<mediaItems.length; i++)    {
+
+    let mediaItem = mediaItems[i]
+
+    if (keywords_selected)  var select = applyFilter(mediaItem.description, keywords_selected)
+    else                    var select = true
+
+    if (!select) continue
+
+    mediaArr.push([mediaItem.id])
+
+    console.log('progress', i, msgCntr,  parseInt(msgCntr * 1000*60 / (new Date() - startTime)))
+    
+  }
+
+} while (params.pageToken)
+
+var albumId = getAlbumId(albumEntered)
+  
+var chunkMediaArr = chunkArray(mediaArr, 50)
+
+chunkMediaArr.forEach(async mArr => {
+
+  var response = await addMediaItemsToAlbums(albumId, mArr)
+  console.log('addMediaItemsToAlbums', mArr)
+
+})
+
+}
+
+function chunkArray(array, chunkSize) {
+  const result = [];
+
+  for (let i = 0; i < array.length; i += chunkSize) {
+    const chunk = array.slice(i, i + chunkSize);
+    result.push(chunk);
+  }
+
+  return result;
+}
+
+
 
 function applyFilter(description, keywords) {
 
@@ -383,7 +412,7 @@ async function uploadPhotos(photoFiles) {
 
     var uploadResponse = await uploadPhoto(uParams)
 
-    console.log('upload complete', i, ' of ', photoFiles.files.length, uploadResponse.data.length / 1048576)
+    console.log('upload complete', i, 'of', photoFiles.files.length, Math.round(data.length / 1048576), 'mb')
 
     if (uploadResponse.status != 200) {
       console.log("uploadPhotos failed", uploadResponse);
@@ -414,7 +443,6 @@ async function uploadPhotos(photoFiles) {
 
 }
 
-
 async function buildDescr(file, data) {
 
 /*
@@ -437,7 +465,7 @@ return allMetaData.ImageDescription
 
 async function addMediaItemsToAlbumsFromSheet () {
 
-  console.log('addMediaItemsToAlbums')
+  console.log('addMediaItemsToAlbumsFromSheet')
 
   var mItemsArr = await getMediaItemsSheet("Move Media Items to Folder")
   var mItemsIds = mItemsArr.ids
@@ -565,4 +593,28 @@ async function getAllAlbums() {
     'albumNames': titles
   }
 
+}
+
+async function getAlbumId(albumEntered) {
+
+  var response = await getAllAlbums()
+  if (!response.result.albums) return null
+
+  const ids = response.result.albums.map(album => album.id); 
+  const titles = response.result.albums.map(album => album.title); 
+
+  var albumIdx = titles.indexOf(albumEntered)
+
+  if (albumIdx == -1) {
+    
+    const response = await createAlbum(albumEntered)
+    var rtn = response.result.id
+  
+  } else {
+
+    var rtn = ids[albumIdx]
+  }
+
+  return rtn
+  
 }
