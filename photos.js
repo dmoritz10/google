@@ -600,6 +600,8 @@ async function getAllAlbums() {
 async function getAlbumId(albumEntered) {
 
   var response = await getAllAlbums()
+
+  console.log('response', response)
   if (!response.result.albums) return null
 
   const ids = response.result.albums.map(album => album.id); 
