@@ -199,10 +199,10 @@ do {
 
     let mediaItem = mediaItems[i]
 
-    if (keywords_selected)  var select = applyFilter(mediaItem.description, keywords_selected)
-    else                    var select = true
+    // if (keywords_selected)  var select = applyFilter(mediaItem.description, keywords_selected)
+    // else                    var select = true
 
-    if (!select) continue
+    // if (!select) continue
 
     if (mediaItem.description != keywords_selected) continue
 
