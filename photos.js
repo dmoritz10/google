@@ -93,10 +93,15 @@ async function onPhotosListClick() {
 
       let mediaItem = mediaItems[i]
 
-      if (keywords_selected)  var select = applyFilter(mediaItem.description, keywords_selected)
-      else                    var select = true
+    // if (keywords_selected)  var select = applyFilter(mediaItem.description, keywords_selected)
+    // else                    var select = true
 
-      if (!select) continue
+    // if (!select) continue
+
+    console.log('descr', mediaItem.description, keywords_selected, mediaItem.description != keywords_selected)
+
+    if (mediaItem.description != keywords_selected) continue
+
 
       listMedia.push([
         mediaItem.id,
