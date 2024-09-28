@@ -145,6 +145,8 @@ async function onPhotosListClick() {
 
 async function selectMediaItemsAndAddToAlbum() {
 
+  console.log('selectMediaItemsAndAddToAlbum')
+
   var albumEntered = $('#photos-album-Name').val()
 
   var mediaType_selected = $('#photos-mediaTypeFilter-select').val();
@@ -177,62 +179,61 @@ async function selectMediaItemsAndAddToAlbum() {
 
         }
     }
-}
-
-
-// params.filters.mediaTypeFilter.mediaTypes = srchSpec.keywords
-params.filters.dateFilter = dateFilter
-console.log('params', params, srchSpec)
-
-var mediaArr = []
-
-do {
-
-  let response = await searchPhotos(params)
-  params.pageToken = response.result.nextPageToken
-  let mediaItems = response.result.mediaItems
-
-  if (!mediaItems || mediaItems.length == 0) {
-    console.log("gds", "Error", 'No photos match the criteria given: <br><br>' + search, 'text-danger')
-    modal(false)
-    break;
   }
-          
-  console.log("phs", "Selecting Photos " + keywords_selected)
-  
-  for (var i=0; i<mediaItems.length; i++)    {
 
-    let mediaItem = mediaItems[i]
 
-    // if (keywords_selected)  var select = applyFilter(mediaItem.description, keywords_selected)
-    // else                    var select = true
+  // params.filters.mediaTypeFilter.mediaTypes = srchSpec.keywords
+  params.filters.dateFilter = dateFilter
+  console.log('params', params, srchSpec)
 
-    // if (!select) continue
+  var mediaArr = []
 
-    console.log('descr', mediaItem.description, keywords_selected, mediaItem.description != keywords_selected)
+  do {
 
-    if (mediaItem.description != keywords_selected) continue
+    let response = await searchPhotos(params)
+    params.pageToken = response.result.nextPageToken
+    let mediaItems = response.result.mediaItems
 
-    mediaArr.push([mediaItem.id])
-
-    console.log('progress', i)
+    if (!mediaItems || mediaItems.length == 0) {
+      console.log("gds", "Error", 'No photos match the criteria given: <br><br>' + search, 'text-danger')
+      modal(false)
+      break;
+    }
+            
+    console.log("phs", "Selecting Photos " + keywords_selected)
     
+    for (var i=0; i<mediaItems.length; i++)    {
+
+      let mediaItem = mediaItems[i]
+
+      // if (keywords_selected)  var select = applyFilter(mediaItem.description, keywords_selected)
+      // else                    var select = true
+
+      // if (!select) continue
+
+      console.log('descr', mediaItem.description, keywords_selected, mediaItem.description != keywords_selected)
+
+      if (mediaItem.description != keywords_selected) continue
+
+      mediaArr.push([mediaItem.id])
+
+      console.log('progress', i)
+      
+    }
+
+  } while (params.pageToken)
+
+  var albumId = await getAlbumId(albumEntered)
+
+  console.log('albumId', albumId)
+    
+  var chunkMediaArr = chunkArray(mediaArr, 50)
+
+  for (var i=0;i<chunkMediaArr.length;i++) {
+    var response = await addMediaItemsToAlbums(albumId, chunkMediaArr[i])
   }
 
-} while (params.pageToken)
-
-var albumId = await getAlbumId(albumEntered)
-
-console.log('albumId', albumId)
-  
-var chunkMediaArr = chunkArray(mediaArr, 50)
-
-chunkMediaArr.forEach(async mArr => {
-
-  var response = await addMediaItemsToAlbums(albumId, mArr)
-  console.log('addMediaItemsToAlbums', mArr)
-
-})
+  console.log('selectMediaItemsAndAddToAlbum')
 
 }
 
