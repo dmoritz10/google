@@ -212,7 +212,9 @@ do {
 
 } while (params.pageToken)
 
-var albumId = getAlbumId(albumEntered)
+var albumId = await getAlbumId(albumEntered)
+
+console.log('albumId', albumId)
   
 var chunkMediaArr = chunkArray(mediaArr, 50)
 
