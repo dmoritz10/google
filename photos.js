@@ -599,12 +599,12 @@ async function getAllAlbums() {
 
 async function getAlbumId(albumEntered) {
 
-  var response = await getAllAlbums()
+  var albums = await getAllAlbums()
 
-  console.log('response', response)
+  console.log('albums', albums)
 
-  const ids = response.result.albums.map(album => album.id); 
-  const titles = response.result.albums.map(album => album.albumNames); 
+  const ids = albums.map(album => album.id); 
+  const titles = albums.map(album => album.albumNames); 
 
   var albumIdx = titles.indexOf(albumEntered)
 
