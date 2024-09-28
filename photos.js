@@ -204,6 +204,8 @@ do {
 
     if (!select) continue
 
+    if (mediaItem.description != keywords_selected) continue
+
     mediaArr.push([mediaItem.id])
 
     console.log('progress', i)
