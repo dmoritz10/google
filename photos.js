@@ -558,7 +558,7 @@ async function getAllAlbums() {
 
   var response = await listAlbums()
 
-  if (!response) return {
+  if (!response.result.albums) return {
     'ids': [],
     'albumNames': []
   }
