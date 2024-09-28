@@ -449,6 +449,8 @@ async function addMediaItemsToAlbumsFromSheet () {
 
   console.log('mItemsArr', mItemsArr)
   console.log('albumsArr', albumsArr)
+  console.log('albumNames', albumNames)
+  console.log('albumIds', albumIds)
 
 
   // Create new Albums if necessary
