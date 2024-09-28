@@ -204,6 +204,8 @@ do {
 
     // if (!select) continue
 
+    console.log('descr', mediaItem.description, keywords_selected, mediaItem.description != keywords_selected)
+
     if (mediaItem.description != keywords_selected) continue
 
     mediaArr.push([mediaItem.id])
