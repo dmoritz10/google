@@ -158,7 +158,7 @@ async function onPhotosListClick() {
       break;
     }
             
-    console.log("phs", "Selecting Gmails<br>" + search)
+    console.log("phs", "Selecting Photos " + keywords_selected)
     
     for (var i=0; i<mediaItems.length; i++)    {
 
@@ -186,7 +186,6 @@ async function onPhotosListClick() {
       console.log('progress', i, msgCntr,  parseInt(msgCntr * 1000*60 / (new Date() - startTime)))
       
       msgCntr ++
-      console.log("phs", null, msgCntr)
 
     }
 
@@ -202,7 +201,7 @@ async function onPhotosListClick() {
             Math.round((new Date() - startTime) / (1000*60)) + ' minutes<br>' + 
             Math.round((msgCntr * 1000*60) / (new Date() - startTime)) + ' emails per minute'
 
-  c("phs", "Complete<br>" + search, msg)
+  console.log("phs", "Complete<br>" + search, msg)
 
   var response = renameSheet(shtId, search)
 
