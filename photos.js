@@ -602,7 +602,7 @@ async function getAlbumId(albumEntered) {
   var response = await getAllAlbums()
 
   console.log('response', response)
-  if (!response.result.albums) return null
+  if (!response.albums) return null
 
   const ids = response.result.albums.map(album => album.id); 
   const titles = response.result.albums.map(album => album.title); 
