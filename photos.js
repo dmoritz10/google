@@ -509,7 +509,7 @@ async function addMediaItemsToAlbumsFromSheet () {
       console.log('breaker', i, brkaName, mItemsAlbumName, mediaItemIds.length, albumId)
 
       // if (mediaItemIds.length > 0) var response = addMediaItemsToAlbums(albumId, mediaItemIds)
-      var response = await addMediaItemsToAlbums(albumId, mediaItemIds)
+      var response = await addMediaItemsToAlbums(brkaId, mediaItemIds)
       brkaName = albumName
       brkaId = albumId
       mediaItemIds = [mItemsId]
