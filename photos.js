@@ -150,16 +150,15 @@ async function onPhotosListClick() {
 
     let response = await searchPhotos(params)
     params.pageToken = response.result.nextPageToken
-    console.log('response', response)
     let mediaItems = response.result.mediaItems
 
     if (!mediaItems || mediaItems.length == 0) {
-      postStatus("gds", "Error", 'No photos match the criteria given: <br><br>' + search, 'text-danger')
+      console.log("gds", "Error", 'No photos match the criteria given: <br><br>' + search, 'text-danger')
       modal(false)
-      return
+      break;
     }
             
-    postStatus("phs", "Selecting Gmails<br>" + search)
+    console.log("phs", "Selecting Gmails<br>" + search)
     
     for (var i=0; i<mediaItems.length; i++)    {
 
@@ -187,7 +186,7 @@ async function onPhotosListClick() {
       console.log('progress', i, msgCntr,  parseInt(msgCntr * 1000*60 / (new Date() - startTime)))
       
       msgCntr ++
-      postStatus("phs", null, msgCntr)
+      console.log("phs", null, msgCntr)
 
     }
 
@@ -203,7 +202,7 @@ async function onPhotosListClick() {
             Math.round((new Date() - startTime) / (1000*60)) + ' minutes<br>' + 
             Math.round((msgCntr * 1000*60) / (new Date() - startTime)) + ' emails per minute'
 
-  postStatus("phs", "Complete<br>" + search, msg)
+  c("phs", "Complete<br>" + search, msg)
 
   var response = renameSheet(shtId, search)
 
@@ -385,6 +384,8 @@ async function uploadPhotos(photoFiles) {
 
     var uploadResponse = await uploadPhoto(uParams)
 
+    console.log('upload complete', i, ' of ', photoFiles.files.length, uploadResponse.data.length / 1048576)
+
     if (uploadResponse.status != 200) {
       console.log("uploadPhotos failed", uploadResponse);
       return
@@ -556,6 +557,11 @@ var albums = shtArr.map(x => x[albumCol]);
 async function getAllAlbums() {
 
   var response = await listAlbums()
+
+  if (!response) return {
+    'ids': [],
+    'albumNames': []
+  }
 
   const ids = response.result.albums.map(album => album.id); 
   const titles = response.result.albums.map(album => album.title); 
