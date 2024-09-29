@@ -56,7 +56,7 @@ async function onPhotosListClick() {
       "pageToken": null,
       
       "filters": {
-        'excludeNonAppCreatedData': true,
+        'excludeNonAppCreatedData': false,
           "mediaTypeFilter": {
               "mediaTypes": [
                 'ALL_MEDIA'
