@@ -99,7 +99,7 @@ async function onPhotosListClick() {
 
     // if (!select) continue
 
-    console.log('descr', mediaItem.description, keywords_selected, mediaItem.description != keywords_selected)
+    console.log('descr', mediaItem.description, keywords_selected, !keywords_selected, mediaItem.description != keywords_selected)
 
     if (mediaItem.description != keywords_selected && keywords_selected) continue
 
