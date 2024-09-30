@@ -22,6 +22,7 @@ async function onPhotosListClick() {
   var startDate_selected = $('#photos-start-date-select').val();
   var endDate_selected = $('#photos-end-date-select').val();
   var keywords_selected = $('#photos-keywords-select').val()
+  var excludeNonAppData = $('#photos-exclude-non-app-data').prop("checked", 'photos-exclude-non-app-data');
   
   
   var srchSpec = {mediaType:mediaType_selected, startDate:startDate_selected, endDate:endDate_selected, keywords:keywords_selected}
@@ -56,7 +57,7 @@ async function onPhotosListClick() {
       "pageToken": null,
       
       "filters": {
-        'excludeNonAppCreatedData': false,
+        'excludeNonAppCreatedData': excludeNonAppData,
           "mediaTypeFilter": {
               "mediaTypes": [
                 'ALL_MEDIA'
