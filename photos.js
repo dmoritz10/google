@@ -504,7 +504,7 @@ async function uploadPhotos(photoFiles) {
 
     if (uploadPhotoPromiseArr.length > 45) {
 
-      uploadPromises.Promise.all(uploadPhotoPromiseArr)
+      Promise.all(uploadPhotoPromiseArr)
         .then( async (mediaItemsArr) => {
 
           var createResponse = await createPhotos({'newMediaItems': mediaItemsArr})
@@ -518,7 +518,7 @@ async function uploadPhotos(photoFiles) {
 
   if (uploadPhotoPromiseArr.length > 0) {
 
-    uploadPromises.Promise.all(uploadPhotoPromiseArr)
+    Promise.all(uploadPhotoPromiseArr)
       .then( async (mediaItemsArr) => {
 
         var createResponse = await createPhotos({'newMediaItems': mediaItemsArr})
