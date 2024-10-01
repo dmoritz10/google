@@ -546,11 +546,8 @@ async function uploadPhotos(photoFiles) {
     accessToken: accessToken
   };
   uploadPhotos_promiseAll(obj)
-    .then((e) => console.log(e))
+    .then((e) => console.log('uploadPhotos complete: ', e))
     .catch((err) => console.log(err));
-
-
-  console.log('uploadPhotos complete: ', 'put nbr here' )
 
 }
 
