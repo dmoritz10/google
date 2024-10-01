@@ -525,7 +525,7 @@ async function uploadPhotos(photoFiles) {
     Promise.all(uploadPhotoPromiseArr)
       .then( async (mediaItemsArr) => {
 
-        var createResponse = await createPhotos({'newMediaItems': mediaItemsArr})
+        var createResponse =  createPhotos({'newMediaItems': mediaItemsArr})
         
       })
   }
@@ -545,7 +545,7 @@ async function uploadPhotos_promiseAll(photoFiles) {
     albumId: "", // Please set the album ID.
     accessToken: accessToken
   };
-  uploadPhotos(obj)
+  uploadPhotos_promiseAll(obj)
     .then((e) => console.log(e))
     .catch((err) => console.log(err));
 
