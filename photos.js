@@ -478,7 +478,7 @@ async function uploadPhotos(photoFiles) {
 
   for (var i=0;i<chunkPhotoFiles.length;i++) {
 
-    var uploadPromise = chunkPhotoFiles.map( file => {
+    var uploadPromise = chunkPhotoFiles[i].map( file => {
 
       console.log('uploadPromise', file)
       return new Promise((r) => {
