@@ -468,8 +468,6 @@ async function buildDescr(file, data) {
 
 let allMetaData = await EXIF.readFromBinaryFile(data);
 
-console.log('allMetaDataxx', allMetaData)
-
 return allMetaData.ImageDescription
 
 }
