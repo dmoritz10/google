@@ -455,7 +455,7 @@ async function uploadPhotos_oneatatime(photoFiles) {
 
 }
 
-async function uploadPhotos(photoFiles) {
+async function uploadPhotos_orig(photoFiles) {
 
   const readFile = (file) => new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -533,7 +533,7 @@ async function uploadPhotos(photoFiles) {
 
 }
 
-async function uploadPhotos_promiseAll(photoFiles) {
+async function uploadPhotos(photoFiles) {
 
   console.log('uploadPhotos')
   
