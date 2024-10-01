@@ -414,7 +414,7 @@ async function uploadPhotos(photoFiles) {
 
     const data = await readFile(file);
 
-    let imageDescr = buildDescr(data)
+    let imageDescr = await buildDescr(data)
     console.log('imageDescr', imageDescr)
 
     const uParams = {
@@ -467,7 +467,7 @@ async function buildDescr(data) {
 
 */
 
-let allMetaData = EXIF.readFromBinaryFile(data);
+let allMetaData = await EXIF.readFromBinaryFile(data);
 
 return allMetaData.ImageDescription
 
