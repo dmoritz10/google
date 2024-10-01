@@ -507,9 +507,9 @@ async function uploadPhotos(photoFiles) {
       console.log('uploadPhotoPromiseArr', uploadPhotoPromiseArr)
 
       Promise.all(uploadPhotoPromiseArr)
-        .then( async (mediaItemsArr) => {
+        .then(  (mediaItemsArr) => {
 
-          var createResponse = await createPhotos({'newMediaItems': mediaItemsArr})
+          var createResponse =  createPhotos({'newMediaItems': mediaItemsArr})
           cntr = 0
           uploadPhotoPromiseArr = []
           
