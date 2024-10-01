@@ -504,6 +504,8 @@ async function uploadPhotos(photoFiles) {
 
     if (uploadPhotoPromiseArr.length > 45) {
 
+      console.log('uploadPhotoPromiseArr', uploadPhotoPromiseArr)
+
       Promise.all(uploadPhotoPromiseArr)
         .then( async (mediaItemsArr) => {
 
@@ -515,6 +517,7 @@ async function uploadPhotos(photoFiles) {
     }
 
   }
+  console.log('uploadPhotoPromiseArr', uploadPhotoPromiseArr)
 
   if (uploadPhotoPromiseArr.length > 0) {
 
