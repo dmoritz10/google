@@ -249,8 +249,6 @@ function chunkArray(array, chunkSize) {
   return result;
 }
 
-
-
 function applyFilter(description, keywords) {
 
   var kwArr = keywords.toLowerCase().split(' ')
@@ -425,7 +423,7 @@ async function uploadPhotos(photoFiles) {
 
     var uploadResponse = await uploadPhoto(uParams)
 
-    console.log('upload complete', i, 'of', photoFiles.files.length, Math.round(data.length / 1048576), 'mb')
+    console.log('upload complete', i, 'of', photoFiles.files.length, Math.round(data.length / 1048576), 'mb', file)
 
     if (uploadResponse.status != 200) {
       console.log("uploadPhotos failed", uploadResponse);
