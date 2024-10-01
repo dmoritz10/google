@@ -415,6 +415,7 @@ async function uploadPhotos(photoFiles) {
     const data = await readFile(file);
 
     let imageDescr = buildDescr(data)
+    console.log('imageDescr', imageDescr)
 
     const uParams = {
       file: {name: file.name, data:data},
