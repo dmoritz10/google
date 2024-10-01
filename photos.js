@@ -391,7 +391,7 @@ function makeDateFilterObj(strDt, endDt) {
 
 }
 
-async function uploadPhotos(photoFiles) {
+async function uploadPhotos_oneatatime(photoFiles) {
 
   const readFile = (file) => new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -452,6 +452,27 @@ async function uploadPhotos(photoFiles) {
   if (cntr > 0) var createResponse = await createPhotos({'newMediaItems': mediaItems})
 
   console.log('uploadPhotos complete: ', totNbr )
+
+}
+
+async function uploadPhotos(photoFiles) {
+
+  console.log('uploadPhotos')
+  
+  let accessToken = Goth.accessToken()
+
+  console.log('photoFiles.files', photoFiles.files)
+  const obj = {
+    files: photoFiles.files,
+    albumId: "", // Please set the album ID.
+    accessToken: accessToken
+  };
+  uploadPhotos(obj)
+    .then((e) => console.log(e))
+    .catch((err) => console.log(err));
+
+
+  console.log('uploadPhotos complete: ', 'put nbr here' )
 
 }
 
