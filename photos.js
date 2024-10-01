@@ -414,7 +414,7 @@ async function uploadPhotos(photoFiles) {
 
     const data = await readFile(file);
 
-    let imageDescr = await buildDescr(file, data)
+    let imageDescr = buildDescr(data)
 
     const uParams = {
       file: {name: file.name, data:data},
@@ -454,7 +454,7 @@ async function uploadPhotos(photoFiles) {
 
 }
 
-async function buildDescr(file, data) {
+async function buildDescr(data) {
 
 /*
   Travel Companion / Trips
