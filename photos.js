@@ -423,7 +423,7 @@ async function uploadPhotos(photoFiles) {
 
     var uploadResponse = await uploadPhoto(uParams)
 
-    console.log('upload complete', i, 'of', photoFiles.files.length, data.name, Math.round(data.size / 1048576), 'mb', data)
+    console.log('upload complete', i, 'of', photoFiles.files.length, file.name, Math.round(file.size / 1048576), 'mb', file)
 
     if (uploadResponse.status != 200) {
       console.log("uploadPhotos failed", uploadResponse);
