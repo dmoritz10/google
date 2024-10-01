@@ -466,7 +466,7 @@ async function buildDescr(data) {
 
 */
 
-let allMetaData = await EXIF.readFromBinaryFile(data);
+let allMetaData = EXIF.readFromBinaryFile(data);
 
 return allMetaData.ImageDescription
 
