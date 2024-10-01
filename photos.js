@@ -478,7 +478,7 @@ async function uploadPhotos(photoFiles) {
 
   for (var i=0;i<chunkPhotoFiles.length;i++) {
 
-    var uploadPromises = chunkPhotoFiles.map( file => {
+    var uploadPromise = chunkPhotoFiles.map( file => {
 
       return new Promise((r) => {
         axios
@@ -500,20 +500,32 @@ async function uploadPhotos(photoFiles) {
       })
     })
 
-    console.log('uploadPromises', uploadPromises)
+    uploadPhotoPromiseArr.push(uploadPromise)
+
+    if (uploadPhotoPromiseArr.length > 45) {
+
+      uploadPromises.Promise.all(uploadPhotoPromiseArr)
+        .then( async (mediaItemsArr) => {
+
+          var createResponse = await createPhotos({'newMediaItems': mediaItemsArr})
+          cntr = 0
+          uploadPhotoPromiseArr = []
+          
+        })
+    }
+
+  }
+
+  if (uploadPhotoPromiseArr.length > 0) {
 
     uploadPromises.Promise.all(uploadPhotoPromiseArr)
       .then( async (mediaItemsArr) => {
 
         var createResponse = await createPhotos({'newMediaItems': mediaItemsArr})
-        cntr = 0
-        mediaItems = []
+        uploadPhotoPromiseArr = []
         
       })
-
   }
-
-
     
 
 }
