@@ -457,6 +457,113 @@ async function uploadPhotos_oneatatime(photoFiles) {
 
 async function uploadPhotos(photoFiles) {
 
+  const readFile = (file) => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload  = (event) => resolve(event.target.result);
+    reader.onerror = reject;
+    reader.readAsArrayBuffer(file);
+  });
+  
+  let accessToken = Goth.accessToken()
+
+  console.log('photoFiles.files', photoFiles.files)
+
+  var cntr = 0
+  var totNbr = 0
+  var mediaItems = []
+
+  var chunkPhotoFiles = chunkArray(photoFiles.files, 50)
+
+  for (var i=0;i<chunkPhotoFiles.length;i++) {
+
+    var uploadPromises = chunkPhotoFiles.map( file => {
+
+      return new Promise((r) => {
+        axios
+          .post("https://photoslibrary.googleapis.com/v1/uploads", file, {
+            headers: {
+              "Content-Type": "application/octet-stream",
+              "X-Goog-Upload-File-Name": file.name,
+              "X-Goog-Upload-Protocol": "raw",
+              Authorization: `Bearer ${accessToken}`,
+            },
+          })
+          .then(({ data }) => {
+            r({
+              description: 'hi dan',
+              simpleMediaItem: { fileName: file.name, uploadToken: data },
+            });
+          });
+
+      })
+    })
+
+    console.log('uploadPromises', uploadPromises)
+
+    uploadPromises.Promise.all(uploadPhotoPromiseArr)
+      .then( async (mediaItemsArr) => {
+
+        var createResponse = await createPhotos({'newMediaItems': mediaItemsArr})
+        cntr = 0
+        mediaItems = []
+        
+      })
+
+  }
+
+
+
+  for (var i=0;i<photoFiles.files.length;i++) {
+
+    let file = photoFiles.files[i]
+
+    const data = await readFile(file);
+
+    let imageDescr = await buildDescr(data)
+    console.log('imageDescr', imageDescr)
+
+    const uParams = {
+      file: {name: file.name, data:data},
+      accessToken: accessToken 
+    };
+
+    var uploadResponse = await uploadPhoto(uParams)
+
+    console.log('upload complete', i, 'of', photoFiles.files.length, file.name, Math.round(file.size / 1048576), 'mb', file)
+
+    if (uploadResponse.status != 200) {
+      console.log("uploadPhotos failed", uploadResponse);
+      return
+    }
+
+    if (cntr > 49) {
+
+      var createResponse = await createPhotos({'newMediaItems': mediaItems})
+      cntr = 0
+      mediaItems = []
+
+    }
+
+    cntr++
+    totNbr++
+    mediaItems.push(
+        {
+          description: imageDescr,
+          simpleMediaItem: { fileName: file.name, uploadToken: uploadResponse.data } 
+        })
+    
+  }
+
+  if (cntr > 0) var createResponse = await createPhotos({'newMediaItems': mediaItems})
+
+  console.log('uploadPhotos complete: ', totNbr )
+
+    
+
+}
+
+async function uploadPhotos_promiseAll(photoFiles) {
+
   console.log('uploadPhotos')
   
   let accessToken = Goth.accessToken()
