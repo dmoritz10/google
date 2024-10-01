@@ -480,6 +480,7 @@ async function uploadPhotos(photoFiles) {
 
     var uploadPromise = chunkPhotoFiles.map( file => {
 
+      console.log('uploadPromise', file)
       return new Promise((r) => {
         axios
           .post("https://photoslibrary.googleapis.com/v1/uploads", file, {
