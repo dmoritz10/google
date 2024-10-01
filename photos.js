@@ -470,7 +470,7 @@ async function uploadPhotos(photoFiles) {
 
   var cntr = 0
   var totNbr = 0
-  var mediaItems = []
+  var uploadPhotoPromiseArr = []
 
   var chunkPhotoFiles = chunkArray(Array.from(photoFiles.files), 50)
 
@@ -522,7 +522,6 @@ async function uploadPhotos(photoFiles) {
       .then( async (mediaItemsArr) => {
 
         var createResponse = await createPhotos({'newMediaItems': mediaItemsArr})
-        uploadPhotoPromiseArr = []
         
       })
   }
