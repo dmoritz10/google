@@ -466,13 +466,13 @@ async function uploadPhotos(photoFiles) {
   
   let accessToken = Goth.accessToken()
 
-  console.log('photoFiles.files', photoFiles.files)
+  console.log('photoFiles.files', photoFiles.files, typeof photoFiles.files)
 
   var cntr = 0
   var totNbr = 0
   var mediaItems = []
 
-  var chunkPhotoFiles = chunkArray(photoFiles.files, 50)
+  var chunkPhotoFiles = chunkArray(photoFiles, 50)
 
   for (var i=0;i<chunkPhotoFiles.length;i++) {
 
