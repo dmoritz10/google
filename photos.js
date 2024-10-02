@@ -558,7 +558,7 @@ async function uploadPhotos(photoFiles) {
       .then((e) => {
         let nbr = e.data.newMediaItemResults.length
         totnbr += e.data.newMediaItemResults.length
-        console.log('Complete ', i+1, '.  ' , totnbr , 'files uploaded')})
+        console.log('Complete chunk', i+1, '.  ' , totnbr , 'of', photoFiles.files.length, 'files uploaded')})
         await Goth.token()
         // accessToken = Goth.accessToken()
         .catch((err) => console.log(err));
