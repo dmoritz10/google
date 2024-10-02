@@ -539,7 +539,6 @@ async function uploadPhotos(photoFiles) {
   
   var accessToken = Goth.accessToken()
 
-
   var chunkPhotoFiles = chunkArray(Array.from(photoFiles.files), 50)
   var totnbr = 0
   var startTimer = new Date()
@@ -556,7 +555,6 @@ async function uploadPhotos(photoFiles) {
 
     await uploadPhotos_promiseAll(obj)
       .then((e) => {
-        let nbr = e.data.newMediaItemResults.length
         totnbr += e.data.newMediaItemResults.length
         console.log('Complete chunk', i+1, '.  ' , totnbr , 'of', photoFiles.files.length, 'files uploaded')})
         await Goth.token()
