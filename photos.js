@@ -556,7 +556,6 @@ async function uploadPhotos(photoFiles) {
 
     await uploadPhotos_promiseAll(obj)
       .then((e) => {
-        console.log('e', e, e.data.newMediaItemResults, e.data.newMediaItemResults.length)
         let nbr = e.data.newMediaItemResults.length
         totnbr += e.data.newMediaItemResults.length
         console.log('Completed chunk ', i+1, '.  ' , nbr , 'files uploaded')})
