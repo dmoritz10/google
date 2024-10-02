@@ -541,7 +541,7 @@ async function uploadPhotos(photoFiles) {
 
   console.log('photoFiles.files', photoFiles.files)
 
-  var chunkPhotoFiles = chunkArray(Array.from(photoFiles.files), 3)
+  var chunkPhotoFiles = chunkArray(Array.from(photoFiles.files), 50)
 
   console.log('chunkPhotoFiles', chunkPhotoFiles, Array.from(photoFiles.files))
 
