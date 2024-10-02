@@ -542,6 +542,7 @@ async function uploadPhotos(photoFiles) {
   console.log('photoFiles.files', photoFiles.files)
 
   var chunkPhotoFiles = chunkArray(Array.from(photoFiles.files), 50)
+  var nbr = 0
 
   console.log('chunkPhotoFiles', chunkPhotoFiles, Array.from(photoFiles.files))
 
@@ -557,9 +558,14 @@ async function uploadPhotos(photoFiles) {
       .then((e) => console.log('uploadPhotos complete: ', e))
       .catch((err) => console.log(err));
 
-    console.log('did it wait ?')
+    console.log('Completed chunk ', i+1, '.  ' , e.length , 'files uploaded')
+
+    nbr += e.length
 
   }
+
+  console.log('Complete ', i+1, '.  ' , nbr , 'files uploaded')
+
 
 }
 
