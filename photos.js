@@ -560,7 +560,7 @@ async function uploadPhotos(photoFiles) {
         totnbr += e.data.newMediaItemResults.length
         console.log('Complete ', i+1, '.  ' , totnbr , 'files uploaded')})
         await Goth.token()
-        accessToken = Goth.accessToken()
+        // accessToken = Goth.accessToken()
         .catch((err) => console.log(err));
 
   }
