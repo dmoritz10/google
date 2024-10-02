@@ -542,7 +542,7 @@ async function uploadPhotos(photoFiles) {
   console.log('photoFiles.files', photoFiles.files)
 
   var chunkPhotoFiles = chunkArray(Array.from(photoFiles.files), 50)
-  var nbr = 0
+  var totnbr = 0
 
   console.log('chunkPhotoFiles', chunkPhotoFiles, Array.from(photoFiles.files))
 
@@ -556,14 +556,15 @@ async function uploadPhotos(photoFiles) {
 
     await uploadPhotos_promiseAll(obj)
       .then((e) => {
-        console.log('e', e)
-        nbr += e.length
-        console.log('Completed chunk ', i+1, '.  ' , e.length , 'files uploaded')})
+        console.log('e', e, e.data.newMediaItemResults, e.data.newMediaItemResults.length)
+        let nbr = e.data.newMediaItemResults.length
+        totnbr += e.data.newMediaItemResults.length
+        console.log('Completed chunk ', i+1, '.  ' , nbr , 'files uploaded')})
       .catch((err) => console.log(err));
 
   }
 
-  console.log('Complete ', i+1, '.  ' , nbr , 'files uploaded')
+  console.log('Complete ', i+1, '.  ' , totnbr , 'files uploaded')
 
 
 }
