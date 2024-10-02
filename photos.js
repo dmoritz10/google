@@ -540,14 +540,26 @@ async function uploadPhotos(photoFiles) {
   let accessToken = Goth.accessToken()
 
   console.log('photoFiles.files', photoFiles.files)
-  const obj = {
-    files: photoFiles.files,
-    albumId: "", // Please set the album ID.
-    accessToken: accessToken
-  };
-  uploadPhotos_promiseAll(obj)
-    .then((e) => console.log('uploadPhotos complete: ', e))
-    .catch((err) => console.log(err));
+
+  var chunkPhotoFiles = chunkArray(Array.from(photoFiles.files), 50)
+
+  console.log('chunkPhotoFiles', chunkPhotoFiles, Array.from(photoFiles.files))
+
+  for (var i=0;i<chunkPhotoFiles.length;i++) {
+  
+    const obj = {
+      files: photoFiles.files,
+      albumId: "", // Please set the album ID.
+      accessToken: accessToken
+    };
+
+    await uploadPhotos_promiseAll(obj)
+      .then((e) => console.log('uploadPhotos complete: ', e))
+      .catch((err) => console.log(err));
+
+    console.log('did it wait ?')
+
+  }
 
 }
 
