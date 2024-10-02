@@ -537,12 +537,12 @@ async function uploadPhotos(photoFiles) {
 
   console.log('uploadPhotos')
   
-  let accessToken = Goth.accessToken()
+  var accessToken = Goth.accessToken()
 
-  console.log('photoFiles.files', photoFiles.files)
 
   var chunkPhotoFiles = chunkArray(Array.from(photoFiles.files), 50)
   var totnbr = 0
+  var startTimer = new Date()
 
   console.log('chunkPhotoFiles', chunkPhotoFiles, Array.from(photoFiles.files))
 
@@ -560,6 +560,7 @@ async function uploadPhotos(photoFiles) {
         totnbr += e.data.newMediaItemResults.length
         console.log('Complete ', i+1, '.  ' , totnbr , 'files uploaded')})
         await Goth.token()
+        accessToken = Goth.accessToken()
         .catch((err) => console.log(err));
 
   }
