@@ -652,7 +652,7 @@ async function addMediaItemsToAlbumsFromSheet () {
     if (brkaName == mItemsAlbumName && mediaItemIds.length < 1) {
       mediaItemIds.push(mItemsId)
     } else {
-      console.log('break', i, brkaName, mItemsAlbumName, mediaItemIds.length, albumId)
+      console.log('break', i, brkaName, mItemsAlbumName, mediaItemIds.length, mItemsId)
 
       // if (mediaItemIds.length > 0) var response = addMediaItemsToAlbums(albumId, mediaItemIds)
       var response = await addMediaItemsToAlbums(brkaId, mediaItemIds)
@@ -664,7 +664,7 @@ async function addMediaItemsToAlbumsFromSheet () {
   }
  
   if (mediaItemIds.length > 0) {
-    console.log('cleanup', i, brkaName, mItemsAlbumName, mediaItemIds.length, albumId)
+    console.log('cleanup', i, brkaName, mItemsAlbumName, mediaItemIds.length, mItemsId)
     var response = await addMediaItemsToAlbums(albumId, mediaItemIds)
   }
 
