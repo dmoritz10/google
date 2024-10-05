@@ -723,8 +723,8 @@ async function getAllAlbums() {
   console.log('albumsRtn laste', albumsRtn)
 
 
-  const ids = albumsRtn.albums.map(album => album.id); 
-  const titles = albumsRtn.albums.map(album => album.title); 
+  const ids = albumsRtn.map(album => album.id); 
+  const titles = albumsRtn.map(album => album.title); 
 
   return {
     'ids': ids,
