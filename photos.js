@@ -603,7 +603,6 @@ async function addMediaItemsToAlbumsFromSheet () {
   console.log('albumNames', albumNames)
   console.log('albumIds', albumIds)
 
-
   // Create new Albums if necessary
 
   for (var i=0;i<mItemsIds.length;i++) {
@@ -701,15 +700,29 @@ var albums = shtArr.map(x => x[albumCol]);
 
 async function getAllAlbums() {
 
-  var response = await listAlbums()
+  var params = {
+    "pageToken": null
+  }
 
-  if (!response.result.albums) return {
+  var albumsRtn = []
+
+  do {
+
+    var response = await listAlbums(params)
+    params.pageToken = response.result.nextPageToken
+    albumsRtn.push(...response.result.albums)
+
+    console.log('albumsRtn', albumsRtn.length)
+
+  } while (params.pageToken)
+
+  if (albumsRtn.length == 0) return {
     'ids': [],
     'albumNames': []
   }
 
-  const ids = response.result.albums.map(album => album.id); 
-  const titles = response.result.albums.map(album => album.title); 
+  const ids = albumsRtn.result.albums.map(album => album.id); 
+  const titles = albumsRtn.result.albums.map(album => album.title); 
 
   return {
     'ids': ids,
