@@ -700,10 +700,7 @@ var albums = shtArr.map(x => x[albumCol]);
 
 async function getAllAlbums() {
 
-  var params = {
-    "pageToken": null
-  }
-
+  var params = {"pageToken": null}
   var albumsRtn = []
 
   do {
@@ -712,16 +709,14 @@ async function getAllAlbums() {
     params.pageToken = response.result.nextPageToken
     albumsRtn.push(...response.result.albums)
 
-    console.log('albumsRtn', albumsRtn.length)
-
   } while (params.pageToken)
 
   if (albumsRtn.length == 0) return {
     'ids': [],
     'albumNames': []
   }
-  console.log('albumsRtn laste', albumsRtn)
 
+  console.log('albumsRtn laste', albumsRtn)
 
   const ids = albumsRtn.map(album => album.id); 
   const titles = albumsRtn.map(album => album.title); 
