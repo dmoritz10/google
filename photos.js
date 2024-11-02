@@ -214,7 +214,7 @@ async function selectMediaItemsAndAddToAlbum() {
 
       console.log('descr', mediaItem.description, keywords_selected, mediaItem.description != keywords_selected)
 
-      if (mediaItem.description != keywords_selected) continue
+      if (keywords_selected && mediaItem.description != keywords_selected) continue
 
       mediaArr.push([mediaItem.id])
 
@@ -223,6 +223,8 @@ async function selectMediaItemsAndAddToAlbum() {
     }
 
   } while (params.pageToken)
+
+  console.log('mediaItems', mediaArr.length)
 
   var albumId = await getAlbumId(albumEntered)
 
